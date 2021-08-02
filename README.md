@@ -3,16 +3,9 @@ A web Component wrapper for Mapbox
 
 ## Current Features
 
-### Markup based geolocative maps! 
+### Markup based geolocative maps
 
-# project philosophies and layout
-Our plan is to create a portable HTML widget that lets us tell big stories about the world around us with a little bit of code. 
-
-# implementing story map
-
-Story Map is designed to be embeddable in your project easily by including just a little bit of code. 
-
-# Requirements
+## Requirements
 
 ```XML
 <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
