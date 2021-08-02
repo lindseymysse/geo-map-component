@@ -5,9 +5,6 @@ A web Component wrapper for Mapbox
 
 ### Markup based geolocative maps! 
 
-# story-map
-Easy HTML markup that generates a map. Built on the mapbox API. Custom Cinematic Mapping framework.
-
 # project philosophies and layout
 Our plan is to create a portable HTML widget that lets us tell big stories about the world around us with a little bit of code. 
 
