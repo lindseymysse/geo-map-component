@@ -195,6 +195,7 @@ class GeoMap extends HTMLElement {
 
         return new mapboxgl.Marker({
           draggable:false,
+          scale:0,
           rotationAlignment: rotation_alignment,
           element: marker
         }).setLngLat(center)
@@ -213,6 +214,7 @@ class GeoMap extends HTMLElement {
 
     markers.forEach(marker => {
       marker.getElement().addEventListener('click', (e)=> {
+        this.scroll(0, location.offsetTop)
         e.stopPropagation()
         this.map.flyTo({
           center,
@@ -220,6 +222,7 @@ class GeoMap extends HTMLElement {
           bearing: location.bearing,
           pitch: location.pitch
         })
+
       })
     })
   }

@@ -11,12 +11,17 @@ geo-map {
   padding: 0;
   margin: 0;
   align-items: stretch;
+  overflow-y: scroll;
+}
+
+.map-location-container {
+
 }
 
 .map-container {
   width:  100%;
   height:  100%;
-  position:  absolute;
+  position:  fixed;
   left: 0px;
   top:  0px;
   z-index: -100;
@@ -25,4 +30,13 @@ geo-map {
 
 .mapboxgl-ctrl-top-right {
   z-index: 1000;
+}
+
+
+map-location {
+  display: block;
+  clear: both;
+  max-width: 20em;
+  min-height: 100vh;
+  background-color: white;
 }

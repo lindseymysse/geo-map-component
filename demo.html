@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css" type="text/css">
   <script src="geo-map.js"></script>
   <link rel="stylesheet" type="text/css" href="geo-map.css">
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.0/dist/chart.min.js"></script>
 </head>
 <body>
   <geo-map
@@ -29,21 +29,68 @@
       latitude="46.87867209125807"
       longitude="-113.9392008528855"
       zoom="16.53069426359481"
-      pitch="42.000000000000014"
-      bearing="-14.86666432815852"
+      bearing="35.264"
+      pitch="45"
       location_name="location 1">
 
       <map-marker>
-        <p style="margin-top:-2em;color:white;">Hello World</p>
+        <p>Map marker here</p>
       </map-marker>
 
-      <map-marker rotation-alignment="map">
-        <h1 style="color:red">Hello World 2</h1>
-      </map-marker>
       <h1>Map Data Here</h1>    
     </map-location>
 
 
+
+  <map-location 
+    name="Billings, MT"
+    latitude="45.783868"
+    longitude="-108.505713"
+    zoom="15.473681479853147"
+    pitch="46.24997917265912"
+    bearing="-39.13333847805217"
+    >
+    <h1>$250 for Transit</h1>
+    <h2>Idea: A $250 / month voucher for low and no carbon transit options</h2>
+
+
+<p>A $250 month voucher to everyone in America for low-carbon or carbon neutral methods of travel. $250 for bicycle parts, bus fair and train tickets.</p>
+
+<p>That $250 means someone might be able to afford that apartment by the commuter train, or take that vacation via bus someplace.</p>
+
+<p>It means that guy can buy a bicycle. And yes-- that homeless guy can buy $250 of bike parts a month and sell them. We'll have an army of future bicycle mechanics, and our bikes won't get stolen as much!</p>
+
+<p>I also propose licensed private businesses of "Bus Coaches" who at first help guide people through taking transit in their day to day lives and negotiate with transit companies for low and no carbon transport, and then once the person is established as a transit user, that bus coach is responsible for ensuring the person is meeting their low-carbon goals. They can then split the difference of transit option / low carbon with the user. So the user might be able to make $200 a month for taking the bus.
+If one of their clients doesn't meet their low-carbon goals, that coach pays back the money to the government. That is to say: people can exchange this voucher for cash, but it's kind of a pain to do it and requires demonstration of positive behavior. Perfect for teenagers and college students! </p>
+
+<p>What I like about this is it is a stimulus to the poorest of us. That kid in Compton who can't afford $50 bus fair definitely needs an extra $200 bucks a month. They can make it just by being themselves. </p>
+
+  </map-location>
+
+  <map-location
+    name="San Pedro, Ca"
+    latitude="33.729418346051915"
+    longitude="-118.29836636941613"
+    zoom=15
+    pitch=45
+    bearing=-45
+  >
+
+  <h1>San Pedro, CA</h1>
+
+  </map-location>
+  <map-location
+    name="Washington D.C"
+    latitude="38.893818390296985"
+    longitude="-77.01457600129174"
+    zoom=15
+    pitch=45
+    bearing=30
+  >
+
+  <h1>Washington DC</h1>
+
+  </map-location>
 </geo-map>
 
 </body>
