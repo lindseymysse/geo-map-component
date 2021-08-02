@@ -165,8 +165,19 @@ class GeoMap extends HTMLElement {
     if(this.edit_mode !== null){
       this.map.addControl(new EditController(this.map))
     }
-
     setInterval(()=>{this.checkForDOMUpdates()},50)
+
+    this.observer = new IntersectionObserver((e) => {
+      this.handleScrollIntoView(e)}, {
+        root:null,
+        rootMargin: '0px'
+      })
+  }
+
+  handleScrollIntoView(e){
+    this.map.flyTo({
+      center:[e[0].target.longitude, e[0].target.latitude]
+    })
 
   }
 
@@ -182,6 +193,8 @@ class GeoMap extends HTMLElement {
 
   addLocation(location){
     const center = [location.longitude, location.latitude]
+
+    this.observer.observe(location)
 
     let markers = [...location.querySelectorAll('map-marker')]
 
@@ -210,8 +223,6 @@ class GeoMap extends HTMLElement {
       .addTo(this.map)
     }
 
-
-
     markers.forEach(marker => {
       marker.getElement().addEventListener('click', (e)=> {
         this.scroll(0, location.offsetTop)
@@ -226,6 +237,7 @@ class GeoMap extends HTMLElement {
       })
     })
   }
+
 
   mapLoaded(){
     this.map.addSource('mapbox-dem', {
