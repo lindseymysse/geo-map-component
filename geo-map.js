@@ -166,18 +166,62 @@ class GeoMap extends HTMLElement {
       this.map.addControl(new EditController(this.map))
     }
 
-    setInterval(()=>{this.checkForDOMUpdates()},500)
+    setInterval(()=>{this.checkForDOMUpdates()},50)
 
   }
 
   async checkForDOMUpdates(){
-    const query = this.querySelectorAll('story-location')
+    const query = this.querySelectorAll('map-location')
     if(query.length !== this.storyLocationCount){
       this.cursor = 'wait'
       this.storyLocationCount = query.length
       await [...query].forEach(location => { const addedMarkers = this.addLocation(location) })
       this.cursor = ''
     }
+  }
+
+  addLocation(location){
+    const center = [location.longitude, location.latitude]
+
+    let markers = [...location.querySelectorAll('map-marker')]
+
+    if(markers.length > 0){
+      markers = markers.map(marker => {
+
+        let rotation_alignment = marker.getAttribute('rotation-alignment')
+        if(rotation_alignment === null){
+          rotation_alignment = 'viewport'
+        }
+
+        return new mapboxgl.Marker({
+          draggable:false,
+          rotationAlignment: rotation_alignment,
+          element: marker
+        }).setLngLat(center)
+          .addTo(this.map)
+      })
+    } else {
+      markers[0] = new mapboxgl.Marker({
+        draggable: false,
+        rotationAlignment: 'viewport',
+        scale: 1,
+      }).setLngLat(center)
+      .addTo(this.map)
+    }
+
+
+
+    markers.forEach(marker => {
+      marker.getElement().addEventListener('click', (e)=> {
+        e.stopPropagation()
+        this.map.flyTo({
+          center,
+          zoom: location.zoom,
+          bearing: location.bearing,
+          pitch: location.pitch
+        })
+      })
+    })
   }
 
   mapLoaded(){

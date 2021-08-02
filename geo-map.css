@@ -22,13 +22,6 @@ geo-map {
   z-index: -100;
 }
 
-map {
-  position: relative;
-  width:  100%;
-  height:  100%;
-  display: block;
-  clear:  both;
-}
 
 .mapboxgl-ctrl-top-right {
   z-index: 1000;
