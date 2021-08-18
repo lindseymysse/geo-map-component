@@ -34,7 +34,7 @@ geo-map {
 
 
 map-location {
-  display: block;
+  display: none;
   clear: both;
   max-width: 20em;
   min-height: 100vh;

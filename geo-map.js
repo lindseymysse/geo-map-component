@@ -112,7 +112,7 @@ class GeoMap extends HTMLElement {
     }
     this.removeAttribute('styleurl')
 
-      const el = document.createElement('div')
+    const el = document.createElement('div')
     el.classList.add('map-container')
     this.appendChild(el)
     this.map = new mapboxgl.Map({
@@ -152,7 +152,6 @@ class GeoMap extends HTMLElement {
         new mapboxgl.NavigationControl({visualizePitch: true})
       )
     }
-
     this.geolocate = this.getAttribute('geolocate')
     if(this.geolocate !== null){
       this.map.addControl(new mapboxgl.GeolocateControl({
@@ -167,11 +166,6 @@ class GeoMap extends HTMLElement {
     }
     setInterval(()=>{this.checkForDOMUpdates()},50)
 
-    this.observer = new IntersectionObserver((e) => {
-      this.handleScrollIntoView(e)}, {
-        root:null,
-        rootMargin: '0px'
-      })
   }
 
   handleScrollIntoView(e){
@@ -193,8 +187,6 @@ class GeoMap extends HTMLElement {
 
   addLocation(location){
     const center = [location.longitude, location.latitude]
-
-    this.observer.observe(location)
 
     let markers = [...location.querySelectorAll('map-marker')]
 
@@ -363,9 +355,16 @@ class EditController {
 
   handleClick(e){
     const center = this.map.getCenter()
+    const new_marker = document.createElement('map-location')
+    const location = getURLValues()
+    Object.keys(location).forEach(key => {
+      new_marker.setAttribute(key, location[key])
+    })
+    document.querySelector('geo-map').appendChild(new_marker)
+
     const new_story_location_markup = 
 
-      `<story-location
+      `<map-location
         latitude="${center.lat}"
         longitude="${center.lng}"
         zoom=0
@@ -373,7 +372,7 @@ class EditController {
         bearing=0
         title=""
       >
-      </story-location>`
+      </map-location>`
 
     // @todo  
     const new_story_location_geojson = JSON.stringify({
