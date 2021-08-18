@@ -217,7 +217,6 @@ class GeoMap extends HTMLElement {
 
     markers.forEach(marker => {
       marker.getElement().addEventListener('click', (e)=> {
-        this.scroll(0, location.offsetTop)
         e.stopPropagation()
         this.map.flyTo({
           center,
@@ -225,6 +224,12 @@ class GeoMap extends HTMLElement {
           bearing: location.bearing,
           pitch: location.pitch
         })
+
+        const popup = new mapboxgl.Popup({ closeOnClick: false })
+          .setLngLat(center)
+          .setHTML(location.innerHTML)
+          .addTo(this.map);
+
 
       })
     })
