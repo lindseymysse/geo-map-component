@@ -225,10 +225,10 @@ class GeoMap extends HTMLElement {
           pitch: location.pitch
         })
 
-        const popup = new mapboxgl.Popup({ closeOnClick: false })
-          .setLngLat(center)
-          .setHTML(location.innerHTML)
-          .addTo(this.map);
+        ;[...document.querySelectorAll('map-information-box')].forEach(box => box.remove())
+        const info_box = document.createElement('map-information-box')
+        info_box.innerHTML = location.innerHTML
+        this.appendChild(info_box)
 
 
       })
@@ -403,6 +403,15 @@ class EditController {
   }
 }
 
+class SlideShow extends HTMLElement {
+  onAdd(map){
+    const next = document.createElement('button')
+    next.innerText = ''
+  }
+}
+
+
+
 class MapData extends HTMLElement {
   connectedCallback(){
     /*
@@ -474,3 +483,19 @@ class MapData extends HTMLElement {
 }
 
 customElements.define('map-data', MapData)
+
+class MapInformationBox extends HTMLElement {
+  connectedCallback(){
+    const close_button = document.createElement('button')
+    close_button.classList.add('close-button')
+    close_button.innerText = 'x'
+    close_button.addEventListener('click', (e) => {
+      this.remove()
+    })
+
+    this.prepend(close_button)
+
+  }
+}
+
+customElements.define('map-information-box', MapInformationBox)
