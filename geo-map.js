@@ -16,6 +16,29 @@
 */
 
 /*
+
+  *** begin ascii art ***
+
+    8888b.  88 .dP"Y8 88""Yb    db    888888  dP""b8 88  88
+     8I  Yb 88 `Ybo." 88__dP   dPYb     88   dP   `" 88  88
+     8I  dY 88 o.`Y8b 88"""   dP__Yb    88   Yb      888888
+    8888Y"  88 8bodP' 88     dP""""Yb   88    YboodP 88  88
+
+  *** end ascii art ***
+
+
+  dispatches a custom event with a detail to the application.
+  
+
+*/
+
+function dispatch(name, detail = {}){
+  const initialize_event = new CustomEvent(name, {detail: detail})
+  document.dispatchEvent(initialize_event)
+}
+
+
+/*
   
   ROUTING
   
@@ -162,7 +185,14 @@ class GeoMap extends HTMLElement {
 
     this.slideshow = this.getAttribute('slideshow')
     if(this.slideshow !== null){
-      this.map.addControl(new SlideShow(this.map))
+      this.map.addControl(new SlideShowControls(this.map))
+      document.addEventListener('NEXT SLIDE', (e) => {
+        console.log("NEXT SLIDE")
+      })
+
+      document.addEventListener('PREV SLIDE', (e) => {
+        console.log('PREV SLIDE')
+      })
     }
 
     this.edit_mode = this.getAttribute('edit')
@@ -170,13 +200,6 @@ class GeoMap extends HTMLElement {
       this.map.addControl(new EditController(this.map))
     }
     setInterval(()=>{this.checkForDOMUpdates()},50)
-
-  }
-
-  handleScrollIntoView(e){
-    this.map.flyTo({
-      center:[e[0].target.longitude, e[0].target.latitude]
-    })
 
   }
 
@@ -223,21 +246,26 @@ class GeoMap extends HTMLElement {
     markers.forEach(marker => {
       marker.getElement().addEventListener('click', (e)=> {
         e.stopPropagation()
-        this.map.flyTo({
-          center,
-          zoom: location.zoom,
-          bearing: location.bearing,
-          pitch: location.pitch
-        })
-
-        ;[...document.querySelectorAll('map-information-box')].forEach(box => box.remove())
-        const info_box = document.createElement('map-information-box')
-        info_box.innerHTML = location.innerHTML
-        this.appendChild(info_box)
-
-
+        this.selectLocation(location)
       })
     })
+  }
+
+  selectLocation(location){
+    const center = [location.longitude, location.latitude]
+
+    this.map.flyTo({
+      center,
+      zoom: location.zoom,
+      bearing: location.bearing,
+      pitch: location.pitch
+    })
+
+    ;[...document.querySelectorAll('map-information-box')].forEach(box => box.remove())
+    const info_box = document.createElement('map-information-box')
+    info_box.innerHTML = location.innerHTML
+    this.appendChild(info_box)
+
   }
 
 
@@ -408,7 +436,7 @@ class EditController {
   }
 }
 
-class SlideShow {
+class SlideShowControls {
   onAdd(map){
     this._map = map
     this._container = document.createElement('span')
@@ -417,25 +445,15 @@ class SlideShow {
     next.innerText = '>'
     this._container.appendChild(next)
     next.className = 'mapboxgl-ctrl'
-    next.addEventListener('click', this.nextSlide)
+    next.addEventListener('click', ()=> dispatch('NEXT SLIDE'))
 
     const prev = document.createElement('button')
     prev.innerText = '<'
     this._container.appendChild(prev)
     prev.className = 'mapboxgl-ctrl'
-
-    const slide_list = [...document.querySelectorAll('map-location')]
+    prev.addEventListener('click', () => dispatch('PREV SLIDE'))
 
     return this._container
-
-
-  }
-
-  nextSlide(){
-
-  }
-
-  prevSlide(){
 
   }
 
