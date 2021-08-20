@@ -1,4 +1,6 @@
-
+:root {
+  --marker-color:#FFDE00;
+}
 
 geo-map {
   position:  fixed;
@@ -25,6 +27,40 @@ geo-map::-webkit-scrollbar {
 
 }
 
+map-notification {
+  background-color:#FFDE00; 
+  color: black;
+  width: 30em;
+  padding: 1em;
+  height: 0em;
+  position:absolute;
+  left:0em;
+  bottom:0em;
+  margin: 0.5em;
+  text-align: center;
+  display: block;
+  border: 1px solid #eecd00;
+}
+
+map-notification .close-button {
+  right: -5px;
+    top: -5px;
+}
+
+
+
+map-notification a {
+  color: black;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  padding-top:  0.25em;
+}
 
 map-information-box {
   position:  absolute;
@@ -34,7 +70,7 @@ map-information-box {
   top:  0em;
   max-width:  30em;
   line-height: 1.25em;
-  height: calc(100% - 1em);
+  height: calc(100% - 5.5em);
   overflow-x:  hidden;
   overflow-y: scroll;
   background-color: rgba(255,255,255,1);
@@ -50,23 +86,21 @@ map-information-box {
   }
  }
  
-
-
-map-information-box .close-button {
+.close-button {
   position: absolute;
   right: 0px;
   top: 0px;
-  margin: 1em;
+  margin: 0.5em 0.5em;
   border: 1px solid black;
   background-color: transparent;
 }
 
-map-information-box .close-button:hover {
+.close-button:hover {
   background-color: black;
   color: white;
 }
 
-map-information-box .close-button:active {
+.close-button:active {
   background-color: white;
   color: black;
 }

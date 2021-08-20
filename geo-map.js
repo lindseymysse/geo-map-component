@@ -252,6 +252,7 @@ class GeoMap extends HTMLElement {
     } else {
       markers[0] = new mapboxgl.Marker({
         draggable: false,
+        color: '#FFDE00',
         rotationAlignment: 'viewport',
         scale: 1,
       }).setLngLat(center)
@@ -577,3 +578,19 @@ class MapInformationBox extends HTMLElement {
 }
 
 customElements.define('map-information-box', MapInformationBox)
+
+class MapNotification extends HTMLElement {
+  connectedCallback(){
+    const close_button = document.createElement('button')
+    close_button.classList.add('close-button')
+    close_button.innerText = 'x'
+    close_button.addEventListener('click', (e) => {
+      this.remove()
+    })
+
+    this.prepend(close_button)
+
+  }
+}
+
+customElements.define('map-notification', MapNotification)
