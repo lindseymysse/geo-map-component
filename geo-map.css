@@ -29,20 +29,30 @@ geo-map::-webkit-scrollbar {
 map-information-box {
   position:  absolute;
   z-index: 1000;
-  margin: 2em 1em;
+  margin: 0.5em 0.5em;
   left: 0em;
-  top:  -1em;
-  max-width:  40em;
-  max-height: calc(100% - 4em);
+  top:  0em;
+  max-width:  30em;
+  line-height: 1.25em;
+  height: calc(100% - 1em);
   overflow-x:  hidden;
   overflow-y: scroll;
-  background-color: rgba(255,255,255,0.9);
+  background-color: rgba(255,255,255,1);
   padding: 1em;
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
   border: grey 1px solid;
-
 }
+
+ @media screen and (orientation:portrait) {
+  map-information-box {
+    max-width: calc(100% - 2em);
+  }
+
+ }
+ @media screen and (orientation:landscape) {
+ }
+
 
 map-information-box .close-button {
   position: absolute;
@@ -66,6 +76,10 @@ map-information-box .close-button:active {
 
 map-information-box::-webkit-scrollbar {
   display: none;
+}
+
+map-information-box a {
+  color:  black;
 }
 
 
@@ -92,3 +106,4 @@ map-location {
   background-color: white;
   margin-bottom: 40em;
 }
+
