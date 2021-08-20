@@ -185,24 +185,25 @@ class GeoMap extends HTMLElement {
 
     this.slideshow = this.getAttribute('slideshow')
     if(this.slideshow !== null){
-      this.slideshow_index = 0
       this.map.addControl(new SlideShowControls(this.map))
-      document.addEventListener('NEXT SLIDE', (e) => {
-        this.nextLocation()
+      document.addEventListener('NEXT SLIDE', (e) => { this.nextLocation() })
+      document.addEventListener('PREV SLIDE', (e) => { this.prevLocation() })
+      document.addEventListener('SHOW HOME', (e) => {
+        this.selectLocation(this.querySelector('map-location'))
       })
-
-      document.addEventListener('PREV SLIDE', (e) => {
-        this.prevLocation()
-      })
+      this.slideshow_index = 0
     }
 
     this.edit_mode = this.getAttribute('edit')
     if(this.edit_mode !== null){
       this.map.addControl(new EditController(this.map))
     }
+   
+
     setInterval(()=>{this.checkForDOMUpdates()},50)
 
   }
+
 
   nextLocation(){
     const locations = [...this.querySelectorAll('map-location')]
@@ -230,7 +231,6 @@ class GeoMap extends HTMLElement {
 
   addLocation(location){
     const center = [location.longitude, location.latitude]
-
     let markers = [...location.querySelectorAll('map-marker')]
 
     if(markers.length > 0){
@@ -267,6 +267,7 @@ class GeoMap extends HTMLElement {
   }
 
   selectLocation(location){
+    if(location === undefined) return
     const center = [location.longitude, location.latitude]
 
     this.map.flyTo({
@@ -280,7 +281,6 @@ class GeoMap extends HTMLElement {
     const info_box = document.createElement('map-information-box')
     info_box.innerHTML = location.innerHTML
     this.appendChild(info_box)
-
   }
 
 
@@ -456,15 +456,23 @@ class SlideShowControls {
     const next = document.createElement('button')
     const next_label = document.createElement('span')
     next_label.classList = 'mapbox-ctrl-icon'
-    next_label.innerText = '>'
+    next_label.innerHTML = `<svg height='16px' width='16px'  fill="#2d2d2d" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0" x="0px" y="0px" viewBox="0 0 32 32" enable-background="new 0 0 32 32" xml:space="preserve"><path d="M17.365,16.01l-6.799,6.744c-0.746,0.746-0.746,1.953,0,2.699c0.754,0.745,1.972,0.745,2.726,0l8.155-8.094  c0.746-0.746,0.746-1.954,0-2.699l-8.155-8.094c-0.754-0.746-1.972-0.744-2.726,0c-0.746,0.745-0.746,1.952,0,2.698L17.365,16.01z"></path></svg>` 
     next.appendChild(next_label)
     this._container.appendChild(next)
     next.addEventListener('click', ()=> dispatch('NEXT SLIDE'))
 
+    const home = document.createElement('button')
+    const home_label = document.createElement('span')
+    home_label.classList = 'mapbox-ctrl-icon'
+    home_label.innerHTML = `<svg height='16px' width='16px'  fill="#2d2d2d" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" x="0px" y="0px"><g data-name="34 Home"><path d="M27,29.5H5A1.5,1.5,0,0,1,3.5,28V13.43A1.5,1.5,0,0,1,4,12.29L15,2.86a1.51,1.51,0,0,1,2,0l11,9.43a1.5,1.5,0,0,1,.52,1.14V28A1.5,1.5,0,0,1,27,29.5Zm-20.5-3h19V14.12L16,6,6.5,14.12Z"></path></g></svg>`
+    home.appendChild(home_label)
+    this._container.appendChild(home)
+    home.addEventListener('click', ()=> dispatch('SHOW HOME'))
+
     const prev = document.createElement('button')
     const prev_label = document.createElement('span')
     prev_label.classList = 'mapbox-ctrl-icon'
-    prev_label.innerText = '<'
+    prev_label.innerHTML = `<svg height='16px' width='16px'  fill="#2d2d2d" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0" x="0px" y="0px" viewBox="0 0 32 32" enable-background="new 0 0 32 32" xml:space="preserve"><path d="M14.647,16.011l6.799-6.744c0.746-0.746,0.746-1.953,0-2.699c-0.754-0.745-1.972-0.745-2.726,0l-8.155,8.094  c-0.746,0.746-0.746,1.954,0,2.699l8.155,8.094c0.754,0.746,1.972,0.744,2.726,0c0.746-0.745,0.746-1.952,0-2.698L14.647,16.011z"></path></svg>`
     prev.appendChild(prev_label)
     this._container.appendChild(prev)
     prev.addEventListener('click', () => dispatch('PREV SLIDE'))
@@ -547,6 +555,7 @@ class MapData extends HTMLElement {
       const location_container = document.createElement('div')
       location_container.innerHTML = update
       this.appendChild(location_container)
+      dispatch('SHOW HOME')
     })
   }
 }
