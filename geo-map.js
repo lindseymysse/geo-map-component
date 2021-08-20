@@ -414,13 +414,13 @@ class SlideShow {
     this._container = document.createElement('span')
 
     const next = document.createElement('button')
-    next.innerText = 'next'
+    next.innerText = '>'
     this._container.appendChild(next)
     next.className = 'mapboxgl-ctrl'
     next.addEventListener('click', this.nextSlide)
 
     const prev = document.createElement('button')
-    prev.innerText = 'prev'
+    prev.innerText = '<'
     this._container.appendChild(prev)
     prev.className = 'mapboxgl-ctrl'
 
