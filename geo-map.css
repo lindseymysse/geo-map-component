@@ -12,6 +12,13 @@ geo-map {
   margin: 0;
   align-items: stretch;
   overflow-y: scroll;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+
+}
+
+geo-map::-webkit-scrollbar {
+  display: none;
 }
 
 .map-location-container {
@@ -29,11 +36,10 @@ map-information-box {
   max-height: calc(100% - 4em);
   overflow-x:  hidden;
   overflow-y: scroll;
-  background-color: white;
+  background-color: rgba(255,255,255,0.9);
   padding: 1em;
-    -ms-overflow-style: none;  /* IE and Edge */
+  -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
-  opacity:  0.9;
   border: grey 1px solid;
 
 }

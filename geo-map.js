@@ -160,6 +160,11 @@ class GeoMap extends HTMLElement {
       }))
     }
 
+    this.slideshow = this.getAttribute('slideshow')
+    if(this.slideshow !== null){
+      this.map.addControl(new SlideShow(this.map))
+    }
+
     this.edit_mode = this.getAttribute('edit')
     if(this.edit_mode !== null){
       this.map.addControl(new EditController(this.map))
@@ -403,10 +408,40 @@ class EditController {
   }
 }
 
-class SlideShow extends HTMLElement {
+class SlideShow {
   onAdd(map){
+    this._map = map
+    this._container = document.createElement('span')
+
     const next = document.createElement('button')
-    next.innerText = ''
+    next.innerText = 'next'
+    this._container.appendChild(next)
+    next.className = 'mapboxgl-ctrl'
+    next.addEventListener('click', this.nextSlide)
+
+    const prev = document.createElement('button')
+    prev.innerText = 'prev'
+    this._container.appendChild(prev)
+    prev.className = 'mapboxgl-ctrl'
+
+    const slide_list = [...document.querySelectorAll('map-location')]
+
+    return this._container
+
+
+  }
+
+  nextSlide(){
+
+  }
+
+  prevSlide(){
+
+  }
+
+  onRemove(){
+    this._container.remove()
+    this._map = undefined
   }
 }
 
