@@ -28,6 +28,88 @@
     geocoder
     navigation
     slideshow>
+
+    <map-location
+      latitude=0
+      longitude=0
+      pitch=0
+      zoom=0
+      bearing=0
+    ></map-location>
+    <map-key>
+      <style>
+        .legend-gradient {
+              background-color: #f5f5f5;
+              background-image: -webkit-linear-gradient(
+          0deg
+          ,rgba(68,17,83,1) 5%,rgba(54,100,139,1) 35%,rgba(67,186,120,1) 65%,rgba(252,230,64,1) 95%);
+              background-image: linear-gradient(
+          90deg
+          ,rgba(68,17,83,1) 5%,rgba(54,100,139,1) 35%,rgba(67,186,120,1) 65%,rgba(252,230,64,1) 95%);
+              display: block;
+              height: 20px;
+              border-radius: 2px;
+          }
+
+          .address-legend {
+              border-radius: 2px;
+              bottom: 26px;
+              padding: 0px;
+              position: absolute;
+              right: 0;
+              width: 260px;
+          }
+
+          .pt-body, .pt-caption {
+              line-height: 1.5em;
+          }
+
+          .legend-gradient-label {
+              color: #757575;
+              font-size: 12px;
+          }
+
+          .address-legend .legend-gradient-label.left {
+              color: #fff;
+          }
+
+          .address-legend .legend-gradient-label.top {
+              color: #fff;
+          }
+
+          .address-legend .legend-gradient-label.right {
+              color: #111;
+          }
+
+          .address-legend .legend-gradient-label {
+              position: relative;
+              top: 2px;
+              padding: 0 0.5em;
+          }
+          
+          .legend-gradient-label.left {
+              float: left;
+          }
+
+          .legend-gradient-label.right {
+              float: right;
+          }
+
+          .legend-gradient-label.top {
+            font-weight: bold;
+            position:  relative;
+            top:  -0.05em;
+            left:  -0.15em;
+          }
+        </style>
+        <div class="address-legend">
+        <span class="legend-gradient-label top">Potential surface-reflected sunlight (Wm<sup>-2</sup>)</span>
+        <div class="legend-gradient">
+            <span class="legend-gradient-label left pt-caption">0</span>
+            <span class="legend-gradient-label right pt-caption">250</span>
+        </div>
+      </div>
+    </map-key>
     <map-data
       src="https://reflective-earth.herokuapp.com/api/qualitative"
     ></map-data>

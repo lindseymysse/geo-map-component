@@ -111,6 +111,15 @@ map-information-box a {
   color:  black;
 }
 
+map-key {
+  transition: opacity 0.5s ease-in;
+  opacity: 0;
+}
+
+.far map-key {
+  opacity: 1;
+}
+
 
 .map-container {
   width:  100%;
@@ -125,6 +134,8 @@ map-information-box a {
   z-index: 1000;
 }
 
+
+.map-key {}
 
 map-location {
   display: none;

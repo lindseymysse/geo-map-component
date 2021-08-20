@@ -294,6 +294,8 @@ class GeoMap extends HTMLElement {
     })
     this.map.setTerrain({ 'source': 'mapbox-dem' })      
 
+    this.classList.add('far')
+
     this.map.on('moveend', (e) => {
       let center  = this.map.getCenter()
       this.longitude = center.lng
@@ -301,6 +303,19 @@ class GeoMap extends HTMLElement {
       this.zoom = this.map.getZoom()
       this.bearing = this.map.getBearing()
       this.pitch = this.map.getPitch()
+
+      if(this.zoom < 10){
+        this.classList.remove('middle')
+        this.classList.remove('near')
+      } else if(this.zoom >= 10 && this.zoom <= 15){
+        this.classList.add('middle')
+        this.classList.remove('far')
+        this.classList.remove('near')
+      } else {
+        this.classList.add('near')
+        this.classList.remove('middle')
+        this.classList.remove('far')
+      }
 
       setURLValues({
         latitude: this.latitude, 
