@@ -48,12 +48,8 @@ map-information-box {
   map-information-box {
     max-width: calc(100% - 2em);
   }
-
  }
  
- @media screen and (orientation:landscape) {
- }
-
 
 
 map-information-box .close-button {

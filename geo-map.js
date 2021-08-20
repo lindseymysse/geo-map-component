@@ -185,13 +185,14 @@ class GeoMap extends HTMLElement {
 
     this.slideshow = this.getAttribute('slideshow')
     if(this.slideshow !== null){
+      this.slideshow_index = 0
       this.map.addControl(new SlideShowControls(this.map))
       document.addEventListener('NEXT SLIDE', (e) => {
-        console.log("NEXT SLIDE")
+        this.nextLocation()
       })
 
       document.addEventListener('PREV SLIDE', (e) => {
-        console.log('PREV SLIDE')
+        this.prevLocation()
       })
     }
 
@@ -201,6 +202,20 @@ class GeoMap extends HTMLElement {
     }
     setInterval(()=>{this.checkForDOMUpdates()},50)
 
+  }
+
+  nextLocation(){
+    const locations = [...this.querySelectorAll('map-location')]
+    this.slideshow_index++
+    if(this.slideshow_index > locations.length - 1) this.slideshow_index = 0 
+    this.selectLocation(locations[this.slideshow_index])
+  }
+
+  prevLocation(){
+    const locations = [...this.querySelectorAll('map-location')]
+    this.slideshow_index--
+    if(this.slideshow_index < 0) this.slideshow_index = locations.length  - 1
+    this.selectLocation(locations[this.slideshow_index])
   }
 
   async checkForDOMUpdates(){
@@ -315,10 +330,6 @@ class GeoMap extends HTMLElement {
 }
 
 customElements.define('geo-map', GeoMap)
-
-
-
-
 
 
 class MapLocation extends HTMLElement {
@@ -439,18 +450,23 @@ class EditController {
 class SlideShowControls {
   onAdd(map){
     this._map = map
-    this._container = document.createElement('span')
+    this._container = document.createElement('div')
+    this._container.classList = 'mapboxgl-ctrl mapboxgl-ctrl-group'
 
     const next = document.createElement('button')
-    next.innerText = '>'
+    const next_label = document.createElement('span')
+    next_label.classList = 'mapbox-ctrl-icon'
+    next_label.innerText = '>'
+    next.appendChild(next_label)
     this._container.appendChild(next)
-    next.className = 'mapboxgl-ctrl'
     next.addEventListener('click', ()=> dispatch('NEXT SLIDE'))
 
     const prev = document.createElement('button')
-    prev.innerText = '<'
+    const prev_label = document.createElement('span')
+    prev_label.classList = 'mapbox-ctrl-icon'
+    prev_label.innerText = '<'
+    prev.appendChild(prev_label)
     this._container.appendChild(prev)
-    prev.className = 'mapboxgl-ctrl'
     prev.addEventListener('click', () => dispatch('PREV SLIDE'))
 
     return this._container
