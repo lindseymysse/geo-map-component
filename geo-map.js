@@ -594,3 +594,5 @@ class MapNotification extends HTMLElement {
 }
 
 customElements.define('map-notification', MapNotification)
+
+
