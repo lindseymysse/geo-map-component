@@ -1,6 +1,10 @@
 # geo-map-component
 A web Component wrapper for Mapbox
 
+## Useage
+
+I do not recommend production usage of this software at this point. I would recomend you vendor the code and incorporate its components into your software. 
+
 ## Current Features
 
 ### Markup based geolocative maps
