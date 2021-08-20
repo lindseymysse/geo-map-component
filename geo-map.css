@@ -32,7 +32,8 @@ map-information-box {
   margin: 2em 1em;
   left: 0em;
   top:  -1em;
-  max-width:  40em;
+  max-width:  30em;
+  line-height: 1.25em;
   max-height: calc(100% - 4em);
   overflow-x:  hidden;
   overflow-y: scroll;
@@ -68,6 +69,10 @@ map-information-box::-webkit-scrollbar {
   display: none;
 }
 
+map-information-box a {
+  color:  black;
+}
+
 
 .map-container {
   width:  100%;
@@ -92,3 +97,4 @@ map-location {
   background-color: white;
   margin-bottom: 40em;
 }
+
