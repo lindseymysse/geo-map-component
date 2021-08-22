@@ -66,14 +66,18 @@ map-information-box {
   top:  0em;
   max-width:  30em;
   line-height: 1.25em;
-  height: calc(100% - 5.5em);
+  height: auto;
   overflow-x:  hidden;
   overflow-y: scroll;
-  background-color: rgba(255,255,255,1);
   padding: 1em;
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
   border: grey 1px solid;
+}
+
+map-information-box img, map-information-box video {
+  width: 100%;
+  height: auto;
 }
 
  @media screen and (orientation:portrait) {
