@@ -81,6 +81,16 @@ map-information-box {
   border: grey 1px solid;
 }
 
+map-information-box img {
+  width: 100%;
+  height: auto;
+}
+
+map-information-box video {
+  width: 100%;
+  height: auto;
+}
+
  @media screen and (orientation:portrait) {
   map-information-box {
     max-width: calc(100% - 2em);
