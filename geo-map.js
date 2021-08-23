@@ -388,6 +388,30 @@ class MapLocation extends HTMLElement {
 customElements.define('map-location', MapLocation)
 
 
+class LocationEditInfoWidth extends HTMLElement {
+  connectedCallback(){
+    this.innerHTML = `
+    <form style="
+      position:fixed;
+      left:0px;
+      top:0px;
+      width:20em;
+      height:auto;
+
+    ">
+      <input id="location-title" placeholder="title">
+      <textarea id="location-body">
+
+      </textarea>
+    </form>
+
+    `
+  }
+}
+
+customElements.define('map-editor-widget', LocationEditInfoWidth)
+
+
 class EditController {
   onAdd(map) {
     this.map = map
@@ -400,6 +424,9 @@ class EditController {
     this.cursor.style.pointerEvents = 'none'
     this.cursor.style.zIndex = '1000'
     document.querySelector('geo-map').appendChild(this.cursor)
+
+    this.editwidget = document.createElement('map-editor-widget')
+    document.body.appendChild(this.editwidget)
 
     this._container = document.createElement('div')
     this._container.classList = 'mapboxgl-ctrl mapboxgl-ctrl-group'
@@ -420,6 +447,10 @@ class EditController {
     })
     document.querySelector('geo-map').appendChild(new_marker)
 
+    const title = this.editwidget.querySelector('#location-title').value
+    const body = this.editwidget.querySelector('#location-body').value
+
+
     const new_story_location_markup = 
 
       `<map-location
@@ -428,8 +459,9 @@ class EditController {
         zoom="${location.zoom}"
         pitch="${location.pitch}"
         bearing="${location.bearing}"
-        title=""
+        title="${title}"
       >
+        ${body}
       </map-location>`
 
     // @todo  
