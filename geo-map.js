@@ -390,13 +390,23 @@ customElements.define('map-location', MapLocation)
 
 class EditController {
   onAdd(map) {
-    this._map = map
+    this.map = map
+    this.cursor = document.createElement('div')
+    this.cursor.innerHTML = '+'
+    this.cursor.style.position="absolute"
+    this.cursor.style.left="50%"
+    this.cursor.style.top="50%"
+    this.cursor.style.transform = "translate(-50%, -50%) scale(5)"
+    this.cursor.style.pointerEvents = 'none'
+    this.cursor.style.zIndex = '1000'
+    document.querySelector('geo-map').appendChild(this.cursor)
+
     this._container = document.createElement('div')
     this._container.classList = 'mapboxgl-ctrl mapboxgl-ctrl-group'
     this.edit_button = document.createElement('button')
 
     this.edit_button.innerHTML = `<svg height='16px' width='16px'  fill="#000000" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;" xml:space="preserve"><g><g><path d="M80.4,5.5h-2.8L66.8,16.3l17,17l10.8-10.8v-2.8L80.4,5.5z M12.8,70.3L5,95l24.7-7.8l47-47l-17-17L12.8,70.3z"></path></g></g></svg>`
-    this.edit_button.addEventListener('click', (e) => this.handleClick(e))
+    this.edit_button.addEventListener('click', (e) => {this.handleClick(e)})
     this._container.appendChild(this.edit_button)
     return this._container;
   }
@@ -413,11 +423,11 @@ class EditController {
     const new_story_location_markup = 
 
       `<map-location
-        latitude="${center.lat}"
-        longitude="${center.lng}"
-        zoom=0
-        pitch=0
-        bearing=0
+        latitude="${location.latitude}"
+        longitude="${location.longitude}"
+        zoom="${location.zoom}"
+        pitch="${location.pitch}"
+        bearing="${location.bearing}"
         title=""
       >
       </map-location>`
