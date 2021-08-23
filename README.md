@@ -1,6 +1,8 @@
 # map.garden
 
-<a href="https://map.garden/demo.html">Look at the demo here</a>
+Web Based Mapping Consultancy
+
+<a href="https://map.garden/demo.html">A demo of our core product here.</a>
 
 ```XML
 <geo-map
