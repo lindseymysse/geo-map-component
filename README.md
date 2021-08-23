@@ -1,5 +1,7 @@
 # geo-map-component
 
+(Look at the demo here)[/demo.html]
+
 A web Component wrapper for maps, currently built for mapbox.
 
 This component wraps the mapbox API using the new Custom Web Components api, allowing you to create and embed new mapbox maps with ease. 
