@@ -111,17 +111,3 @@ optional:
 I am a fan (or, some might say, obsessed) with a painter named Caravaggio. I spent an enormous amount of time finding the locations of Caravaggio paintings around this world in Google Maps. It was a useful map! 
 
 Then I got busy with life and put aside my map. A few years later I went back to look at my paintings to find... a Renaissance Tour of Rome! 
-
-<style>
-  body {
-  background-color: black; 
-  color:white;
-  
-  }
-  
-  a {
-    color:white;
-    text-decoration:none;
-    font-weight:bolder;
-  }
-</style>
