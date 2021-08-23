@@ -1,6 +1,6 @@
 # geo-map-component
 
-(Look at the demo here)[/demo.html]
+[Look at the demo here](/demo.html)
 
 A web Component wrapper for maps, currently built for mapbox.
 
