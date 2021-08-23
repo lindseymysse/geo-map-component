@@ -1,10 +1,9 @@
-# geo-map-component
+# map.garden
 
 <a href="https://map.garden/demo.html">Look at the demo here</a>
 
-A simple web component for creating and reasoning about maps. 
+A simple web component for creating and reasoning about earth maps. 
 
-# Markup Components
 
 ```XML
 <geo-map
