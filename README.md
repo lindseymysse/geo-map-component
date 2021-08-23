@@ -2,33 +2,7 @@
 
 <a href="https://map.garden/demo.html">Look at the demo here</a>
 
-A web Component wrapper for maps, currently built for mapbox.
-
-This component wraps the mapbox API using the new Custom Web Components api, allowing you to create and embed new mapbox maps with ease. 
-
-## Usage
-
-I do not recommend production usage of this software at this point. I would recomend you vendor the code and incorporate its components into your software. 
-
-## Current Features
-
-
-## Markup based geolocative maps
-
-## Requirements
-
-```XML
-<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
-<script src='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.js'></script>
-<script src='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
-<link href='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css' rel='stylesheet' />
-<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js"></script>
-<script src="https://unpkg.com/three@0.126.0/build/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@turf/turf@5/turf.min.js"></script>
-<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css" type="text/css">
-
-
-```
+A simple web component for creating and reasoning about maps. 
 
 # Markup Components
 
@@ -92,11 +66,3 @@ optional:
 - pitch
 - bearing
 
-
-# Why
-
-I am a fan (or, some might say, obsessed) with a painter named Caravaggio. I spent an enormous amount of time finding the locations of Caravaggio paintings around this world in Google Maps. It was a useful map! 
-
-Then I got busy with life and put aside my map. A few years later I went back to look at my paintings to find... a Renaissance Tour of Rome! Google had, as usual, sunsetted a feature. I had spent hours putting that dataset together, and now it was just gone. 
-
-I thought a lot about how to fix this sort of problem, and I came to the conclusion that you should be able to take your digital labor anywhere. How best to do this is with an easily portable format, such as XML. 
