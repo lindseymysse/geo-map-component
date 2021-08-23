@@ -2,9 +2,6 @@
 
 <a href="https://map.garden/demo.html">Look at the demo here</a>
 
-A simple web component for creating and reasoning about earth maps. 
-
-
 ```XML
 <geo-map
   geolocate
