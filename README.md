@@ -1,6 +1,6 @@
 # geo-map-component
 
-[Look at the demo here](https://map.garden/demo.html)
+<a href="https://map.garden/demo.html">Look at the demo here</a>
 
 A web Component wrapper for maps, currently built for mapbox.
 
