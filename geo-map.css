@@ -178,3 +178,12 @@ map-editor-widget textarea {
   background-color: rgba(0,0,0,0.8);
   color: white;
 }
+
+map-editor-widget code {
+  height: 20em;
+  width: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  background-color: black;
+  color: white;
+}

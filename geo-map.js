@@ -413,6 +413,7 @@ class LocationEditInfoWidth extends HTMLElement {
       <input id="location-title" placeholder="title">
       <textarea id="location-body">
       </textarea>
+      <textarea id="result"></textarea>
     </form>`
   }
 }
@@ -483,6 +484,8 @@ class EditController {
         }
       ]
     })
+
+    this.editwidget.querySelector('#result').value += new_story_location_markup
 
     console.log(new_story_location_markup, new_story_location_geojson)
   }
