@@ -53,15 +53,3 @@ A simple web component for creating and reasoning about earth maps.
 </geo-map>
 
 ```
-
-required: 
-- latitude
-- longitude
-- zoom
-- accesstoken
-- styleurl
-
-optional:
-- pitch
-- bearing
-
