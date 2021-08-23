@@ -1,13 +1,18 @@
 # geo-map-component
-A web Component wrapper for Mapbox
 
-## Useage
+A web Component wrapper for maps, currently built for mapbox.
+
+This component wraps the mapbox API using the new Custom Web Components api, allowing you to create and embed new mapbox maps with ease. 
+
+
+## Usage
 
 I do not recommend production usage of this software at this point. I would recomend you vendor the code and incorporate its components into your software. 
 
 ## Current Features
 
-### Markup based geolocative maps
+
+## Markup based geolocative maps
 
 ## Requirements
 
@@ -27,6 +32,11 @@ I do not recommend production usage of this software at this point. I would reco
 # Markup Components
 
 ```XML
+
+  <!-- 
+    
+
+  -->
   <geo-map
     latitude=0
     longitude=0
@@ -40,12 +50,47 @@ I do not recommend production usage of this software at this point. I would reco
     <map-location
       latitude=
       longitude=
+      bearing=0
+      pitch=0
 
     >
-      <p>Place content of location here</p>
+      <map-marker>
+        <h1>Any HTML can be a map marker!</h1>
+      </map-marker>
+
     </map-location>
 
-  </geo-map>
+    <!-- pitch and bearing are not required, but lat lng are-->
+    <map-location
+      latitude=
+      longitude=
+    >
+      <map-marker rotation-alignment="map">
+        <h1>This places the marker on the map itself</h1>
+      </map-marker>
+
+    </map-location>
+
+
+    <map-key>
+      <!-- This Key appears only when the map is zoomed out the furthest from the user --> 
+    </map-key>
+    
+    <map-data
+      src="" 
+
+    >
+      <!-- Any source from map data will return here as map-locations and then will be placed on the map -->
+    </map-data>
+
+    <map-notification>
+
+      <a href="/">A Simple Link Here</a>
+    </map-notification>
+
+
+</geo-map>
+
 ```
 
 required: 

@@ -1,5 +1,8 @@
 :root {
-  --marker-color:#FFDE00;
+  --highlight-color: rgba(20,200,20,0.7);
+  --middle-tone-color:  rgba(120,120,120,0.8);
+  --background-color: rgba(0,0,0,0.8);
+  --foreground-color: rgba(255,255,255,1);
 }
 
 geo-map {
@@ -12,7 +15,7 @@ geo-map {
   overflow-y: scroll;
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
-
+  font-family: sans-serif;
 }
 
 geo-map::-webkit-scrollbar {
@@ -24,19 +27,22 @@ geo-map::-webkit-scrollbar {
 }
 
 map-notification {
-  background-color:#FFDE00; 
-  color: black;
+  background-color:var(--highlight-color); 
+  color: var(--foreground-color);
   width: 30em;
   padding: 1em;
   height: 0em;
   position:absolute;
-  left:0em;
-  bottom:0em;
+  left:50%;
+  transform: translateX(-50%);
+  top:1em;
   margin: 0.5em;
   text-align: center;
   display: block;
-  border: 1px solid #eecd00;
+  border: 1px solid var(--middle-tone-color);
+  z-index: 10000;
 }
+
 
 map-notification .close-button {
   right: -5px;
@@ -46,7 +52,7 @@ map-notification .close-button {
 
 
 map-notification a {
-  color: black;
+  color: var(--foreground-color);
   text-decoration: none;
   display: inline-block;
   text-align: center;
@@ -70,10 +76,27 @@ map-information-box {
   overflow-x:  hidden;
   overflow-y: scroll;
   padding: 1em;
+  background-color: var(--background-color);
+  color: var(--foreground-color);
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
   border: grey 1px solid;
 }
+
+map-information-box::-webkit-scrollbar {
+  display: none;
+}
+
+
+map-information-box a {
+  color: white;
+}
+
+map-information-box h1 {
+  line-height: 1em;
+  text-transform: uppercase;
+}
+
 
 map-information-box img, map-information-box video {
   width: 100%;
@@ -92,7 +115,8 @@ map-information-box img, map-information-box video {
   right: 0px;
   top: 0px;
   margin: 0.5em 0.5em;
-  border: 1px solid black;
+  border: 1px solid white;
+  color: white;
   background-color: transparent;
 }
 
@@ -107,13 +131,8 @@ map-information-box img, map-information-box video {
 }
 
 
-map-information-box::-webkit-scrollbar {
-  display: none;
-}
 
-map-information-box a {
-  color:  black;
-}
+
 
 map-key {
   transition: opacity 0.25s ease-in;
@@ -136,17 +155,5 @@ map-key {
 
 .mapboxgl-ctrl-top-right {
   z-index: 1000;
-}
-
-
-.map-key {}
-
-map-location {
-  display: none;
-  clear: both;
-  max-width: 20em;
-  min-height: 100vh;
-  background-color: white;
-  margin-bottom: 40em;
 }
 

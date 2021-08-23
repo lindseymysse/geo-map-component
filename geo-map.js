@@ -252,7 +252,6 @@ class GeoMap extends HTMLElement {
     } else {
       markers[0] = new mapboxgl.Marker({
         draggable: false,
-        color: '#FFDE00',
         rotationAlignment: 'viewport',
         scale: 1,
       }).setLngLat(center)
