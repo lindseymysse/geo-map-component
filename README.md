@@ -110,4 +110,6 @@ optional:
 
 I am a fan (or, some might say, obsessed) with a painter named Caravaggio. I spent an enormous amount of time finding the locations of Caravaggio paintings around this world in Google Maps. It was a useful map! 
 
-Then I got busy with life and put aside my map. A few years later I went back to look at my paintings to find... a Renaissance Tour of Rome! 
+Then I got busy with life and put aside my map. A few years later I went back to look at my paintings to find... a Renaissance Tour of Rome! Google had, as usual, sunsetted a feature. I had spent hours putting that dataset together, and now it was just gone. 
+
+I thought a lot about how to fix this sort of problem, and I came to the conclusion that you should be able to take your digital labor anywhere. How best to do this is with an easily portable format, such as XML. 
