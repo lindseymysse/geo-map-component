@@ -1,3 +1,37 @@
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+  <script src='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.js'></script>
+  <script src='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
+  <link href='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css' rel='stylesheet' />
+  <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js"></script>
+  <script src="https://unpkg.com/three@0.126.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@turf/turf@5/turf.min.js"></script>
+  <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css" type="text/css">
+  <script src="geo-map.js"></script>
+  <link rel="stylesheet" type="text/css" href="geo-map.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.0/dist/chart.min.js"></script>
+  <geo-map
+    accesstoken=pk.eyJ1IjoibGluZHNleW15c3NlIiwiYSI6ImNqOGNlYjMzbDA5am8zMmxid2oyc3hrc2cifQ.hK6NXKEl7bK7va2pRtY0Yw
+    styleurl=mapbox://styles/lindseymysse/cjcqx0yoi5l6c2ro9kxheop6d
+    geolocate
+    geocoder
+    navigation
+    slideshow>
+
+    <map-key>
+    </map-key>
+    
+    <map-data
+      src="https://reflective-earth.herokuapp.com/api/qualitative"
+    ></map-data>
+
+    <map-notification>
+      <a href="/">Return to the main map</a>
+    </map-notification>
+
+
+</geo-map>
+
+
 # geo-map-component
 
 A web Component wrapper for maps, currently built for mapbox.
