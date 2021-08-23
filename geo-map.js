@@ -226,15 +226,12 @@ class GeoMap extends HTMLElement {
   addLocation(location){
     const center = [location.longitude, location.latitude]
     let markers = [...location.querySelectorAll('map-marker')]
-
     if(markers.length > 0){
       markers = markers.map(marker => {
-
         let rotation_alignment = marker.getAttribute('rotation-alignment')
         if(rotation_alignment === null){
           rotation_alignment = 'viewport'
         }
-
         return new mapboxgl.Marker({
           draggable:false,
           scale:0,
@@ -251,7 +248,6 @@ class GeoMap extends HTMLElement {
       }).setLngLat(center)
       .addTo(this.map)
     }
-
     markers.forEach(marker => {
       marker.getElement().addEventListener('click', (e)=> {
         e.stopPropagation()
@@ -263,20 +259,17 @@ class GeoMap extends HTMLElement {
   selectLocation(location){
     if(location === undefined) return
     const center = [location.longitude, location.latitude]
-
     this.map.flyTo({
       center,
       zoom: location.zoom,
       bearing: location.bearing,
       pitch: location.pitch
     })
-
     ;[...document.querySelectorAll('map-information-box')].forEach(box => box.remove())
     const info_box = document.createElement('map-information-box')
     info_box.innerHTML = location.innerHTML
     this.appendChild(info_box)
   }
-
 
   mapLoaded(){
     this.map.addSource('mapbox-dem', {
@@ -286,9 +279,7 @@ class GeoMap extends HTMLElement {
       'maxzoom': 14
     })
     this.map.setTerrain({ 'source': 'mapbox-dem' })      
-
     this.classList.add('far')
-
     this.map.on('moveend', (e) => {
       let center  = this.map.getCenter()
       this.longitude = center.lng
@@ -335,9 +326,7 @@ class GeoMap extends HTMLElement {
       default:
     }
   }
-
 }
-
 customElements.define('geo-map', GeoMap)
 
 
@@ -394,7 +383,6 @@ class MapLocation extends HTMLElement {
       default:
     }
   }
-
 }
 
 customElements.define('map-location', MapLocation)
@@ -402,14 +390,10 @@ customElements.define('map-location', MapLocation)
 
 class EditController {
   onAdd(map) {
-
-
     this._map = map
     this._container = document.createElement('div')
     this._container.classList = 'mapboxgl-ctrl mapboxgl-ctrl-group'
-
     this.edit_button = document.createElement('button')
-
 
     this.edit_button.innerHTML = `<svg height='16px' width='16px'  fill="#000000" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;" xml:space="preserve"><g><g><path d="M80.4,5.5h-2.8L66.8,16.3l17,17l10.8-10.8v-2.8L80.4,5.5z M12.8,70.3L5,95l24.7-7.8l47-47l-17-17L12.8,70.3z"></path></g></g></svg>`
     this.edit_button.addEventListener('click', (e) => this.handleClick(e))
@@ -462,6 +446,7 @@ class EditController {
   }
 }
 
+
 class SlideShowControls {
   onAdd(map){
     this._map = map
@@ -503,12 +488,8 @@ class SlideShowControls {
 }
 
 
-
 class MapData extends HTMLElement {
   connectedCallback(){
-    /*
-      Gets the src Attribute
-    */
     this.style.display = 'none'
     this.src = this.getAttribute('src')
     if(this.src === null){
@@ -585,9 +566,7 @@ class MapInformationBox extends HTMLElement {
     close_button.addEventListener('click', (e) => {
       this.remove()
     })
-
     this.prepend(close_button)
-
   }
 }
 
@@ -601,9 +580,7 @@ class MapNotification extends HTMLElement {
     close_button.addEventListener('click', (e) => {
       this.remove()
     })
-
     this.prepend(close_button)
-
   }
 }
 
