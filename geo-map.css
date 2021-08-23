@@ -13,9 +13,8 @@ geo-map {
   margin: 0;
   align-items: stretch;
   overflow-y: scroll;
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-  font-family: sans-serif;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 geo-map::-webkit-scrollbar {
@@ -40,7 +39,7 @@ map-notification {
   text-align: center;
   display: block;
   border: 1px solid var(--middle-tone-color);
-  z-index: 10000;
+  z-index: 10;
 }
 
 
@@ -66,11 +65,12 @@ map-notification a {
 
 map-information-box {
   position:  absolute;
-  z-index: 1000;
+  z-index: 2;
   margin: 0.5em 0.5em;
   left: 0em;
   top:  0em;
   max-width:  30em;
+  max-height: calc(100% - 5em);
   line-height: 1.25em;
   height: auto;
   overflow-x:  hidden;
@@ -80,7 +80,7 @@ map-information-box {
   color: var(--foreground-color);
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
-  border: grey 1px solid;
+  border: var(--middle-tone-color) 1px solid;
 }
 
 map-information-box::-webkit-scrollbar {
@@ -111,7 +111,7 @@ map-information-box img, map-information-box video {
  
 .close-button {
   position: absolute;
-  z-index: 1000;
+  z-index: 10;
   right: 0px;
   top: 0px;
   margin: 0.5em 0.5em;
@@ -154,6 +154,6 @@ map-key {
 
 
 .mapboxgl-ctrl-top-right {
-  z-index: 1000;
+  z-index: 11;
 }
 

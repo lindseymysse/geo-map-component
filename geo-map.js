@@ -409,11 +409,17 @@ customElements.define('map-location', MapLocation)
 class EditController {
   onAdd(map) {
 
-    this.map = map
-    this._container = document.createElement('button')
-    this._container.className = 'mapboxgl-ctrl'
-    this._container.innerHTML = `<svg height='20px' width='20px'  fill="#000000" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;" xml:space="preserve"><g><g><path d="M80.4,5.5h-2.8L66.8,16.3l17,17l10.8-10.8v-2.8L80.4,5.5z M12.8,70.3L5,95l24.7-7.8l47-47l-17-17L12.8,70.3z"></path></g></g></svg>`
-    this._container.addEventListener('click', (e) => this.handleClick(e))
+
+    this._map = map
+    this._container = document.createElement('div')
+    this._container.classList = 'mapboxgl-ctrl mapboxgl-ctrl-group'
+
+    this.edit_button = document.createElement('button')
+
+
+    this.edit_button.innerHTML = `<svg height='16px' width='16px'  fill="#000000" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;" xml:space="preserve"><g><g><path d="M80.4,5.5h-2.8L66.8,16.3l17,17l10.8-10.8v-2.8L80.4,5.5z M12.8,70.3L5,95l24.7-7.8l47-47l-17-17L12.8,70.3z"></path></g></g></svg>`
+    this.edit_button.addEventListener('click', (e) => this.handleClick(e))
+    this._container.appendChild(this.edit_button)
     return this._container;
   }
 
