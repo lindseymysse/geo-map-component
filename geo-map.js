@@ -291,7 +291,20 @@ class GeoMap extends HTMLElement {
       'tileSize': 512,
       'maxzoom': 14
     })
+
+
     this.map.setTerrain({ 'source': 'mapbox-dem' })      
+    
+    this.map.addLayer({
+      'id': 'sky',
+      'type': 'sky',
+      'paint': {
+        'sky-type': 'atmosphere',
+        'sky-atmosphere-sun': [0.0, 0.0],
+        'sky-atmosphere-sun-intensity': 15
+      }
+    })
+
     this.classList.add('far')
     this.map.on('moveend', (e) => {
       let center  = this.map.getCenter()
