@@ -4,7 +4,6 @@ A web Component wrapper for maps, currently built for mapbox.
 
 This component wraps the mapbox API using the new Custom Web Components api, allowing you to create and embed new mapbox maps with ease. 
 
-
 ## Usage
 
 I do not recommend production usage of this software at this point. I would recomend you vendor the code and incorporate its components into your software. 
@@ -103,3 +102,24 @@ required:
 optional:
 - pitch
 - bearing
+
+
+# Why
+
+I am a fan (or, some might say, obsessed) with a painter named Caravaggio. I spent an enormous amount of time finding the locations of Caravaggio paintings around this world in Google Maps. It was a useful map! 
+
+Then I got busy with life and put aside my map. A few years later I went back to look at my paintings to find... a Renaissance Tour of Rome! 
+
+<style>
+  body {
+  background-color: black; 
+  color:white;
+  
+  }
+  
+  a {
+    color:white;
+    text-decoration:none;
+    font-weight:bolder;
+  }
+</style>
