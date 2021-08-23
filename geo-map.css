@@ -157,3 +157,24 @@ map-key {
   z-index: 11;
 }
 
+
+map-editor-widget {
+  position:  fixed;
+  left: 0px;
+  top: 0px;
+  width: 30em;
+  background-color: rgba(0,0,0,0.8);
+}
+
+map-editor-widget input {
+  width: 100%;
+  background-color: rgba(0,0,0,0.8);
+  color: white;
+}
+
+map-editor-widget textarea {
+  width: 100%;
+  height: 20em;
+  background-color: rgba(0,0,0,0.8);
+  color: white;
+}
