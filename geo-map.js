@@ -133,6 +133,13 @@ class GeoMap extends HTMLElement {
     }
     this.removeAttribute('styleurl')
 
+    this.locked = this.getAttribute('locked')
+    if(this.locked === null){
+      this.locked = false
+    } else {
+      this.locked = true
+    }
+
     const el = document.createElement('div')
     el.classList.add('map-container')
     this.appendChild(el)
@@ -144,9 +151,8 @@ class GeoMap extends HTMLElement {
       bearing: this.bearing,
       pitch: this.pitch,
       style: this.styleurl,
+      interactive: !this.locked
     })
-
-    this.map.on('load', () => {this.mapLoaded()})
 
     this.geocoder = this.getAttribute('geocoder')
     if(this.geocoder !== null){   
@@ -196,7 +202,14 @@ class GeoMap extends HTMLElement {
     if(this.edit_mode !== null){
       this.map.addControl(new EditController(this.map))
     }
+
+
+
+
     setInterval(()=>{this.checkForDOMUpdates()},50)
+    this.map.on('load', () => {this.mapLoaded()})
+
+
   }
 
   nextLocation(){
@@ -424,14 +437,11 @@ class EditController {
     this.cursor.style.pointerEvents = 'none'
     this.cursor.style.zIndex = '1000'
     document.querySelector('geo-map').appendChild(this.cursor)
-
     this.editwidget = document.createElement('map-editor-widget')
     document.body.appendChild(this.editwidget)
-
     this._container = document.createElement('div')
     this._container.classList = 'mapboxgl-ctrl mapboxgl-ctrl-group'
     this.edit_button = document.createElement('button')
-
     this.edit_button.innerHTML = `<svg height='16px' width='16px'  fill="#000000" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;" xml:space="preserve"><g><g><path d="M80.4,5.5h-2.8L66.8,16.3l17,17l10.8-10.8v-2.8L80.4,5.5z M12.8,70.3L5,95l24.7-7.8l47-47l-17-17L12.8,70.3z"></path></g></g></svg>`
     this.edit_button.addEventListener('click', (e) => {this.handleClick(e)})
     this._container.appendChild(this.edit_button)
