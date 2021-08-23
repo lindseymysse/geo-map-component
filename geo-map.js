@@ -97,9 +97,7 @@ function ready(callbackFunction){
 }
 
 
-
 class GeoMap extends HTMLElement {
-
   connectedCallback(){
     if(typeof(mapboxgl) === 'undefined'){
       this.innerHTML = '<error>STORY MAP REQUIRES MAPBOXGL TO WORK: https://docs.mapbox.com/mapbox-gl-js/api/</error>'
@@ -198,12 +196,8 @@ class GeoMap extends HTMLElement {
     if(this.edit_mode !== null){
       this.map.addControl(new EditController(this.map))
     }
-   
-
     setInterval(()=>{this.checkForDOMUpdates()},50)
-
   }
-
 
   nextLocation(){
     const locations = [...this.querySelectorAll('map-location')]
