@@ -172,13 +172,6 @@ class GeoMap extends HTMLElement {
       geocoder.on('result', (e) => { this.geocoderResult(e) })
       this.map.addControl( geocoder )
     } // end GeoCoder
-
-    this.navigation_control = this.getAttribute('navigation')
-    if(this.navigation_control !== null){
-      this.map.addControl(
-        new mapboxgl.NavigationControl({visualizePitch: true})
-      )
-    }
     this.geolocate = this.getAttribute('geolocate')
     if(this.geolocate !== null){
       this.map.addControl(new mapboxgl.GeolocateControl({
@@ -186,6 +179,13 @@ class GeoMap extends HTMLElement {
         showUserLocation: false
       }))
     }
+    this.navigation_control = this.getAttribute('navigation')
+    if(this.navigation_control !== null){
+      this.map.addControl(
+        new mapboxgl.NavigationControl({visualizePitch: true})
+      )
+    }
+
 
     this.slideshow = this.getAttribute('slideshow')
     if(this.slideshow !== null){
@@ -265,6 +265,20 @@ class GeoMap extends HTMLElement {
       marker.getElement().addEventListener('click', (e)=> {
         e.stopPropagation()
         this.selectLocation(location)
+      })
+    })
+
+    location.addEventListener('LOCATION UPDATED', function(e){
+      const longitude = location.getAttribute('longitude')
+      const latitude = location.getAttribute('latitude')
+      markers.forEach(marker => {
+        marker.setLngLat([longitude, latitude])
+      })
+    })
+
+    location.addEventListener('LOCATION REMOVED', function(e){
+      markers.forEach(marker => {
+        marker.remove()
       })
     })
   }
@@ -397,17 +411,30 @@ class MapLocation extends HTMLElement {
     }
 
     this.duration = this.getAttribute('duration')
-
   }
 
   static get observedAttributes() {
-    return [];
+    return ['latitude','longitude','zoom','bearing','pitch'];
+  }
+
+  disconnectedCallback(){
+    this.dispatchEvent(new CustomEvent('LOCATION REMOVED'))
   }
 
   attributeChangedCallback(name, old_value, new_value){
     switch(name){
+      case "latitude":
+      case "longitude":
+      case "zoom":
+      case "bearing":
+      case "pitch":
+        this.dispatchEvent(new CustomEvent('LOCATION UPDATED'))
+        break
       default:
+        console.warn('do not know how to handle a change in attribute', name)
     }
+
+    this.dispatchEvent(new CustomEvent('LOCATION UPDATED'))
   }
 }
 
@@ -429,6 +456,7 @@ class LocationEditInfoWidth extends HTMLElement {
       <textarea id="result"></textarea>
     </form>`
   }
+
 }
 
 customElements.define('map-editor-widget', LocationEditInfoWidth)
@@ -480,7 +508,7 @@ class EditController {
         bearing="${location.bearing}"
         title="${title}"
       >
-        ${body}
+        ${body.toString()}
       </map-location>`
 
     // @todo  
