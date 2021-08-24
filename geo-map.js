@@ -210,14 +210,8 @@ class GeoMap extends HTMLElement {
     if(this.edit_mode !== null){
       this.map.addControl(new EditController(this.map))
     }
-
-
-
-
     setInterval(()=>{this.checkForDOMUpdates()},50)
     this.map.on('load', () => {this.mapLoaded()})
-
-
   }
 
   nextLocation(){
@@ -314,7 +308,6 @@ class GeoMap extends HTMLElement {
       'maxzoom': 14
     })
 
-
     this.map.setTerrain({ 'source': 'mapbox-dem' })      
     
     this.map.addLayer({
@@ -375,6 +368,7 @@ class GeoMap extends HTMLElement {
     }
   }
 }
+
 customElements.define('geo-map', GeoMap)
 
 
@@ -554,9 +548,11 @@ class FlyHomeController {
     this._container.classList = 'mapboxgl-ctrl mapboxgl-ctrl-group'
     this.flyhome_button = document.createElement('button')
     this.flyhome_button.innerHTML = world_svg
-
     this.flyhome_button.addEventListener('click', function(e){
-      dispatch('FLY HOME')
+      map.flyTo({
+        center:[0,0],
+        zoom:0
+      })
     })
     this._container.appendChild(this.flyhome_button)
     return this._container;
