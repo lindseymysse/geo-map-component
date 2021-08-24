@@ -1,5 +1,7 @@
 # map.garden
 
+Cinematic Mapping Engine
+
 <img src="geo-map-logo.png">
 Web Based Mapping Consultancy
 
