@@ -1,5 +1,6 @@
 # map.garden
 
+<img src="geo-map-logo.png">
 Web Based Mapping Consultancy
 
 <a href="https://map.garden/demo.html">A demo of our core product here.</a>
