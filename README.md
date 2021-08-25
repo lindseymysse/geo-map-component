@@ -1,5 +1,3 @@
-# map.garden
-
 Cinematic Mapping Markup.
 
 <a-href="https://map.garden/demo.html"><img src="geo-map-logo.png"></a>
