@@ -446,17 +446,15 @@ customElements.define('map-location', MapLocation)
 class LocationEditInfoWidth extends HTMLElement {
   connectedCallback(){
     this.innerHTML = `
-    <form style="
-      position:fixed;
-      left:0px;
-      top:0px;
-      width:20em;
-      height:auto;">
+    <details>
+    <form>
       <input id="location-title" placeholder="title">
       <textarea id="location-body">
       </textarea>
       <textarea id="result"></textarea>
-    </form>`
+    </form>
+    </details>
+    `
   }
 
 }

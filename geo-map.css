@@ -5,6 +5,7 @@
   --foreground-color: rgba(255,255,255,1);
 }
 
+
 geo-map {
   display: block;
   min-width: 20em;
@@ -21,9 +22,24 @@ geo-map::-webkit-scrollbar {
   display: none;
 }
 
+
 .map-location-container {
 
 }
+
+.map-container {
+  width:  100%;
+  height:  100%;
+  position:  absolute;
+  left: 0px;
+  top:  0px;
+}
+
+.mapboxgl-ctrl-top-right {
+  z-index: 11;
+}
+
+
 
 map-notification {
   background-color:var(--highlight-color); 
@@ -42,12 +58,10 @@ map-notification {
   z-index: 10;
 }
 
-
 map-notification .close-button {
   right: -5px;
     top: -5px;
 }
-
 
 
 map-notification a {
@@ -109,6 +123,7 @@ map-information-box img, map-information-box video {
   }
  }
  
+
 .close-button {
   position: absolute;
   z-index: 10;
@@ -132,8 +147,6 @@ map-information-box img, map-information-box video {
 
 
 
-
-
 map-key {
   transition: opacity 0.25s ease-in;
   opacity: 0;
@@ -144,24 +157,10 @@ map-key {
 }
 
 
-.map-container {
-  width:  100%;
-  height:  100%;
-  position:  absolute;
-  left: 0px;
-  top:  0px;
-}
-
-
-.mapboxgl-ctrl-top-right {
-  z-index: 11;
-}
-
-
 map-editor-widget {
   position:  fixed;
-  left: 0px;
-  top: 0px;
+  left: 1em;
+  top: 1em;
   width: 30em;
   background-color: rgba(0,0,0,0.8);
 }
