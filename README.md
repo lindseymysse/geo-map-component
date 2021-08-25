@@ -1,11 +1,11 @@
 # map.garden
 
-Cinematic Mapping Engine
+Cinematic Mapping Markup.
 
-<img src="geo-map-logo.png">
-Web Based Mapping Consultancy
+<a-href="https://map.garden/demo.html"><img src="geo-map-logo.png"></a>
 
-<a href="https://map.garden/demo.html">A demo of our core product here.</a>
+
+## What does it look like? 
 
 ```XML
 <geo-map
@@ -55,3 +55,5 @@ Web Based Mapping Consultancy
 </geo-map>
 
 ```
+
+email lindsey.mysse@gmail.com for more info.
