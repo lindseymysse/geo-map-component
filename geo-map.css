@@ -161,8 +161,8 @@ map-editor-widget {
   position:  fixed;
   left: 1em;
   top: 1em;
-  width: 30em;
   background-color: rgba(0,0,0,0.8);
+  color: white;
 }
 
 map-editor-widget input {

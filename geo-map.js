@@ -449,10 +449,17 @@ class LocationEditInfoWidth extends HTMLElement {
     <details>
     <form>
       <input id="location-title" placeholder="title">
-      <textarea id="location-body">
-      </textarea>
-      <textarea id="result"></textarea>
+      <details>
+        <summary>Location Body</summary>
+        <textarea id="location-body">
+        </textarea>
+      </details>
+      <details>
+        <summary>Results (copy and paste)</summary>
+        <textarea id="result"></textarea>
+      </details>
     </form>
+
     </details>
     `
   }
