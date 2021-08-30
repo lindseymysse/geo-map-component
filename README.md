@@ -10,7 +10,10 @@ https://lindseymysse.github.io/sunken-city-graffiti-park-proposal/proposal.html
 ## What does it look like? 
 
 ```XML
+
 <geo-map
+  accesstoken=
+  styleurl=
   geolocate
   geocoder
   navigation
@@ -18,10 +21,9 @@ https://lindseymysse.github.io/sunken-city-graffiti-park-proposal/proposal.html
   latitude=0
   longitude=0
   zoom=1
-  accesstoken=
-  styleurl=
   bearing=0
   pitch=0>
+ 
   <map-location
     latitude=
     longitude=
