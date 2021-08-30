@@ -13,7 +13,7 @@ geo-map {
   padding: 0;
   margin: 0;
   align-items: stretch;
-  overflow-y: scroll;
+  overflow:hidden;
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
@@ -22,9 +22,8 @@ geo-map::-webkit-scrollbar {
   display: none;
 }
 
-
-.map-location-container {
-
+map-location {
+ display:none;
 }
 
 .map-container {
