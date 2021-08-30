@@ -1,7 +1,11 @@
-Cinematic Mapping Markup.
+Cinematic Mapping Markup
+
 
 <a href="https://map.garden/demo.html"><img src="geo-map-logo.png"></a>
 
+## Demo
+
+https://lindseymysse.github.io/sunken-city-graffiti-park-proposal/proposal.html
 
 ## What does it look like? 
 
