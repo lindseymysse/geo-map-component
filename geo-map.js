@@ -27,12 +27,14 @@
   *** end ascii art ***
 
 
-  dispatches a custom event with a detail to the application.
+  dispatchMapEventes a custom event with a detail to the application.
   
 
 */
 
-function dispatch(name, detail = {}){
+
+
+function dispatchMapEvent(name, detail = {}){
   const initialize_event = new CustomEvent(name, {detail: detail})
   document.dispatchEvent(initialize_event)
 }
@@ -70,33 +72,6 @@ function setURLValues(obj){
   history.pushState(obj, '', url)
 }
 
-/*
-    
-    Get Attribute
-
-    Gets all attributes of an object,
-    returns an object
-    
-*/
-
-function getAttributes(el){
-  let obj = {}
-  for (let att, i = 0, atts = el.attributes, n = atts.length; i < n; i++){
-    att = atts[i]
-    obj[att.nodeName] = att.nodeValue
-  }
-  return obj
-}
-
-
-function ready(callbackFunction){
-  if(document.readyState != 'loading')
-    callbackFunction(event)
-  else
-    document.addEventListener("DOMContentLoaded", callbackFunction)
-}
-
-
 class GeoMap extends HTMLElement {
   connectedCallback(){
     if(typeof(mapboxgl) === 'undefined'){
@@ -115,11 +90,28 @@ class GeoMap extends HTMLElement {
     this.removeAttribute('accesstoken')
     mapboxgl.accessToken = this.access_token
 
-    this.latitude = URLvalues.latitude ? URLvalues.latitude : 0
-    this.longitude = URLvalues.longitude ? URLvalues.longitude : 0
-    this.zoom = URLvalues.zoom ? URLvalues.zoom : 1
-    this.bearing = URLvalues.bearing ? URLvalues.bearing : 0
-    this.pitch = URLvalues.pitch ? URLvalues.pitch : 0
+    // Initial Location, set in Map Attributes
+
+    this.latitude = this.getAttribute('latitude')
+    if(this.latitude === null) this.latitude = 0
+    this.latitude = URLvalues.latitude ? URLvalues.latitude : this.latitude
+
+    this.longitude = this.getAttribute('longitude')
+    if(this.longitude === null) this.longitude = 0
+    this.longitude = URLvalues.longitude ? URLvalues.longitude : this.longitude
+
+    this.zoom = this.getAttribute('zoom')
+    if(this.zoom === null) this.zoom = 1
+    this.zoom = URLvalues.zoom ? URLvalues.zoom : this.zoom
+
+    this.bearing = this.getAttribute('bearing')
+    if(this.bearing === null) this.bearing = 0
+    this.bearing = URLvalues.bearing ? URLvalues.bearing : this.bearing
+
+    this.pitch = this.getAttribute('pitch')
+    if(this.pitch === null) this.pitch = 0
+    this.pitch = URLvalues.pitch ? URLvalues.pitch : this.pitch
+
     this.home_coord = {
       center:[this.longitude, this.latitude],
       zoom:this.zoom,
@@ -342,13 +334,17 @@ class GeoMap extends HTMLElement {
         this.classList.remove('far')
       }
 
-      setURLValues({
+      const new_pos = {
         latitude: this.latitude, 
         longitude: this.longitude,
         zoom: this.zoom,
         bearing: this.bearing, 
         pitch: this.pitch,
-      })
+      }
+
+      dispatchMapEvent('MAP MOVED', new_pos)
+
+      setURLValues(new_pos)
     })//end moveend
   }
 
@@ -420,7 +416,7 @@ class MapLocation extends HTMLElement {
   }
 
   disconnectedCallback(){
-    this.dispatchEvent(new CustomEvent('LOCATION REMOVED'))
+    this.dispatchMapEventEvent(new CustomEvent('LOCATION REMOVED'))
   }
 
   attributeChangedCallback(name, old_value, new_value){
@@ -430,13 +426,13 @@ class MapLocation extends HTMLElement {
       case "zoom":
       case "bearing":
       case "pitch":
-        this.dispatchEvent(new CustomEvent('LOCATION UPDATED'))
+        this.dispatchMapEventEvent(new CustomEvent('LOCATION UPDATED'))
         break
       default:
         console.warn('do not know how to handle a change in attribute', name)
     }
 
-    this.dispatchEvent(new CustomEvent('LOCATION UPDATED'))
+    this.dispatchMapEventEvent(new CustomEvent('LOCATION UPDATED'))
   }
 }
 
@@ -468,6 +464,11 @@ class LocationEditInfoWidth extends HTMLElement {
 
 customElements.define('map-editor-widget', LocationEditInfoWidth)
 
+/*
+  
+  EDIT CONTROLLER
+  
+*/
 
 class EditController {
   onAdd(map) {
@@ -570,8 +571,6 @@ class FlyHomeController {
 }
 
 
-
-
 class SlideShowControls {
   onAdd(map){
     this._map = map
@@ -584,7 +583,7 @@ class SlideShowControls {
     next_label.innerHTML = `<svg height='16px' width='16px'  fill="#2d2d2d" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0" x="0px" y="0px" viewBox="0 0 32 32" enable-background="new 0 0 32 32" xml:space="preserve"><path d="M17.365,16.01l-6.799,6.744c-0.746,0.746-0.746,1.953,0,2.699c0.754,0.745,1.972,0.745,2.726,0l8.155-8.094  c0.746-0.746,0.746-1.954,0-2.699l-8.155-8.094c-0.754-0.746-1.972-0.744-2.726,0c-0.746,0.745-0.746,1.952,0,2.698L17.365,16.01z"></path></svg>` 
     next.appendChild(next_label)
     this._container.appendChild(next)
-    next.addEventListener('click', ()=> dispatch('NEXT SLIDE'))
+    next.addEventListener('click', ()=> dispatchMapEvent('NEXT SLIDE'))
 
     const home = document.createElement('button')
     const home_label = document.createElement('span')
@@ -592,7 +591,7 @@ class SlideShowControls {
     home_label.innerHTML = `<svg height='16px' width='16px'  fill="#2d2d2d" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" x="0px" y="0px"><g data-name="34 Home"><path d="M27,29.5H5A1.5,1.5,0,0,1,3.5,28V13.43A1.5,1.5,0,0,1,4,12.29L15,2.86a1.51,1.51,0,0,1,2,0l11,9.43a1.5,1.5,0,0,1,.52,1.14V28A1.5,1.5,0,0,1,27,29.5Zm-20.5-3h19V14.12L16,6,6.5,14.12Z"></path></g></svg>`
     home.appendChild(home_label)
     this._container.appendChild(home)
-    home.addEventListener('click', ()=> dispatch('SHOW HOME'))
+    home.addEventListener('click', ()=> dispatchMapEvent('SHOW HOME'))
 
     const prev = document.createElement('button')
     const prev_label = document.createElement('span')
@@ -600,7 +599,7 @@ class SlideShowControls {
     prev_label.innerHTML = `<svg height='16px' width='16px'  fill="#2d2d2d" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0" x="0px" y="0px" viewBox="0 0 32 32" enable-background="new 0 0 32 32" xml:space="preserve"><path d="M14.647,16.011l6.799-6.744c0.746-0.746,0.746-1.953,0-2.699c-0.754-0.745-1.972-0.745-2.726,0l-8.155,8.094  c-0.746,0.746-0.746,1.954,0,2.699l8.155,8.094c0.754,0.746,1.972,0.744,2.726,0c0.746-0.745,0.746-1.952,0-2.698L14.647,16.011z"></path></svg>`
     prev.appendChild(prev_label)
     this._container.appendChild(prev)
-    prev.addEventListener('click', () => dispatch('PREV SLIDE'))
+    prev.addEventListener('click', () => dispatchMapEvent('PREV SLIDE'))
 
     return this._container
 
@@ -676,7 +675,7 @@ class MapData extends HTMLElement {
       const location_container = document.createElement('div')
       location_container.innerHTML = update
       this.appendChild(location_container)
-      dispatch('SHOW HOME')
+      dispatchMapEvent('SHOW HOME')
     })
   }
 }

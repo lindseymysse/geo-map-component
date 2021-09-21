@@ -3,7 +3,6 @@
 <head>
   <meta charset="utf-8">
   <title>GeoMap Demo</title>
-  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
   <script src='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.js'></script>
   <script src='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
   <link href='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css' rel='stylesheet' />
@@ -13,7 +12,6 @@
   <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css" type="text/css">
   <script src="geo-map.js"></script>
   <link rel="stylesheet" type="text/css" href="geo-map.css">
-<script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.0/dist/chart.min.js"></script>
 
 <script>
   
@@ -24,12 +22,19 @@
   <geo-map
     accesstoken=pk.eyJ1IjoibGluZHNleW15c3NlIiwiYSI6ImNqOGNlYjMzbDA5am8zMmxid2oyc3hrc2cifQ.hK6NXKEl7bK7va2pRtY0Yw
     styleurl=mapbox://styles/lindseymysse/cjcqx0yoi5l6c2ro9kxheop6d
+    latitude=34.052235
+    longitude=-118.243683
+
+    zoom=5
+    bearing=45
+    pitch=60
     geolocate
     geocoder
     navigation
     slideshow
     flyhome
     edit>
+
 </geo-map>
 
 </body>
