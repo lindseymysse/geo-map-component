@@ -279,7 +279,7 @@ class GeoMap extends HTMLElement {
     })
     ;[...document.querySelectorAll('map-information-box')].forEach(box => box.remove())
 
-    if(popups){
+    if(this.popups){
       return
     } else {
       const info_box = document.createElement('map-information-box')
