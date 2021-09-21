@@ -96,6 +96,13 @@ class GeoMap extends HTMLElement {
     if(this.pitch === null) this.pitch = 0
     this.pitch = URLvalues.pitch ? URLvalues.pitch : this.pitch
 
+    this.popups = this.getAttribute('popups')
+    if(this.popups === null){
+      this.popups = false} 
+    else {
+      this.popups = true
+    }
+
     this.home_coord = {
       center:[this.longitude, this.latitude],
       zoom:this.zoom,
@@ -271,9 +278,14 @@ class GeoMap extends HTMLElement {
       pitch: location.pitch
     })
     ;[...document.querySelectorAll('map-information-box')].forEach(box => box.remove())
-    const info_box = document.createElement('map-information-box')
-    info_box.innerHTML = location.innerHTML
-    this.appendChild(info_box)
+
+    if(popups){
+      return
+    } else {
+      const info_box = document.createElement('map-information-box')
+      info_box.innerHTML = location.innerHTML
+      this.appendChild(info_box)
+    }
   }
 
   setZoomClass(){

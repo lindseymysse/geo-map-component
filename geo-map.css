@@ -149,6 +149,11 @@ map-information-box img, map-information-box video {
 
 
 map-key {
+  position: absolute;
+  right: 2em;
+  bottom: 2em;
+  z-index: 1000;
+
   transition: opacity 0.25s ease-in;
   opacity: 0;
 }
