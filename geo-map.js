@@ -50,7 +50,8 @@ function getURLValues(URL = window.location.href ){
 function setURLValues(obj){
   let url = window.location.origin + window.location.pathname + '?'
   Object.keys(obj).forEach(key => {
-    url += `&${key}=${obj[key]}`
+    let encodedvalue = encodeURI(obj[key])
+    url += `&${key}=${encodedvalue}`
   })
   history.pushState(obj, '', url)
 }
