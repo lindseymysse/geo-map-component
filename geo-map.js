@@ -557,9 +557,9 @@ class FlyHomeController {
     this.flyhome_button.addEventListener('click', function(e){
       map.flyTo({
         center:[0,0],
-        zoom:0,
-        bearing:0,
-        pitch:0
+        zoom:1,
+        bearing:0.001,
+        pitch:0.001
       })
     })
     this._container.appendChild(this.flyhome_button)
