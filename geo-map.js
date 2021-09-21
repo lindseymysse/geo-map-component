@@ -15,23 +15,6 @@
 
 */
 
-/*
-
-  *** begin ascii art ***
-
-    8888b.  88 .dP"Y8 88""Yb    db    888888  dP""b8 88  88
-     8I  Yb 88 `Ybo." 88__dP   dPYb     88   dP   `" 88  88
-     8I  dY 88 o.`Y8b 88"""   dP__Yb    88   Yb      888888
-    8888Y"  88 8bodP' 88     dP""""Yb   88    YboodP 88  88
-
-  *** end ascii art ***
-
-
-  dispatchMapEventes a custom event with a detail to the application.
-  
-
-*/
-
 
 
 function dispatchMapEvent(name, detail = {}){
@@ -292,6 +275,22 @@ class GeoMap extends HTMLElement {
     this.appendChild(info_box)
   }
 
+  setZoomClass(){
+      if(this.zoom < 10){
+        this.classList.add('far')
+        this.classList.remove('middle')
+        this.classList.remove('near')
+      } else if(this.zoom >= 10 && this.zoom <= 15){
+        this.classList.add('middle')
+        this.classList.remove('far')
+        this.classList.remove('near')
+      } else {
+        this.classList.add('near')
+        this.classList.remove('middle')
+        this.classList.remove('far')
+      }
+  }
+
   mapLoaded(){
     this.map.addSource('mapbox-dem', {
       'type': 'raster-dem',
@@ -312,7 +311,19 @@ class GeoMap extends HTMLElement {
       }
     })
 
-    this.classList.add('far')
+
+    const first_pos = {
+      latitude: this.latitude, 
+      longitude: this.longitude,
+      zoom: this.zoom,
+      bearing: this.bearing, 
+      pitch: this.pitch,
+    }
+
+    this.setZoomClass()
+
+    dispatchMapEvent('MAP MOVE END',first_pos )
+
     this.map.on('moveend', (e) => {
       let center  = this.map.getCenter()
       this.longitude = center.lng
@@ -321,18 +332,7 @@ class GeoMap extends HTMLElement {
       this.bearing = this.map.getBearing()
       this.pitch = this.map.getPitch()
 
-      if(this.zoom < 10){
-        this.classList.remove('middle')
-        this.classList.remove('near')
-      } else if(this.zoom >= 10 && this.zoom <= 15){
-        this.classList.add('middle')
-        this.classList.remove('far')
-        this.classList.remove('near')
-      } else {
-        this.classList.add('near')
-        this.classList.remove('middle')
-        this.classList.remove('far')
-      }
+      this.setZoomClass()
 
       const new_pos = {
         latitude: this.latitude, 
@@ -342,7 +342,7 @@ class GeoMap extends HTMLElement {
         pitch: this.pitch,
       }
 
-      dispatchMapEvent('MAP MOVED', new_pos)
+      dispatchMapEvent('MAP MOVE END', new_pos)
 
       setURLValues(new_pos)
     })//end moveend
@@ -416,7 +416,7 @@ class MapLocation extends HTMLElement {
   }
 
   disconnectedCallback(){
-    this.dispatchMapEventEvent(new CustomEvent('LOCATION REMOVED'))
+    this.dispatchEvent(new CustomEvent('LOCATION REMOVED'))
   }
 
   attributeChangedCallback(name, old_value, new_value){
@@ -426,13 +426,13 @@ class MapLocation extends HTMLElement {
       case "zoom":
       case "bearing":
       case "pitch":
-        this.dispatchMapEventEvent(new CustomEvent('LOCATION UPDATED'))
+        this.dispatchEvent(new CustomEvent('LOCATION UPDATED'))
         break
       default:
         console.warn('do not know how to handle a change in attribute', name)
     }
 
-    this.dispatchMapEventEvent(new CustomEvent('LOCATION UPDATED'))
+    this.dispatchEvent(new CustomEvent('LOCATION UPDATED'))
   }
 }
 
@@ -557,7 +557,9 @@ class FlyHomeController {
     this.flyhome_button.addEventListener('click', function(e){
       map.flyTo({
         center:[0,0],
-        zoom:0
+        zoom:0,
+        bearing:0,
+        pitch:0
       })
     })
     this._container.appendChild(this.flyhome_button)

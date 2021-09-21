@@ -18,13 +18,11 @@
 </script>
 </head>
 <body>
-
   <geo-map
     accesstoken=pk.eyJ1IjoibGluZHNleW15c3NlIiwiYSI6ImNqOGNlYjMzbDA5am8zMmxid2oyc3hrc2cifQ.hK6NXKEl7bK7va2pRtY0Yw
     styleurl=mapbox://styles/lindseymysse/cjcqx0yoi5l6c2ro9kxheop6d
     latitude=34.052235
     longitude=-118.243683
-
     zoom=5
     bearing=45
     pitch=60
@@ -34,8 +32,16 @@
     slideshow
     flyhome
     edit>
-
 </geo-map>
 
+<script>
+  const geomap = document.querySelector('geo-map')
+  document.addEventListener('MAP MOVE END', function(e){
+    console.log(e)
+  })
+</script>
+
 </body>
+
+
 </html>

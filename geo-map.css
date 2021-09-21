@@ -8,11 +8,13 @@
 
 geo-map {
   display: block;
+  box-sizing: content-box;
   min-width: 20em;
   min-height: 20em;
+  width: 100%;
+  height: 100%;
   padding: 0;
   margin: 0;
-  align-items: stretch;
   overflow:hidden;
   -ms-overflow-style: none;
   scrollbar-width: none;
