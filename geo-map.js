@@ -595,7 +595,7 @@ class SlideShowControls {
     next.appendChild(next_label)
     this._container.appendChild(next)
     next.addEventListener('click', ()=>
-      this.map_container.dispatchEvent( new CustomEvent('NEXT_SLIDE'))
+      this.map_container.dispatchEvent( new CustomEvent('NEXT SLIDE'))
     )
 
     const home = document.createElement('button')
