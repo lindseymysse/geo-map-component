@@ -187,7 +187,11 @@ class GeoMap extends HTMLElement {
     if(this.edit_mode !== null){
       this.map.addControl(new EditController(this.map))
     }
-    // setInterval(()=>{this.checkForDOMUpdates()},50)
+
+    const config = { attributes: true, childList: true, subtree: true };
+    const observer = new MutationObserver((mo) => {this.handleDOMUpdates(mo)});
+
+    observer.observe(this, config)
     this.map.on('load', () => {this.mapLoaded()})
   }
 
@@ -205,7 +209,7 @@ class GeoMap extends HTMLElement {
     this.selectLocation(locations[this.slideshow_index])
   }
 
-  async checkForDOMUpdates(){
+  async handleDOMUpdates(mo = {}){
     const query = this.querySelectorAll('map-location')
     if(query.length !== this.storyLocationCount){
       this.cursor = 'wait'
