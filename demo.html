@@ -41,7 +41,6 @@
         pitch="60"
         bearing="45.00000000000005"
         title="LDSEY EDIT">
-        <h1>Hello World</h1>
         <p>This is lindsey</p>
     </map-location>
 
@@ -53,7 +52,7 @@
 
 <script>
   const geomap = document.querySelector('geo-map')
-  document.addEventListener('MAP MOVE END', function(e){
+  geomap.addEventListener('MAP MOVE END', function(e){
     [...document.querySelectorAll('.mapboxgl-popup')].forEach(popup => popup.remove())
 
     const popup = new mapboxgl.Popup({ closeOnClick: false })

@@ -17,12 +17,6 @@
 
 
 
-function dispatchMapEvent(name, detail = {}){
-  const initialize_event = new CustomEvent(name, {detail: detail})
-  document.dispatchEvent(initialize_event)
-}
-
-
 /*
   
   ROUTING
@@ -166,7 +160,7 @@ class GeoMap extends HTMLElement {
     this.flyHomeButton = this.getAttribute('flyhome')
     if(this.flyHomeButton !== null){
       this.map.addControl(new FlyHomeController(this.flyHome))
-      document.addEventListener('FLY HOME', (e) => {
+      this.addEventListener('FLY HOME', (e) => {
         this.flyHome()
       })
     }
@@ -181,9 +175,9 @@ class GeoMap extends HTMLElement {
     this.slideshow = this.getAttribute('slideshow')
     if(this.slideshow !== null){
       this.map.addControl(new SlideShowControls(this.map))
-      document.addEventListener('NEXT SLIDE', (e) => { this.nextLocation() })
-      document.addEventListener('PREV SLIDE', (e) => { this.prevLocation() })
-      document.addEventListener('SHOW HOME', (e) => {
+      this.addEventListener('NEXT SLIDE', (e) => { this.nextLocation() })
+      this.addEventListener('PREV SLIDE', (e) => { this.prevLocation() })
+      this.addEventListener('SHOW HOME', (e) => {
         this.selectLocation(this.querySelector('map-location'))
       })
       this.slideshow_index = 0
@@ -193,7 +187,7 @@ class GeoMap extends HTMLElement {
     if(this.edit_mode !== null){
       this.map.addControl(new EditController(this.map))
     }
-    setInterval(()=>{this.checkForDOMUpdates()},50)
+    // setInterval(()=>{this.checkForDOMUpdates()},50)
     this.map.on('load', () => {this.mapLoaded()})
   }
 
@@ -335,7 +329,8 @@ class GeoMap extends HTMLElement {
 
     this.setZoomClass()
 
-    dispatchMapEvent('MAP MOVE END',first_pos )
+    this.dispatchEvent( new CustomEvent('MAP MOVE END', {detail: first_pos}))
+
 
     this.map.on('moveend', (e) => {
       let center  = this.map.getCenter()
@@ -355,7 +350,7 @@ class GeoMap extends HTMLElement {
         pitch: this.pitch,
       }
 
-      dispatchMapEvent('MAP MOVE END', new_pos)
+      this.dispatchEvent( new CustomEvent('MAP MOVE END', {detail: new_pos}))
 
       setURLValues(new_pos)
     })//end moveend
@@ -591,6 +586,7 @@ class SlideShowControls {
     this._map = map
     this._container = document.createElement('div')
     this._container.classList = 'mapboxgl-ctrl mapboxgl-ctrl-group'
+    this.map_container = document.querySelector('geo-map')
 
     const next = document.createElement('button')
     const next_label = document.createElement('span')
@@ -598,7 +594,9 @@ class SlideShowControls {
     next_label.innerHTML = `<svg height='16px' width='16px'  fill="#2d2d2d" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0" x="0px" y="0px" viewBox="0 0 32 32" enable-background="new 0 0 32 32" xml:space="preserve"><path d="M17.365,16.01l-6.799,6.744c-0.746,0.746-0.746,1.953,0,2.699c0.754,0.745,1.972,0.745,2.726,0l8.155-8.094  c0.746-0.746,0.746-1.954,0-2.699l-8.155-8.094c-0.754-0.746-1.972-0.744-2.726,0c-0.746,0.745-0.746,1.952,0,2.698L17.365,16.01z"></path></svg>` 
     next.appendChild(next_label)
     this._container.appendChild(next)
-    next.addEventListener('click', ()=> dispatchMapEvent('NEXT SLIDE'))
+    next.addEventListener('click', ()=>
+      this.map_container.dispatchEvent( new CustomEvent('NEXT_SLIDE'))
+    )
 
     const home = document.createElement('button')
     const home_label = document.createElement('span')
@@ -606,7 +604,9 @@ class SlideShowControls {
     home_label.innerHTML = `<svg height='16px' width='16px'  fill="#2d2d2d" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" x="0px" y="0px"><g data-name="34 Home"><path d="M27,29.5H5A1.5,1.5,0,0,1,3.5,28V13.43A1.5,1.5,0,0,1,4,12.29L15,2.86a1.51,1.51,0,0,1,2,0l11,9.43a1.5,1.5,0,0,1,.52,1.14V28A1.5,1.5,0,0,1,27,29.5Zm-20.5-3h19V14.12L16,6,6.5,14.12Z"></path></g></svg>`
     home.appendChild(home_label)
     this._container.appendChild(home)
-    home.addEventListener('click', ()=> dispatchMapEvent('SHOW HOME'))
+    home.addEventListener('click', ()=> 
+      this.map_container.dispatchEvent( new CustomEvent('SHOW HOME'))
+    )
 
     const prev = document.createElement('button')
     const prev_label = document.createElement('span')
@@ -614,7 +614,9 @@ class SlideShowControls {
     prev_label.innerHTML = `<svg height='16px' width='16px'  fill="#2d2d2d" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0" x="0px" y="0px" viewBox="0 0 32 32" enable-background="new 0 0 32 32" xml:space="preserve"><path d="M14.647,16.011l6.799-6.744c0.746-0.746,0.746-1.953,0-2.699c-0.754-0.745-1.972-0.745-2.726,0l-8.155,8.094  c-0.746,0.746-0.746,1.954,0,2.699l8.155,8.094c0.754,0.746,1.972,0.744,2.726,0c0.746-0.745,0.746-1.952,0-2.698L14.647,16.011z"></path></svg>`
     prev.appendChild(prev_label)
     this._container.appendChild(prev)
-    prev.addEventListener('click', () => dispatchMapEvent('PREV SLIDE'))
+    prev.addEventListener('click', () => 
+      this.map_container.dispatchEvent( new CustomEvent('PREV SLIDE'))
+    )
 
     return this._container
 
