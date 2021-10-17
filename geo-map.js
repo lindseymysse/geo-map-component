@@ -365,12 +365,14 @@ class GeoMap extends HTMLElement {
     })//end moveend
 
 
-    const config = { attributes: true, childList: true, subtree: true };
-    const observer = new MutationObserver((mo) => {this.handleDOMUpdates(mo)});
+    const config = { attributes: true, childList: true, subtree: true }
+    const observer = new MutationObserver((mo) => {this.handleDOMUpdates(mo)})
     observer.observe(this, config)
 
-
-    this.addImage()
+    const map_images = [...this.querySelectorAll('map-image')]
+    map_images.forEach(img => {
+      this.addImage(img)
+    })
 
   }
 
@@ -378,17 +380,34 @@ class GeoMap extends HTMLElement {
 
   addImage(image_el){
 
+    console.log(image_el)
+
     const img_id = this.getNewID()
     const layer_id = this.getNewID()
 
+    const img_src = image_el.getAttribute('src')
+
+    const north_west_edge_el = image_el.querySelector('north-west-corner')
+    const north_west_edge = [parseFloat(north_west_edge_el.getAttribute('longitude')), parseFloat(north_west_edge_el.getAttribute('latitude'))]
+
+    const north_east_edge_el = image_el.querySelector('north-east-corner')
+    const north_east_edge = [parseFloat(north_east_edge_el.getAttribute('longitude')), parseFloat(north_east_edge_el.getAttribute('latitude'))]
+
+    const south_east_edge_el = image_el.querySelector('south-east-corner')
+    const south_east_edge = [parseFloat(south_east_edge_el.getAttribute('longitude')), parseFloat(south_east_edge_el.getAttribute('latitude'))]
+
+    const south_west_edge_el = image_el.querySelector('south-west-corner')
+    const south_west_edge = [parseFloat(south_west_edge_el.getAttribute('longitude')), parseFloat(south_west_edge_el.getAttribute('latitude'))]
+
+    console.log(north_west_edge, north_east_edge, south_west_edge, south_east_edge)
     this.map.addSource(img_id, {
       'type': 'image',
       'url': 'https://docs.mapbox.com/mapbox-gl-js/assets/radar.gif',
       'coordinates': [
-      [-80.425, 46.437],
-      [-71.516, 46.437],
-      [-71.516, 37.936],
-      [-80.425, 37.936]
+      north_west_edge,
+      north_east_edge,
+      south_east_edge,
+      south_west_edge
       ]
       });
       this.map.addLayer({
