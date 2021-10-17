@@ -188,10 +188,6 @@ class GeoMap extends HTMLElement {
       this.map.addControl(new EditController(this.map))
     }
 
-    const config = { attributes: true, childList: true, subtree: true };
-    const observer = new MutationObserver((mo) => {this.handleDOMUpdates(mo)});
-
-    observer.observe(this, config)
     this.map.on('load', () => {this.mapLoaded()})
   }
 
@@ -207,6 +203,14 @@ class GeoMap extends HTMLElement {
     this.slideshow_index--
     if(this.slideshow_index < 0) this.slideshow_index = locations.length  - 1
     this.selectLocation(locations[this.slideshow_index])
+  }
+
+  getNewID() {
+    return 'dtrm-xxxxxxxxxxxxxxxx-'
+      .replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16)
+    }) + Date.now()
   }
 
   async handleDOMUpdates(mo = {}){
@@ -287,22 +291,24 @@ class GeoMap extends HTMLElement {
   }
 
   setZoomClass(){
-      if(this.zoom < 10){
-        this.classList.add('far')
-        this.classList.remove('middle')
-        this.classList.remove('near')
-      } else if(this.zoom >= 10 && this.zoom <= 15){
-        this.classList.add('middle')
-        this.classList.remove('far')
-        this.classList.remove('near')
-      } else {
-        this.classList.add('near')
-        this.classList.remove('middle')
-        this.classList.remove('far')
-      }
+    if(this.zoom < 10){
+      this.classList.add('far')
+      this.classList.remove('middle')
+      this.classList.remove('near')
+    } else if(this.zoom >= 10 && this.zoom <= 15){
+      this.classList.add('middle')
+      this.classList.remove('far')
+      this.classList.remove('near')
+    } else {
+      this.classList.add('near')
+      this.classList.remove('middle')
+      this.classList.remove('far')
+    }
   }
 
   mapLoaded(){
+
+
     this.map.addSource('mapbox-dem', {
       'type': 'raster-dem',
       'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
@@ -335,7 +341,6 @@ class GeoMap extends HTMLElement {
 
     this.dispatchEvent( new CustomEvent('MAP MOVE END', {detail: first_pos}))
 
-
     this.map.on('moveend', (e) => {
       let center  = this.map.getCenter()
       this.longitude = center.lng
@@ -358,6 +363,42 @@ class GeoMap extends HTMLElement {
 
       setURLValues(new_pos)
     })//end moveend
+
+
+    const config = { attributes: true, childList: true, subtree: true };
+    const observer = new MutationObserver((mo) => {this.handleDOMUpdates(mo)});
+    observer.observe(this, config)
+
+
+    this.addImage()
+
+  }
+
+
+
+  addImage(image_el){
+
+    const img_id = this.getNewID()
+    const layer_id = this.getNewID()
+
+    this.map.addSource(img_id, {
+      'type': 'image',
+      'url': 'https://docs.mapbox.com/mapbox-gl-js/assets/radar.gif',
+      'coordinates': [
+      [-80.425, 46.437],
+      [-71.516, 46.437],
+      [-71.516, 37.936],
+      [-80.425, 37.936]
+      ]
+      });
+      this.map.addLayer({
+      id: layer_id,
+      'type': 'raster',
+      'source': img_id,
+      'paint': {
+      'raster-fade-duration': 0
+      }
+    })
   }
 
   geocoderResult(){
