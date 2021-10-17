@@ -402,7 +402,7 @@ class GeoMap extends HTMLElement {
     console.log(north_west_edge, north_east_edge, south_west_edge, south_east_edge)
     this.map.addSource(img_id, {
       'type': 'image',
-      'url': 'https://docs.mapbox.com/mapbox-gl-js/assets/radar.gif',
+      'url': img_src,
       'coordinates': [
       north_west_edge,
       north_east_edge,
