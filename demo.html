@@ -23,8 +23,8 @@
   <geo-map
     accesstoken=pk.eyJ1IjoibGluZHNleW15c3NlIiwiYSI6ImNqOGNlYjMzbDA5am8zMmxid2oyc3hrc2cifQ.hK6NXKEl7bK7va2pRtY0Yw
     styleurl=mapbox://styles/lindseymysse/cjcqx0yoi5l6c2ro9kxheop6d
-    latitude=37.79 
-    longitude=-122.4
+    latitude= 37.7883697
+    longitude=-122.3998664
     zoom=5
     bearing=45
     pitch=60
@@ -35,7 +35,7 @@
     flyhome
     edit>
 
-<map-location
+<map-location id="location-1"
         latitude="33.73281117206595"
         longitude="-119.02367071174987"
         zoom="4.99998893191807"
@@ -43,8 +43,12 @@
         bearing="45.00000000000005"
         title=""
       >
+
+      <h1>A map location</h1>
                 
-      </map-location><map-location
+      </map-location>
+
+  <map-location id="location-2"
         latitude="40.88273347404018"
         longitude="-120.97338321216645"
         zoom="5.002559734056677"
@@ -52,8 +56,46 @@
         bearing="45.00000000000005"
         title=""
       >
+
+      <h1>Another map locations</h1>
                 
       </map-location>
+
+
+    <map-edge source="location-1" target="location-2"></map-edge>
+
+    <map-edge source="location-3" target="location-2"></map-edge>
+    <map-location 
+    id="location-3"
+    longitude=-76.54
+    latitude= 39.18
+    zoom=18
+    bearing=0
+    pitch=0
+    >
+      Blatimore
+    </map-location>
+    <map-image src="geo-map-logo.png">
+
+      <north-west-corner 
+        longitude= -80.425
+        latitude= 46.437
+        ></north-west-corner>
+      <north-east-corner
+        longitude= -71.516
+        latitude= 46.437
+      ></north-east-corner>
+      <south-east-corner
+        longitude= -71.516
+        latitude= 37.936
+      ></south-east-corner>
+      <south-west-corner
+        longitude= -80.425
+        latitude= 37.936
+      ></south-west-corner>
+
+    </map-image>
+
 
         <map-key style="background-color:white;">
           Map Key info here

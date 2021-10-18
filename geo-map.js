@@ -188,10 +188,6 @@ class GeoMap extends HTMLElement {
       this.map.addControl(new EditController(this.map))
     }
 
-    const config = { attributes: true, childList: true, subtree: true };
-    const observer = new MutationObserver((mo) => {this.handleDOMUpdates(mo)});
-
-    observer.observe(this, config)
     this.map.on('load', () => {this.mapLoaded()})
   }
 
@@ -207,6 +203,14 @@ class GeoMap extends HTMLElement {
     this.slideshow_index--
     if(this.slideshow_index < 0) this.slideshow_index = locations.length  - 1
     this.selectLocation(locations[this.slideshow_index])
+  }
+
+  getNewID() {
+    return 'dtrm-xxxxxxxxxxxxxxxx-'
+      .replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16)
+    }) + Date.now()
   }
 
   async handleDOMUpdates(mo = {}){
@@ -287,22 +291,24 @@ class GeoMap extends HTMLElement {
   }
 
   setZoomClass(){
-      if(this.zoom < 10){
-        this.classList.add('far')
-        this.classList.remove('middle')
-        this.classList.remove('near')
-      } else if(this.zoom >= 10 && this.zoom <= 15){
-        this.classList.add('middle')
-        this.classList.remove('far')
-        this.classList.remove('near')
-      } else {
-        this.classList.add('near')
-        this.classList.remove('middle')
-        this.classList.remove('far')
-      }
+    if(this.zoom < 10){
+      this.classList.add('far')
+      this.classList.remove('middle')
+      this.classList.remove('near')
+    } else if(this.zoom >= 10 && this.zoom <= 15){
+      this.classList.add('middle')
+      this.classList.remove('far')
+      this.classList.remove('near')
+    } else {
+      this.classList.add('near')
+      this.classList.remove('middle')
+      this.classList.remove('far')
+    }
   }
 
   mapLoaded(){
+
+
     this.map.addSource('mapbox-dem', {
       'type': 'raster-dem',
       'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
@@ -333,26 +339,8 @@ class GeoMap extends HTMLElement {
 
     this.setZoomClass()
 
-    const {MapboxLayer, ScatterplotLayer, ArcLayer} = deck;
-
-    
-
-    this.map.addLayer(new MapboxLayer({
-      id: 'deckgl-arc',
-      type: ArcLayer,
-      data: [
-        {source: [-122.3998664, 37.7883697], target: [-122.400068, 37.7900503]}
-      ],
-      getSourcePosition: d => d.source,
-      getTargetPosition: d => d.target,
-      getSourceColor: [255, 208, 0],
-      getTargetColor: [0, 128, 255],
-      getWidth: 8
-    }))
 
     this.dispatchEvent( new CustomEvent('MAP MOVE END', {detail: first_pos}))
-
-
 
     this.map.on('moveend', (e) => {
       let center  = this.map.getCenter()
@@ -376,6 +364,98 @@ class GeoMap extends HTMLElement {
 
       setURLValues(new_pos)
     })//end moveend
+
+
+    const config = { attributes: true, childList: true, subtree: true }
+    const observer = new MutationObserver((mo) => {this.handleDOMUpdates(mo)})
+    observer.observe(this, config)
+
+    const map_images = [...this.querySelectorAll('map-image')]
+    map_images.forEach(img => {
+      this.addImage(img)
+    })
+
+    const map_edges = [...this.querySelectorAll('map-edge')]
+    map_edges.forEach(edge => {
+
+      this.addEdge(edge)
+    })
+
+  }
+
+  addEdge(edge){
+    const {MapboxLayer, ScatterplotLayer, ArcLayer} = deck;
+
+    const source_id = edge.getAttribute('source')
+    const target_id = edge.getAttribute('target')
+    const source_el = document.querySelector(`#${source_id}`)
+    const target_el = document.querySelector(`#${target_id}`)
+    console.log(edge, source_id, target_id, source_el, target_el)
+    const source_longitude = parseFloat(source_el.getAttribute('longitude'))
+    const source_latitude = parseFloat(source_el.getAttribute('latitude'))
+
+
+    const target_longitude = parseFloat(target_el.getAttribute('longitude'))
+    const target_latitude = parseFloat(target_el.getAttribute('latitude'))
+
+    const that = this
+    this.map.addLayer(new MapboxLayer({
+      id: that.getNewID(),
+      type: ArcLayer,
+      data: [
+        {source: [source_longitude, source_latitude], target: [target_longitude, target_latitude]}
+      ],
+      getSourcePosition: d => d.source,
+      getTargetPosition: d => d.target,
+      getSourceColor: [255, 255, 255],
+      getTargetColor: [255, 255, 255],
+      getWidth: 4
+    }))
+
+  }
+
+
+
+  addImage(image_el){
+
+    console.log(image_el)
+
+    const img_id = this.getNewID()
+    const layer_id = this.getNewID()
+
+    const img_src = image_el.getAttribute('src')
+
+    const north_west_edge_el = image_el.querySelector('north-west-corner')
+    const north_west_edge = [parseFloat(north_west_edge_el.getAttribute('longitude')), parseFloat(north_west_edge_el.getAttribute('latitude'))]
+
+    const north_east_edge_el = image_el.querySelector('north-east-corner')
+    const north_east_edge = [parseFloat(north_east_edge_el.getAttribute('longitude')), parseFloat(north_east_edge_el.getAttribute('latitude'))]
+
+    const south_east_edge_el = image_el.querySelector('south-east-corner')
+    const south_east_edge = [parseFloat(south_east_edge_el.getAttribute('longitude')), parseFloat(south_east_edge_el.getAttribute('latitude'))]
+
+    const south_west_edge_el = image_el.querySelector('south-west-corner')
+    const south_west_edge = [parseFloat(south_west_edge_el.getAttribute('longitude')), parseFloat(south_west_edge_el.getAttribute('latitude'))]
+
+    console.log(north_west_edge, north_east_edge, south_west_edge, south_east_edge)
+    this.map.addSource(img_id, {
+      'type': 'image',
+      'url': img_src,
+      'coordinates': [
+      north_west_edge,
+      north_east_edge,
+      south_east_edge,
+      south_west_edge
+      ]
+      });
+      this.map.addLayer({
+      id: layer_id,
+      'type': 'raster',
+      'source': img_id,
+      'paint': {
+      'raster-fade-duration': 0
+      }
+    })
   }
 
   geocoderResult(){
