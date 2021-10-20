@@ -329,6 +329,16 @@ class GeoMap extends HTMLElement {
     })
 
 
+    this.map.on('click', 'symbols', (event) => {
+      const features = this.map.queryRenderedFeatures(event.point)
+      const new_location = features[0].properties
+      new_location.longitude = parseFloat(new_location.lon)
+      new_location.latitude = parseFloat(new_location.lat)
+      new_location.innerHTML = `<div>${new_location.description}</div>`
+      this.selectLocation(new_location)
+    })
+
+
     const first_pos = {
       latitude: this.latitude, 
       longitude: this.longitude,
@@ -390,25 +400,21 @@ class GeoMap extends HTMLElement {
     const target_id = edge.getAttribute('target')
     const source_el = document.querySelector(`#${source_id}`)
     const target_el = document.querySelector(`#${target_id}`)
-    console.log(edge, source_id, target_id, source_el, target_el)
     const source_longitude = parseFloat(source_el.getAttribute('longitude'))
     const source_latitude = parseFloat(source_el.getAttribute('latitude'))
-
-
     const target_longitude = parseFloat(target_el.getAttribute('longitude'))
     const target_latitude = parseFloat(target_el.getAttribute('latitude'))
-
-    const that = this
+    const edge_layer_id = this.getNewID()
     this.map.addLayer(new MapboxLayer({
-      id: that.getNewID(),
+      id: edge_layer_id,
       type: ArcLayer,
       data: [
         {source: [source_longitude, source_latitude], target: [target_longitude, target_latitude]}
       ],
       getSourcePosition: d => d.source,
       getTargetPosition: d => d.target,
-      getSourceColor: [255, 255, 255],
-      getTargetColor: [255, 255, 255],
+      getSourceColor: [255, 255, 255,128],
+      getTargetColor: [255, 255, 255, 128],
       getWidth: 4
     }))
 
