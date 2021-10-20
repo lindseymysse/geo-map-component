@@ -279,6 +279,9 @@ class GeoMap extends HTMLElement {
 
   selectLocation(location){
     if(location === undefined) return
+    if(this.orbiting){
+      this.stopOrbit()
+    }
     const center = [location.longitude, location.latitude]
     this.map.flyTo({
       center,
@@ -455,7 +458,12 @@ class GeoMap extends HTMLElement {
       id: layer_id,
       'type': 'raster',
       'source': video_id,
+
     })
+
+    this.map.setPaintProperty(
+      layer_id, 'raster-opacity',0.5
+    )
 
     const videoSource = this.map.getSource(video_id);
     videoSource.play();
