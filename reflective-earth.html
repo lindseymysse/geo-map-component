@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>GeoMap Demo</title>
+  <script src='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.js'></script>
+  <script src='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
+  <link href='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css' rel='stylesheet' />
+  <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js"></script>
+  <script src="https://unpkg.com/three@0.126.0/build/three.min.js"></script>
+  <script src="https://unpkg.com/deck.gl@^8.0.0/dist.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@turf/turf@5/turf.min.js"></script>
+  <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css" type="text/css">
+  <script src="geo-map.js"></script>
+  <link rel="stylesheet" type="text/css" href="geo-map.css">
+
+<script>
+  
+</script>
+</head>
+<body>
+  <geo-map
+    accesstoken=pk.eyJ1IjoibGluZHNleW15c3NlIiwiYSI6ImNqOGNlYjMzbDA5am8zMmxid2oyc3hrc2cifQ.hK6NXKEl7bK7va2pRtY0Yw
+    styleurl=mapbox://styles/lindseymysse/cjcqx0yoi5l6c2ro9kxheop6d
+    latitude= 37.7883697
+    longitude=-122.3998664
+    zoom=5
+    bearing=45
+    pitch=60
+    geolocate
+    geocoder
+    navigation
+    slideshow
+    flyhome
+    orbit
+    edit>
+
+<map-location
+        latitude="34.24257075530397"
+        longitude="-118.51014615212068"
+        zoom="15.998679766682953"
+        pitch="60"
+        bearing="0.333912000000055"
+        title="Reflective Earth"
+      >
+        <h1>Location </h1>  
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>      
+      </map-location><map-location
+        latitude="34.418037178343155"
+        longitude="-118.15012279752867"
+        zoom="10.035518400520212"
+        pitch="59.999999999999964"
+        bearing="300.333911999999987"
+        title="Reflective Earth"
+      >
+        <h1>Location 3</h1> 
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>       
+      </map-location><map-location
+        latitude="33.804167791587204"
+        longitude="-118.2977786580999"
+        zoom="13.988531897282158"
+        pitch="59.999999999999964"
+        bearing="17.333911999999987"
+        title="Reflective Earth"
+      >
+        <h1>Location 1</h1> 
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>       
+      </map-location><map-location
+        latitude="34.00209163667934"
+        longitude="-118.32213090718943"
+        zoom="15.989479140999219"
+        pitch="59.999999999999964"
+        bearing="180.333911999999987"
+        title="Reflective Earth"
+      >
+        <h1>Location 2</h1>    
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>    
+      </map-location>
+
+
+    <map-video src="test.mp4">
+
+      <north-west-corner 
+        latitude="33.733943369126195"
+        longitude="-118.52775706524635"
+        ></north-west-corner>
+      <north-east-corner
+        latitude="33.620036454362506"
+        longitude="-117.79479200844717"
+      ></north-east-corner>
+      <south-east-corner
+        latitude="34.67198771440424"
+        longitude="-117.6881475440291"
+      ></south-east-corner>
+      <south-west-corner
+        latitude="34.89875284177958"
+        longitude="-118.79571638964856"
+      ></south-west-corner>
+
+    </map-video>
+
+
+    <map-video src="test.mp4">
+
+      <north-west-corner 
+        latitude="42.14010060596755"
+        longitude="-121.62864547697507"
+        ></north-west-corner>
+      <north-east-corner
+        latitude="41.02290798069774"
+        longitude="-118.6597128667429"
+      ></north-east-corner>
+      <south-east-corner
+        latitude="40.274085603465494"
+        longitude="-123.01344537303864"
+      ></south-east-corner>
+      <south-west-corner
+        latitude="38.965755415003656"
+        longitude="-121.08796816595205"
+      ></south-west-corner>
+
+    </map-video>
+
+    <map-video src="test.mp4">
+
+      <north-west-corner 
+        latitude="39.31785249211933"
+        longitude="-76.8659175174695"
+        ></north-west-corner>
+      <north-east-corner
+        latitude="39.47912538416125"
+        longitude="-76.4916417523875"
+      ></north-east-corner>
+      <south-east-corner
+        latitude="39.01624937832139"
+        longitude="-76.40998288789585"
+      ></south-east-corner>
+      <south-west-corner
+        latitude="38.98570355181744"
+        longitude="-76.88908636268407"
+      ></south-west-corner>
+
+    </map-video>
+
+
+
+
+        <map-key style="background-color:white;">
+          Map Key info here
+        </map-key>
+
+</geo-map>
+<!-- 
+<script>
+  const geomap = document.querySelector('geo-map')
+  geomap.addEventListener('MAP MOVE END', function(e){
+    [...document.querySelectorAll('.mapboxgl-popup')].forEach(popup => popup.remove())
+
+    const popup = new mapboxgl.Popup({ closeOnClick: false })
+    .setLngLat([e.detail.longitude, e.detail.latitude])
+    .setHTML('<h1>Hello World!</h1>')
+    .addTo(geomap.map);
+
+  })
+</script>
+ -->
+</body>
+
+
+</html>
+ 
