@@ -97,6 +97,13 @@ class GeoMap extends HTMLElement {
       this.popups = true
     }
 
+    this.orbit = this.getAttribute('orbit')
+    if(this.orbit === null){
+      this.orbit = false
+    } else {
+      this.orbit = true
+    }
+
     this.home_coord = {
       center:[this.longitude, this.latitude],
       zoom:this.zoom,
@@ -307,14 +314,17 @@ class GeoMap extends HTMLElement {
   }
 
   mapLoaded(){
-    this.map.addSource('mapbox-dem', {
+    this.map.addSource('mapbox-terrain', {
       'type': 'raster-dem',
       'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
       'tileSize': 512,
-      'maxzoom': 14
+      'maxzoom': 20
     })
 
-    this.map.setTerrain({ 'source': 'mapbox-dem' })      
+    this.map.setTerrain({ 
+      'source': 'mapbox-terrain' ,
+      'exaggeration': 1
+    })      
     
     this.map.addLayer({
       'id': 'sky',
@@ -336,9 +346,9 @@ class GeoMap extends HTMLElement {
 
     this.setZoomClass()
 
-    this.dispatchEvent( new CustomEvent('MAP MOVE END', {detail: first_pos}))
 
     this.map.on('moveend', (e) => {
+      if(this.orbiting) return
       let center  = this.map.getCenter()
       this.longitude = center.lng
       this.latitude = center.lat
@@ -356,7 +366,6 @@ class GeoMap extends HTMLElement {
         pitch: this.pitch,
       }
 
-      this.dispatchEvent( new CustomEvent('MAP MOVE END', {detail: new_pos}))
 
       setURLValues(new_pos)
     })//end moveend
@@ -371,18 +380,42 @@ class GeoMap extends HTMLElement {
       this.addImage(img)
     })
 
-
     const map_videos = [...this.querySelectorAll('map-video')]
     map_videos.forEach(video => {
       this.addVideo(video)
     })
-
 
     const map_edges = [...this.querySelectorAll('map-edge')]
     map_edges.forEach(edge => {
       this.addEdge(edge)
     })
 
+
+    if(this.orbit){
+      document.body.addEventListener('mousemove', () => {
+        this.stopOrbit()
+        this.orbit_countdown = setTimeout(()=>this.beginOrbit(), 10000)
+      })
+      this.orbit_countdown = setTimeout(()=>this.beginOrbit(), 5000)
+    }
+  }
+
+  beginOrbit(){
+    this.orbiting = true
+    const rotateCamera = (timestamp) => {
+      this.map.rotateTo((timestamp / 1000) % 360, {duration: 0})
+      if(this.orbiting){
+        requestAnimationFrame(rotateCamera)
+      }
+    }
+
+    const bearing = this.map.getBearing()
+
+    rotateCamera(bearing * 1000)
+  }
+
+  stopOrbit(){
+    this.orbiting = false
   }
 
   addVideo(video_el){
