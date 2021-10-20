@@ -307,8 +307,6 @@ class GeoMap extends HTMLElement {
   }
 
   mapLoaded(){
-
-
     this.map.addSource('mapbox-dem', {
       'type': 'raster-dem',
       'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
@@ -328,7 +326,6 @@ class GeoMap extends HTMLElement {
       }
     })
 
-
     const first_pos = {
       latitude: this.latitude, 
       longitude: this.longitude,
@@ -338,7 +335,6 @@ class GeoMap extends HTMLElement {
     }
 
     this.setZoomClass()
-
 
     this.dispatchEvent( new CustomEvent('MAP MOVE END', {detail: first_pos}))
 
@@ -375,40 +371,57 @@ class GeoMap extends HTMLElement {
       this.addImage(img)
     })
 
+
+    const map_videos = [...this.querySelectorAll('map-video')]
+    map_videos.forEach(video => {
+      this.addVideo(video)
+    })
+
+
     const map_edges = [...this.querySelectorAll('map-edge')]
     map_edges.forEach(edge => {
-
       this.addEdge(edge)
     })
 
+  }
+
+  addVideo(video_el){
 
     const video_id = this.getNewID()
+    const layer_id = this.getNewID()
+
+    const video_src = video_el.getAttribute('src')
+
+    const north_west_edge_el = video_el.querySelector('north-west-corner')
+    const north_west_edge = [parseFloat(north_west_edge_el.getAttribute('longitude')), parseFloat(north_west_edge_el.getAttribute('latitude'))]
+
+    const north_east_edge_el = video_el.querySelector('north-east-corner')
+    const north_east_edge = [parseFloat(north_east_edge_el.getAttribute('longitude')), parseFloat(north_east_edge_el.getAttribute('latitude'))]
+
+    const south_east_edge_el = video_el.querySelector('south-east-corner')
+    const south_east_edge = [parseFloat(south_east_edge_el.getAttribute('longitude')), parseFloat(south_east_edge_el.getAttribute('latitude'))]
+
+    const south_west_edge_el = video_el.querySelector('south-west-corner')
+    const south_west_edge = [parseFloat(south_west_edge_el.getAttribute('longitude')), parseFloat(south_west_edge_el.getAttribute('latitude'))]
+
     this.map.addSource(video_id, {
-      type: 'video',
-      urls: [
-        '/test.mp4',
-        ],
-      coordinates: [
-        [-76.66680441443488, 39.63647578718306],
-        [-77.37401992955895,39.151888680511064],
-        [-77.03769631735047, 38.891908699525544],
-        [-76.2246100076092, 39.255469405104435]
-        ]
+      'type': 'video',
+      'urls': [video_src],
+      'coordinates': [
+      north_west_edge,
+      north_east_edge,
+      south_east_edge,
+      south_west_edge
+      ]
+      });
+    this.map.addLayer({
+      id: layer_id,
+      'type': 'raster',
+      'source': video_id,
     })
 
-    this.map.addLayer({
-      'id': 'video-layer',
-      'type': 'raster',
-      'source': video_id
-      }
-    );
-
-
-
     const videoSource = this.map.getSource(video_id);
-    console.log(videoSource)
     videoSource.play();
-
 
   }
 
@@ -468,7 +481,7 @@ class GeoMap extends HTMLElement {
       south_west_edge
       ]
       });
-      this.map.addLayer({
+    this.map.addLayer({
       id: layer_id,
       'type': 'raster',
       'source': img_id,
