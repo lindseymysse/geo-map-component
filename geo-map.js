@@ -404,8 +404,11 @@ class GeoMap extends HTMLElement {
     this.orbiting = true
     const rotateCamera = (timestamp) => {
       this.map.rotateTo((timestamp / 1000) % 360, {duration: 0})
-      if(this.orbiting){
+      if(!this.orbiting){
+        return
+      } else {
         requestAnimationFrame(rotateCamera)
+
       }
     }
 
@@ -415,6 +418,7 @@ class GeoMap extends HTMLElement {
   }
 
   stopOrbit(){
+    clearInterval(this.orbit_countdown)
     this.orbiting = false
   }
 
