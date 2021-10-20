@@ -381,26 +381,51 @@ class GeoMap extends HTMLElement {
       this.addEdge(edge)
     })
 
+
+    const video_id = this.getNewID()
+    this.map.addSource(video_id, {
+      type: 'video',
+      urls: [
+        '/test.mp4',
+        ],
+      coordinates: [
+        [-76.66680441443488, 39.63647578718306],
+        [-77.37401992955895,39.151888680511064],
+        [-77.03769631735047, 38.891908699525544],
+        [-76.2246100076092, 39.255469405104435]
+        ]
+    })
+
+    this.map.addLayer({
+      'id': 'video-layer',
+      'type': 'raster',
+      'source': video_id
+      }
+    );
+
+
+
+    const videoSource = this.map.getSource(video_id);
+    console.log(videoSource)
+    videoSource.play();
+
+
   }
 
   addEdge(edge){
     const {MapboxLayer, ScatterplotLayer, ArcLayer} = deck;
-
     const source_id = edge.getAttribute('source')
     const target_id = edge.getAttribute('target')
     const source_el = document.querySelector(`#${source_id}`)
     const target_el = document.querySelector(`#${target_id}`)
-    console.log(edge, source_id, target_id, source_el, target_el)
     const source_longitude = parseFloat(source_el.getAttribute('longitude'))
     const source_latitude = parseFloat(source_el.getAttribute('latitude'))
-
-
     const target_longitude = parseFloat(target_el.getAttribute('longitude'))
     const target_latitude = parseFloat(target_el.getAttribute('latitude'))
 
-    const that = this
+    const edge_id = this.getNewID()
     this.map.addLayer(new MapboxLayer({
-      id: that.getNewID(),
+      id: edge_id,
       type: ArcLayer,
       data: [
         {source: [source_longitude, source_latitude], target: [target_longitude, target_latitude]}
@@ -411,14 +436,9 @@ class GeoMap extends HTMLElement {
       getTargetColor: [255, 255, 255],
       getWidth: 4
     }))
-
   }
 
-
-
   addImage(image_el){
-
-    console.log(image_el)
 
     const img_id = this.getNewID()
     const layer_id = this.getNewID()
