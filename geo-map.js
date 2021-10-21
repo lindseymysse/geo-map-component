@@ -104,6 +104,13 @@ class GeoMap extends HTMLElement {
       this.orbit = true
     }
 
+    this.no_sky = this.getAttribute('no-sky')
+    if(this.no_sky === null){
+      this.no_sky = false
+    } else {
+      this.no_sky = true
+    }
+
     this.home_coord = {
       center:[this.longitude, this.latitude],
       zoom:this.zoom,
@@ -329,15 +336,37 @@ class GeoMap extends HTMLElement {
       'exaggeration': 1
     })      
     
-    this.map.addLayer({
-      'id': 'sky',
-      'type': 'sky',
-      'paint': {
-        'sky-type': 'atmosphere',
-        'sky-atmosphere-sun': [0.0, 0.0],
-        'sky-atmosphere-sun-intensity': 15
-      }
-    })
+
+    if(this.no_sky){
+      this.map.addLayer({
+        'id':'sky',
+        'type':'sky',
+        'paint': {
+          'sky-type':'gradient',
+          'sky-gradient':[
+            'interpolate',
+            ['linear'],
+            ['sky-radial-progress'],
+            0.8,
+            '#040810',
+            1,
+            '#040810'
+          ]
+        }
+      })
+
+    } else {
+      this.map.addLayer({
+        'id': 'sky',
+        'type': 'sky',
+        'paint': {
+          'sky-type': 'atmosphere',
+          'sky-atmosphere-sun': [0.0, 0.0],
+          'sky-atmosphere-sun-intensity': 15
+        }
+      })
+
+    }
 
     const first_pos = {
       latitude: this.latitude, 
