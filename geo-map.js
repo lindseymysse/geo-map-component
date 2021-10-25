@@ -491,7 +491,7 @@ class GeoMap extends HTMLElement {
     })
 
     this.map.setPaintProperty(
-      layer_id, 'raster-opacity',0.5
+      layer_id, 'raster-opacity',1
     )
 
     const videoSource = this.map.getSource(video_id);
