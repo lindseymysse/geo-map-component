@@ -488,7 +488,7 @@ class GeoMap extends HTMLElement {
       'type': 'raster',
       'source': video_id,
 
-    })
+    }, "Reflectivity")
 
     this.map.setPaintProperty(
       layer_id, 'raster-opacity',1
