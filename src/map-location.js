@@ -1,9 +1,4 @@
-const default_marker = document.createElement('map-marker')
-default_marker.innerHTML = `
-<svg width="4em" height="4em" version="1.1" viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg">
- <path d="m600.09 171.43c-177.77 0-322.46 144.52-322.46 321.95 0 173.14 296.91 514.8 309.43 529.2 3.2539 3.7695 8.0547 5.9961 13.027 5.9961 4.9727 0 9.6016-2.2266 12.855-6 12.684-14.402 309.43-356.06 309.43-529.2 0-177.43-144.52-321.94-322.29-321.94zm0 490.63c-92.914 0-168.52-75.773-168.52-168.69 0-92.742 75.602-168.34 168.52-168.34 92.742 0 168.34 75.602 168.34 168.34 0 92.914-75.602 168.69-168.34 168.69z" fill="#ff814a"/>
-</svg>`
-
+import {default_marker, GeoMapMarker} from './map-marker.js'
 
 export class GeoMapLocation extends HTMLElement {
   connectedCallback(){
@@ -47,7 +42,7 @@ export class GeoMapLocation extends HTMLElement {
 
     this.markers = [...this.querySelectorAll('map-marker')]
     if(this.markers.length < 1){
-      this.markers = [default_marker]
+      this.markers = [default_marker.cloneNode()]
     }
 
     this.geo_map = this.closest('geo-map')
@@ -60,19 +55,9 @@ export class GeoMapLocation extends HTMLElement {
 
   initialize(){
 
-    this.markers = this.markers.map(marker => {
-      let rotation_alignment = marker.getAttribute('alignment')
-      if(rotation_alignment === null || rotation_alignment === ""){
-        rotation_alignment = 'viewport'
-      }
-
-      return new mapboxgl.Marker({
-        draggable: false,
-        scale: 0,
-        rotationAlignment: rotation_alignment,
-        element:marker
-      }).setLngLat([this.longitude, this.latitude])
-      .addTo(this.geo_map.map)
+    this.markers.forEach(marker => {
+      console.log(marker)
+      marker.initialize(this.geo_map.map, [this.longitude, this.latitude])
     })
 
   }
@@ -103,5 +88,4 @@ export class GeoMapLocation extends HTMLElement {
 }
 
 customElements.define('map-location', GeoMapLocation)
-
 
