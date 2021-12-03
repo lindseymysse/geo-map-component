@@ -3,6 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
 	<link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
 	<link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
@@ -28,8 +29,27 @@
 <body>
 
 
-<geo-map>
-	<map-location></map-location>
+<geo-map
+  accesstoken=pk.eyJ1IjoibGluZHNleW15c3NlIiwiYSI6ImNqOGNlYjMzbDA5am8zMmxid2oyc3hrc2cifQ.hK6NXKEl7bK7va2pRtY0Yw
+  styleurl=mapbox://styles/lindseymysse/cksmjommifdgd18qv32xo7g0u
+  latitude= 0
+  longitude=0
+  zoom=1
+  bearing=0
+  pitch=45
+  navigation
+>
+	<map-location
+    latitude="-8.390206735634777"
+    longitude="21.913490286129644"
+    zoom="2.0568312874418746"
+    pitch="40.00351772329369"
+    bearing="0"
+    title="Africa"
+	>
+		<map-marker>Hello World></map-marker>
+		<map-marker alignment="map"><h1>This is another view</h1></map-marker>
+	</map-location>
 
 
 </geo-map>

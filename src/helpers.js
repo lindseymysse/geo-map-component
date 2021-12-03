@@ -34,10 +34,6 @@ export function setURLValues(obj){
   
 */
 
-export function dispatch(name, detail = {}, div = document){
-  const initialize_event = new CustomEvent(name, {detail: detail})
-  div.dispatchEvent(initialize_event)
-}
 
 export function ready(callbackFunction){
   if(document.readyState === 'complete')

@@ -27,3 +27,4 @@ import  * as turf from 'https://cdn.jsdelivr.net/npm/@turf/turf'
 import './helpers.js'
 
 import './geo-map.js'
+import './map-location.js'
