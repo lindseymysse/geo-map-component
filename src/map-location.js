@@ -1,4 +1,4 @@
-import {default_marker, GeoMapMarker} from './map-marker.js'
+import {default_marker_markup, GeoMapMarker} from './map-marker.js'
 
 export class GeoMapLocation extends HTMLElement {
   connectedCallback(){
@@ -42,7 +42,9 @@ export class GeoMapLocation extends HTMLElement {
 
     this.markers = [...this.querySelectorAll('map-marker')]
     if(this.markers.length < 1){
-      this.markers = [default_marker.cloneNode()]
+      const default_marker = document.createElement('map-marker')
+      default_marker.innerHTML = default_marker_markup
+      this.markers = [default_marker]
     }
 
     this.geo_map = this.closest('geo-map')
@@ -54,9 +56,7 @@ export class GeoMapLocation extends HTMLElement {
   }
 
   initialize(){
-
     this.markers.forEach(marker => {
-      console.log(marker)
       marker.initialize(this.geo_map.map, [this.longitude, this.latitude])
     })
 

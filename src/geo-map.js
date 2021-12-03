@@ -117,6 +117,41 @@ export class GeoMap extends HTMLElement {
       interactive: !this.locked
     })
 
+    this.geocoder = this.getAttribute('geocoder')
+    if(this.geocoder !== null){   
+      if(typeof(MapboxGeocoder) === 'undefined'){
+        this.innerHTML = `If you would like to use the geocoder element, 
+        you must include the geocoder plugin in your HTML: 
+        https://docs.mapbox.com/mapbox-gl-js/example/mapbox-gl-geocoder/`
+        return
+      } 
+      const geocoder = new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        mapboxgl: mapboxgl,
+        zoom: 18,
+        marker: false,
+        placeholder: 'Search for an Address'
+      })
+      geocoder.on('result', (e) => { this.geocoderResult(e) })
+      this.map.addControl( geocoder )
+    } // end GeoCoder
+    
+    this.geolocate = this.getAttribute('geolocate')
+    if(this.geolocate !== null){
+      this.map.addControl(new mapboxgl.GeolocateControl({
+        showAccuracy: false,
+        showUserLocation: false
+      }))
+    }
+
+    
+    this.navigation_control = this.getAttribute('navigation')
+    if(this.navigation_control !== null){
+      this.map.addControl(
+        new mapboxgl.NavigationControl({visualizePitch: true})
+      )
+    }
+
   	this.initialized = true
     this.dispatchEvent(new CustomEvent('INITIALIZED'))
 
