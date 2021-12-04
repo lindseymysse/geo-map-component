@@ -3,10 +3,7 @@ import {default_marker_markup, GeoMapMarker} from './map-marker.js'
 
 export class GeoMapLocation extends GeoMapElement {
 
-
   initialize(){
-
-    console.log('initialize map-location')
 
     this.markers = [...this.querySelectorAll('map-marker')]
     if(this.markers.length < 1){
@@ -19,8 +16,6 @@ export class GeoMapLocation extends GeoMapElement {
       marker.initialize(this.geo_map.map, [this.longitude, this.latitude])
     })
   }
-
-
 
   static get observedAttributes() {
     return ['latitude','longitude'];
@@ -44,6 +39,11 @@ export class GeoMapLocation extends GeoMapElement {
         marker.setLngLat([this.longitude, this.latitude])
       }) 
     }
+  }
+
+  beforeRemove(){
+    console.log('beforeRemove', this)
+    this.markers.forEach(marker => marker.remove())
   }
 }
 

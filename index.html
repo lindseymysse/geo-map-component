@@ -58,5 +58,30 @@
 
 </geo-map>
 
+<script>
+		setInterval(function(){
+
+			const geo_map = document.querySelector('geo-map')
+
+			const new_location = document.createElement('map-location')
+			new_location.setAttribute('longitude',( Math.random() * 170) - 85)
+			new_location.setAttribute('latitude',( Math.random() * 100) - 50)
+			new_location.setAttribute('zoom',( Math.random() * 20))
+
+			geo_map.appendChild(new_location)
+
+		},500)
+
+		setInterval(function(){
+			console.log('removing all markers');
+
+			[...document.querySelectorAll('map-location')].forEach(node => node.remove())
+
+		},3000)
+
+
+</script>
+
+
 </body>
 </html>
