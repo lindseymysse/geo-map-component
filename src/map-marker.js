@@ -27,7 +27,6 @@ export class GeoMapMarker extends HTMLElement {
   }
  
   disconnectedCallback() {
-    console.log('removing this marker...')
     this.marker.remove()
   }
 

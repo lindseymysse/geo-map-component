@@ -41,8 +41,7 @@ export class GeoMapLocation extends GeoMapElement {
     }
   }
 
-  beforeRemove(){
-    console.log('beforeRemove', this)
+  onRemove(){
     this.markers.forEach(marker => marker.remove())
   }
 }

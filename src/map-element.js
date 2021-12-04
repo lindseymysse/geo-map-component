@@ -66,16 +66,39 @@ export default class GeoMapElement extends HTMLElement {
     }
   }
 
+  /*
+      
+      SUPERCLASS TO Get OVERRIDDEN
+
+      This function runs every time a geo-map element
+      is created
+  
+  */
+
   initialize(){
 
   }
 
-  beforeRemove(){
+
+  /*
+    This call back is called before any element
+    is removed from the DOM. Great for cleaning
+    up 
+
+  */
+  onRemove(){
 
   }
 
+  /*
+    
+    Steps through all child elements and removes 
+    them, allowing for better memory management
+
+  */
+
   disconnectedCallback() {
-    this.beforeRemove()
+    this.onRemove()
     while(this.firstChild) {
       this.removeChild(this.firstChild);
     }
