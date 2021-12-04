@@ -53,14 +53,19 @@ export class GeoMapLocation extends HTMLElement {
     }
 
     this.geo_map.addEventListener('INITIALIZED', () => this.initialize())
+    if(this.geo_map.initialized){this.initialize()}
   }
 
   initialize(){
     this.markers.forEach(marker => {
       marker.initialize(this.geo_map.map, [this.longitude, this.latitude])
     })
-
   }
+
+  disconnectedCallback() {
+    this.markers.forEach(marker => marker.remove())
+  }
+
 
   static get observedAttributes() {
     return ['latitude','longitude'];

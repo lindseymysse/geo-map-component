@@ -30,6 +30,7 @@
 
 
 <geo-map
+	id="main_map"
   accesstoken=pk.eyJ1IjoibGluZHNleW15c3NlIiwiYSI6ImNqOGNlYjMzbDA5am8zMmxid2oyc3hrc2cifQ.hK6NXKEl7bK7va2pRtY0Yw
   styleurl=mapbox://styles/lindseymysse/cksmjommifdgd18qv32xo7g0u
   latitude= 0
@@ -54,5 +55,24 @@
 
 
 </geo-map>
+
+<script>
+	
+	setInterval(function(){
+		const new_map_location = document.createElement('map-location')
+		new_map_location.setAttribute('latitude', (Math.random() * 90) - 45)
+		new_map_location.setAttribute('longitude', (Math.random() * 100) - 50)
+		new_map_location.setAttribute('zoom', Math.random() * 10)
+		main_map.appendChild(new_map_location)
+
+
+	},1000)
+
+	setInterval(function(){
+		const map_markers = [...document.querySelectorAll('map-location')]
+		map_markers.forEach(marker => marker.remove())
+	}, 10000)
+
+</script>
 </body>
 </html>

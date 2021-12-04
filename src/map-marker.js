@@ -3,7 +3,7 @@
 export class GeoMapMarker extends HTMLElement {
 
   initialize(map, lng_lat){
-
+    this.map = map
     const marker = document.createElement('span')
     marker.innerHTML = this.innerHTML
     const parent_el = this.closest('map-location')
@@ -19,15 +19,20 @@ export class GeoMapMarker extends HTMLElement {
       rotationAlignment: rotation_alignment,
       element:marker
     }).setLngLat(lng_lat)
-    .addTo(map)  
+    .addTo(this.map)  
   }
 
   setLngLat(new_lng_lat){
     this.marker.setLngLat(new_lng_lat)
   }
+ 
+  disconnectedCallback() {
+    console.log('removing this marker...')
+    this.marker.remove()
+  }
 
-  getEl(){
-    this.marker.getElement()
+  remove(){
+    this.marker.remove()
   }
 }
 

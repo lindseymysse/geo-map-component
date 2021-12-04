@@ -1,5 +1,5 @@
 
-import {ready, getURLValues } from './helpers.js'
+import {ready, getURLValues, setURLValues } from './helpers.js'
 
 export class GeoMap extends HTMLElement {
   /*
@@ -135,7 +135,7 @@ export class GeoMap extends HTMLElement {
       geocoder.on('result', (e) => { this.geocoderResult(e) })
       this.map.addControl( geocoder )
     } // end GeoCoder
-    
+
     this.geolocate = this.getAttribute('geolocate')
     if(this.geolocate !== null){
       this.map.addControl(new mapboxgl.GeolocateControl({
@@ -152,10 +152,57 @@ export class GeoMap extends HTMLElement {
       )
     }
 
-  	this.initialized = true
+    this.map.on('load', () => {this.mapLoaded()})
     this.dispatchEvent(new CustomEvent('INITIALIZED'))
+    this.initialized = true
 
   }
+
+
+  setZoomClass(){
+    if(this.zoom < 10){
+      this.classList.add('far')
+      this.classList.remove('middle')
+      this.classList.remove('near')
+    } else if(this.zoom >= 10 && this.zoom <= 15){
+      this.classList.add('middle')
+      this.classList.remove('far')
+      this.classList.remove('near')
+    } else {
+      this.classList.add('near')
+      this.classList.remove('middle')
+      this.classList.remove('far')
+    }
+  }
+
+  mapLoaded(){
+
+    this.map.on('moveend', (e) => {
+      if(this.orbiting) return
+      let center  = this.map.getCenter()
+      this.longitude = center.lng
+      this.latitude = center.lat
+      this.zoom = this.map.getZoom()
+      this.bearing = this.map.getBearing()
+      this.pitch = this.map.getPitch()
+
+      this.setZoomClass()
+
+      const new_pos = {
+        latitude: this.latitude, 
+        longitude: this.longitude,
+        zoom: this.zoom,
+        bearing: this.bearing, 
+        pitch: this.pitch,
+      }
+
+
+      setURLValues(new_pos)
+    })//end moveend
+
+
+  }
+
 
   static get observedAttributes() {
     return [];
