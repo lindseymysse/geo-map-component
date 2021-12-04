@@ -51,28 +51,12 @@
     title="Africa"
 	>
 
+	<map-marker alignment="map"><h1>SHADOW</h1></map-marker>
+	<map-marker><h1 style="color:pink">SHADOW</h1></map-marker>
 	</map-location>
 
 
 </geo-map>
 
-<script>
-	
-	setInterval(function(){
-		const new_map_location = document.createElement('map-location')
-		new_map_location.setAttribute('latitude', (Math.random() * 90) - 45)
-		new_map_location.setAttribute('longitude', (Math.random() * 100) - 50)
-		new_map_location.setAttribute('zoom', Math.random() * 10)
-		main_map.appendChild(new_map_location)
-
-
-	},1000)
-
-	setInterval(function(){
-		const map_markers = [...document.querySelectorAll('map-location')]
-		map_markers.forEach(marker => marker.remove())
-	}, 10000)
-
-</script>
 </body>
 </html>

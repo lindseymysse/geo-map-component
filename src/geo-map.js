@@ -1,5 +1,5 @@
 
-import {ready, getURLValues, setURLValues } from './helpers.js'
+import {ready, getURLValues, setURLValues, debounce } from './helpers.js'
 
 export class GeoMap extends HTMLElement {
   /*
@@ -155,8 +155,8 @@ export class GeoMap extends HTMLElement {
     this.map.on('load', () => {this.mapLoaded()})
     this.dispatchEvent(new CustomEvent('INITIALIZED'))
     this.initialized = true
-
   }
+
 
 
   setZoomClass(){
@@ -197,9 +197,19 @@ export class GeoMap extends HTMLElement {
       }
 
 
-      setURLValues(new_pos)
+      debounce(setURLValues(new_pos), 10000)
     })//end moveend
 
+    window.history.pushState({page: 1}, "", "");
+    window.addEventListener('popstate', () => {
+      const new_location = getURLValues()
+      this.map.flyTo({
+        center: [new_location.longitude, new_location.latitude],
+        zoom: new_location.zoom,
+        bearing: new_location.bearing,
+        pitch: new_location.pitch
+      })
+    })
 
   }
 

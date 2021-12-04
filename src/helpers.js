@@ -14,13 +14,16 @@ export function getURLValues(URL = window.location.href ){
   return options
 }
 
+let page_counter = 0
+
 export function setURLValues(obj){
+  page_counter++
   let url = window.location.origin + window.location.pathname + '?'
   Object.keys(obj).forEach(key => {
     let encodedvalue = encodeURI(obj[key])
     url += `&${key}=${encodedvalue}`
   })
-  history.pushState(obj, '', url)
+  history.pushState({}, page_counter, url)
 }
 
 /*
@@ -42,3 +45,10 @@ export function ready(callbackFunction){
     document.addEventListener("DOMContentLoaded", callbackFunction)
 }
 
+export const debounce = (fn, ms = 0) => {
+  let timeoutId;
+  return function(...args) {
+    clearTimeout(timeoutId)
+    timeoutId = setTimeout(() => fn.apply(this, args), ms)
+  }
+}
