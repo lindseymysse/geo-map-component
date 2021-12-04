@@ -68,16 +68,43 @@
 			new_location.setAttribute('latitude',( Math.random() * 100) - 50)
 			new_location.setAttribute('zoom',( Math.random() * 20))
 
+			const marker = document.createElement('map-marker')
+			marker.innerHTML = `
+
+			<div style="
+				color: rgb(${Math.round(Math.random() * 255)},${Math.round(Math.random() * 255)},${Math.round(Math.random() * 255)});
+				background-color:rgb(${Math.round(Math.random() * 255)},${Math.round(Math.random() * 255)},${Math.round(Math.random() * 255)})
+
+			">
+				<h1>Marker here</h1>
+				<h2>${Math.random()}</h2>
+			</div>
+			`
+
+			new_location.appendChild(marker)
+
 			geo_map.appendChild(new_location)
 
-		},500)
+		},1000)
+
+		setInterval(function(){
+			const new_location = document.querySelector('map-location')
+			new_location.setAttribute('longitude',( Math.random() * 170) - 85)
+			new_location.setAttribute('latitude',( Math.random() * 100) - 50)
+
+
+		},1500)
+
 
 		setInterval(function(){
 			console.log('removing all markers');
+			try {
+			document.querySelector('map-location').remove()
+			} catch(e){
+				// swallow that error
+			}
 
-			[...document.querySelectorAll('map-location')].forEach(node => node.remove())
-
-		},3000)
+		},1600)
 
 
 </script>
