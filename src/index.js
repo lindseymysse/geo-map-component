@@ -28,3 +28,4 @@ import './helpers.js'
 
 import './geo-map.js'
 import './map-location.js'
+import './map-graph.js'

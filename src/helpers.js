@@ -1,3 +1,10 @@
+
+/*
+  
+  Get the hashbang values from a URL
+
+*/
+
 export function getURLValues(URL = window.location.href ){
   const search_params = new URLSearchParams(URL)
   let options = {}
@@ -14,6 +21,13 @@ export function getURLValues(URL = window.location.href ){
   return options
 }
 
+
+/*
+  
+  Set's the URL's hashbang values from an Object
+
+*/
+
 let page_counter = 0
 
 export function setURLValues(obj){
@@ -26,17 +40,6 @@ export function setURLValues(obj){
   history.pushState({}, page_counter, url)
 }
 
-/*
-  *** begin ascii art ***
-    8888b.  88 .dP"Y8 88""Yb    db    888888  dP""b8 88  88
-     8I  Yb 88 `Ybo." 88__dP   dPYb     88   dP   `" 88  88
-     8I  dY 88 o.`Y8b 88"""   dP__Yb    88   Yb      888888
-    8888Y"  88 8bodP' 88     dP""""Yb   88    YboodP 88  88
-  *** end ascii art ***
-  dispatches a custom event with a detail to the application.
-  
-*/
-
 
 export function ready(callbackFunction){
   if(document.readyState === 'complete')
@@ -45,10 +48,29 @@ export function ready(callbackFunction){
     document.addEventListener("DOMContentLoaded", callbackFunction)
 }
 
+/*
+
+  Standard debounce function
+
+*/
 export const debounce = (fn, ms = 0) => {
   let timeoutId;
   return function(...args) {
     clearTimeout(timeoutId)
     timeoutId = setTimeout(() => fn.apply(this, args), ms)
   }
+}
+
+/*
+
+  Random Gnar Char Generator
+
+*/
+
+function getNewID() {
+  return 'dtrm-xxxxxxxxxxxxxxxx-'
+    .replace(/[xy]/g, function(c) {
+      var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16)
+  }) + Date.now()
 }
