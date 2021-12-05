@@ -67,7 +67,7 @@ export const debounce = (fn, ms = 0) => {
 
 */
 
-function getNewID() {
+export function getNewID() {
   return 'dtrm-xxxxxxxxxxxxxxxx-'
     .replace(/[xy]/g, function(c) {
       var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);

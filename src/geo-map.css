@@ -19,6 +19,6 @@ map-container {
   top:  0px;
 }
 
-map-location {
+map-location, map-graph{
 	display:  none;
 }
