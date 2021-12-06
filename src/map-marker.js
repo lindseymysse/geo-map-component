@@ -17,6 +17,7 @@ export class GeoMapMarker extends HTMLElement {
       draggable: false,
       scale: 0,
       rotationAlignment: rotation_alignment,
+      pitchAlignment: rotation_alignment,
       element:marker
     }).setLngLat(lng_lat)
     .addTo(this.map)  

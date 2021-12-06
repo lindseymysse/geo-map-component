@@ -62,15 +62,12 @@ class MapGraph extends GeoMapElement {
 					 
 					this.mygraph = new ThreeForceGraph()
 						.jsonUrl('/miserables.json')
-						.nodeThreeObject(function(node){
-
-							const geometry = new THREE.BoxGeometry(10,10,10)
-							const material = new THREE.MeshLambertMaterial( { color: node.color ? node.color : 0x00ff00 } )
-							const cube = new THREE.Mesh( geometry, material )
-
-							return cube
-						})
-						.linkDirectionalParticles(10)
+				
+						.nodeColor(0xffffff)
+						.nodeOpacity(0.4)
+						.linkDirectionalParticles(3)
+						.linkDirectionalParticleSpeed(0.001)
+						.linkOpacity(0.2)
 
 					this.map.on('mousemove', (e) => {
 						//https://stackoverflow.com/questions/59163141/raycast-in-three-js-with-only-a-projection-matrix/61642776#61642776
@@ -137,22 +134,7 @@ class MapGraph extends GeoMapElement {
 		this.geo_map.map.on('style.load', () =>{
 
 
-
-			// add a sky layer that will show when the map is highly pitched
-			map.addLayer({
-				'id': 'sky',
-				'type': 'sky',
-				'paint': {
-					'sky-type': 'atmosphere',
-					'sky-atmosphere-sun': [0.0, 0.0],
-					'sky-atmosphere-sun-intensity': 15
-				}
-			});
-
-
-			
-				console.log('adding layer...')
-				this.geo_map.map.addLayer(customLayer)
+			this.geo_map.map.addLayer(customLayer)
 
 		})
 

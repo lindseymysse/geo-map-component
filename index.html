@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,7 +14,7 @@
 	<link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
 	<link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
 	<link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
-	<link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="192x192" href="/android-icon-192x192.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -21,99 +22,179 @@
 	<meta name="msapplication-TileColor" content="#ffffff">
 	<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
 	<meta name="theme-color" content="#ffffff">
-
 	<title>Map.Garden: A Web Development Consultancy</title>
 	<script type="module" src="src/index.js"></script>
 	<link rel="stylesheet" type="text/css" href="src/geo-map.css">
+	<style>
+
+
+		@import url('https://fonts.googleapis.com/css2?family=Lato&family=Roboto:wght@700&display=swap');
+
+		:root {
+			--background-color:  rgba(0,0,0,0.7);
+			--foreground-color:  rgba(255,255,255,1);
+			--marker-size: 5em;
+		}
+
+
+		map-information-box {
+			padding-top: calc(var(--marker-size) + 8em);
+			background-color: transparent;
+			text-shadow: 1px 1px 1px rgba(0,0,0,1);
+			left: 50%;
+			top: 50%;
+			transform:  translate(-50%, -50%);
+			text-align: center;
+		}
+
+		map-information-box ul {
+			margin: 0;
+			padding:  0;
+		}
+
+		map-information-box li {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+		}
+
+		h1 {
+			font-size: 48pt;
+		}
+
+		h1,h2,h3 {
+			font-family: 'Roboto', sans-serif;
+		}
+
+		body {
+			font-family: 'Lato', sans-serif;
+
+		}
+
+
+		map-key {
+			opacity: 1;
+			right: unset;
+			margin-left: auto;
+			margin-right: auto;
+			transition: none;
+			left: 50%;
+			transform:  translateX(-50%);
+
+		}
+
+		button {
+			background-color: transparent;
+			border:  1px solid white;
+			padding: 1em 3em;
+			color: white;
+			cursor: pointer;
+
+		}
+
+		button:hover {
+			background-color: rgba(255,255,255,0.6);
+		}
+
+		button:active {
+			background-color: rgba(0,0,0,0.6);
+		}
+
+		a {
+			color: white;
+			font-family: 'Roboto', sans-serif;
+			text-transform: uppercase;
+			text-decoration: none;
+		}
+
+	
+
+	</style>
 </head>
+
 <body>
-
-
-<geo-map
-	id="main_map"
-  accesstoken=pk.eyJ1IjoibGluZHNleW15c3NlIiwiYSI6ImNqOGNlYjMzbDA5am8zMmxid2oyc3hrc2cifQ.hK6NXKEl7bK7va2pRtY0Yw
-  styleurl=mapbox://styles/lindseymysse/cjcqx0yoi5l6c2ro9kxheop6d
-  latitude= -35.398
-  longitude=148.9819
-  zoom=18
-  bearing=60
-  pitch=60
-  navigation
-  geolocate
-  geocoder
->
-	<map-graph
-    latitude=-35.398
-    longitude=148.9819
-    zoom="5"
-    pitch="40.00351772329369"
-    bearing="0"
-    title="Africa"
+	<geo-map 
+		id=main_map 
+		accesstoken=pk.eyJ1IjoibGluZHNleW15c3NlIiwiYSI6ImNqOGNlYjMzbDA5am8zMmxid2oyc3hrc2cifQ.hK6NXKEl7bK7va2pRtY0Yw
+		styleurl=mapbox://styles/lindseymysse/ck7jltrxi580y1inkx1hn55zc
+			 latitude=-35.398 
+			 longitude=148.9819 
+		zoom=18
+		bearing=60
+		pitch=60
+		navigation
+		geolocate
+		geocoder
+		slideshow
 	>
-	</map-graph>
-	<map-location
-id="location-4"
-        latitude="-35.398"
-        longitude="148.9819"
-        zoom="5"
-        pitch="59.74109145292383"
-        bearing="44.80581859688886"
-        title=""
-      >
-                
-      </map-location>
 
+	<map-key>
 
-	<map-location
-id="location-1"
-        latitude="34.1680816132712"
-        longitude="-118.27211766647665"
-        zoom="9.237711226264572"
-        pitch="59.74109145292383"
-        bearing="44.80581859688886"
-        title=""
-      >
-                
-      </map-location>
+		<style>
+			.contact {
+				float: right;
+				text-align: right;
+				width: 100vw;
+				padding-right: 2em;
+			}
+			.contact img{
+				width: auto;
+				height: 3em;
+			}
+		</style>
 
-  <map-location id="location-2"
-        latitude="40.88273347404018"
-        longitude="-120.97338321216645"
-        zoom="13"
-        pitch="60"
-        bearing="45.00000000000005"
-        title=""
-      >
+		<article style="text-align:center">
+			<button onclick="main_map.dispatchEvent(new CustomEvent('NEXT SLIDE'))">NEXT</button>
+		</article>
 
-        <h1>Another map locations</h1>
-                
-      </map-location>
-    <map-arc source="location-1" target="location-2"></map-arc>
+		<div class="contact" style="color:white;"><a href="mailto:lindsey.asterius@gmail.com"><img src="mail.svg"></a>
+			<a href="https://www.linkedin.com/in/lnsy">
+			<img style="position: relative;
+				height: 2.35em;
+				top: -4pt;
+				margin-left: 1em;" src="linked-in.svg">
+			</a>
+		</div>
 
-    <map-arc source="location-3" target="location-2"></map-arc>
-      <map-location 
-      id="location-3"
-      longitude=-76.54
-      latitude= 39.18
-      zoom=10
-      bearing=0
-      pitch=0
-      >
-        Map location
-      </map-location>
+	</map-key>
 
-    <map-key style="background-color:white;">
-      Map Key info here
-    </map-key>
-
-
+	<map-image src="/geo-map-logo.png">
+		<north-west-corner
+        latitude="33.99900917111893"
+        longitude="-118.39600974393704"
+        zoom="10.892437708393706"
+      ></north-west-corner>
+      <north-east-corner
+        latitude="34.00106135802827"
+        longitude="-118.18"
+        zoom="10.894185802064957"
+      ></north-east-corner>
+      <south-east-corner
+        latitude="33.810475378894935"
+        longitude="-118.18"
+      ></south-east-corner>
+      <south-west-corner
+        latitude="33.8097047429831"
+        longitude="-118.38378284091056"
+      ></south-west-corner>
+	</map-image>
 
 
 
 
 </geo-map>
 
-<script type="module">
+	<script type="module">
+		import { ready } from './src/helpers.js'
+
+		ready( () => {
+			main_map.dispatchEvent(new CustomEvent('SHOW HOME'))
+
+		})
+
+
+	</script>
+	<!-- <script type="module">
 
 		import { getNewID } from './src/helpers.js'
 		setInterval(function(){
@@ -188,6 +269,7 @@ id="location-1"
 
 </script>
 
-
+ -->
 </body>
+
 </html>

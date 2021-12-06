@@ -22,3 +22,89 @@ map-container {
 map-location, map-graph{
 	display:  none;
 }
+
+map-key {
+  position: absolute;
+  right: 2em;
+  bottom: 2em;
+  z-index: 1000;
+
+  transition: opacity 0.25s ease-in;
+  opacity: 0;
+}
+
+.far map-key {
+  opacity: 1;
+}
+
+map-information-box {
+  position:  absolute;
+  z-index: 2;
+  margin: 0.5em 0.5em;
+  left: 0em;
+  top:  0em;
+  max-width:  30em;
+  max-height: calc(100% - 5em);
+  line-height: 1.25em;
+  height: auto;
+  overflow-x:  hidden;
+  overflow-y: scroll;
+  padding: 1em;
+  background-color: var(--background-color);
+  color: var(--foreground-color);
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+  border: var(--middle-tone-color) 1px solid;
+}
+
+map-information-box::-webkit-scrollbar {
+  display: none;
+}
+
+
+map-information-box a {
+  color: white;
+}
+
+map-information-box h1 {
+  line-height: 1em;
+  text-transform: uppercase;
+}
+
+
+map-information-box img, map-information-box video {
+  width: 100%;
+  height: auto;
+}
+
+map-information-box map-marker {
+  display:  none;
+}
+
+ @media screen and (orientation:portrait) {
+  map-information-box {
+    max-width: calc(100% - 2em);
+  }
+ }
+ 
+
+.close-button {
+  position: absolute;
+  z-index: 10;
+  right: 0px;
+  top: 0px;
+  margin: 0.5em 0.5em;
+  border: 1px solid white;
+  color: white;
+  background-color: transparent;
+}
+
+.close-button:hover {
+  background-color: black;
+  color: white;
+}
+
+.close-button:active {
+  background-color: white;
+  color: black;
+}

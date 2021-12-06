@@ -29,9 +29,9 @@ class MapArc extends GeoMapElement {
         ],
         getSourcePosition: d => d.source,
         getTargetPosition: d => d.target,
-        getSourceColor: [255, 255, 255],
-        getTargetColor: [255, 255, 255],
-        getWidth: 4
+        getSourceColor: [255, 255, 255, 128],
+        getTargetColor: [255, 255, 255, 128],
+        getWidth: 1
       }))
 
     })

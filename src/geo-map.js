@@ -1,5 +1,6 @@
 
 import {ready, getURLValues, setURLValues, debounce } from './helpers.js'
+import  SlideShowControls  from './map-slideshow.js'
 
 export class GeoMap extends HTMLElement {
   /*
@@ -90,6 +91,8 @@ export class GeoMap extends HTMLElement {
       this.locked = true
     }
 
+    this.slideshow = this.getAttribute('slideshow')
+
   	ready(() => this.initialize())
   }
 
@@ -152,6 +155,11 @@ export class GeoMap extends HTMLElement {
       )
     }
 
+    if(this.slideshow !== null){
+      this.map.addControl(new SlideShowControls(this.map, this.geo_map))
+    }
+
+
     this.map.on('load', () => {this.mapLoaded()})
     this.dispatchEvent(new CustomEvent('INITIALIZED'))
     this.initialized = true
@@ -176,6 +184,7 @@ export class GeoMap extends HTMLElement {
   }
 
   mapLoaded(){
+
 
     this.map.on('moveend', (e) => {
       if(this.orbiting) return
