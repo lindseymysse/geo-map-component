@@ -38,7 +38,6 @@
 
 
 		map-information-box {
-			padding-top: calc(var(--marker-size) + 8em);
 			background-color: transparent;
 			text-shadow: 1px 1px 1px rgba(0,0,0,1);
 			left: 50%;
@@ -63,6 +62,7 @@
 		h1,h2,h3 {
 
 			font-family: 'Roboto', sans-serif;
+			text-shadow: 2px 2px 2px rgba(0,0,0,0.6);
 		}
 
 		body {
@@ -79,6 +79,7 @@
 			transition: none;
 			left: 50%;
 			transform:  translateX(-50%);
+			bottom: 1.25em;
 
 		}
 
@@ -99,11 +100,11 @@
 			background-color: rgba(0,0,0,0.6);
 		}
 
+
 		a {
 			color: white;
-			font-family: 'Roboto', sans-serif;
-			text-transform: uppercase;
 			text-decoration: none;
+			font-style: italic;
 		}
 
 	
@@ -116,11 +117,11 @@
 		id=main_map 
 		accesstoken=pk.eyJ1IjoibGluZHNleW15c3NlIiwiYSI6ImNqOGNlYjMzbDA5am8zMmxid2oyc3hrc2cifQ.hK6NXKEl7bK7va2pRtY0Yw
 		styleurl=mapbox://styles/lindseymysse/ck7jltrxi580y1inkx1hn55zc
-			 latitude=-35.398 
-			 longitude=148.9819 
-		zoom=18
-		bearing=60
-		pitch=60
+		latitude=33.77363200854913
+		longitude=-118.29002358848356
+		zoom=9.625824192241094
+		bearing=0
+		pitch=0
 		slideshow
 	>
 
@@ -128,10 +129,8 @@
 
 		<style>
 			.contact {
-				float: right;
-				text-align: right;
-				width: 100vw;
-				padding-right: 2em;
+				text-align: center;
+
 			}
 			.contact img{
 				width: auto;
@@ -141,12 +140,12 @@
 
 		<article style="text-align:center">
 			<button onclick="main_map.dispatchEvent(new CustomEvent('NEXT SLIDE'))">NEXT</button>
-		</article>
+		</article><br/>
 
 		<div class="contact" style="color:white;"><a href="mailto:lindsey.asterius@gmail.com" target="_blank"><img src="mail.svg"></a>
 			<a href="https://www.linkedin.com/in/lnsy"  target="_blank">
 			<img style="position: relative;
-				height: 2.35em;
+				height: 2.4em;
 				top: -4pt;
 				margin-left: 1em;" src="linked-in.svg">
 			</a>
@@ -158,11 +157,11 @@
 
 	<map-location
 	id=home
-	latitude=33.849454983753105
-	longitude=-118.28272366409762
-	zoom=9.625824192241094
-	bearing=0
-	pitch=0
+		latitude=33.77363200854913
+		longitude=-118.29002358848356
+		zoom=9.625824192241094
+		bearing=0
+		pitch=0
 	>
 		<map-marker></map-marker>
 		<article><h1>MAP.GARDEN</h1>
@@ -203,8 +202,33 @@
 	title=""
 >
 
+		<map-marker></map-marker>
+
+
 <h2>STURDY SOFTWARE</h2>
 <p>We write software that deals with the complexity of the real world. That is why we write our software as simply as possible. We avoid frameworks that change with the season and instead focus on HTML, CSS and JS standards. </p>    
+</map-location>
+
+
+<map-location
+	id=napkin-to-mvp
+  latitude="48.22019446348031"
+  longitude="16.37982949701143"
+  zoom="11.145767514483436"
+  pitch="60"
+  bearing="0"
+  title=""
+
+>
+
+<map-marker></map-marker>
+
+<h2>From Napkin to MVP</h2>
+<p>From ideation to iteration, I write software for the leaner, everywhere organization.
+By adhering to web standards and paying attention to the affordances that technology offers we can provide real value to our users and iterate our product quickly.
+</p>
+
+
 </map-location>
 
 
@@ -222,7 +246,7 @@
 	latitude="0"
 	longitude="0"
 	zoom="19"
-	bearing=43.999999999999766
+	bearing=0
 	pitch=85
 
 >
@@ -236,7 +260,42 @@
 
 </map-location>
 
+<map-location
+	id=labyrinths-2
+	latitude="0.000001"
+	longitude="0"
+	zoom="19"
+	bearing=180
+	pitch=85
+	speed=0.0005
 
+>
+
+<map-marker></map-marker>
+
+<h2>A Stack Decades in the Making</h2>
+<p>We have experience with a modern stack with MongoDB, Neo4j, and Node.js and adhere to the latest web standards.</p><br />
+
+
+</map-location>
+
+
+
+
+
+<map-location
+        latitude="48.220135591772504"
+        longitude="16.379829496951885"
+        zoom="11.146058478204147"
+        pitch="60"
+        bearing="88.57241899999997"
+        title=""
+      >
+
+      <map-marker></map-marker>
+      <h2>Already in Production</h2>
+      <p>Our software is already being used by firms to respond to the climate crisis and make sense of their big data problems. </p><p><a href="mailto:lindsey.asterius@gmail.com" target="_blank">Contact us today for more information.</a></p>
+      </map-location>
 
 </geo-map>
 
