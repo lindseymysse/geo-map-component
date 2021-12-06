@@ -122,9 +122,6 @@
 		zoom=18
 		bearing=60
 		pitch=60
-		navigation
-		geolocate
-		geocoder
 		slideshow
 	>
 
@@ -147,8 +144,8 @@
 			<button onclick="main_map.dispatchEvent(new CustomEvent('NEXT SLIDE'))">NEXT</button>
 		</article>
 
-		<div class="contact" style="color:white;"><a href="mailto:lindsey.asterius@gmail.com"><img src="mail.svg"></a>
-			<a href="https://www.linkedin.com/in/lnsy">
+		<div class="contact" style="color:white;"><a href="mailto:lindsey.asterius@gmail.com" target="_blank"><img src="mail.svg"></a>
+			<a href="https://www.linkedin.com/in/lnsy"  target="_blank">
 			<img style="position: relative;
 				height: 2.35em;
 				top: -4pt;
@@ -157,6 +154,23 @@
 		</div>
 
 	</map-key>
+
+	<!-- LOGO -->
+
+	<map-location
+	id="home"
+	latitude=33.849454983753105
+	longitude=-118.28272366409762
+	zoom=9.625824192241094
+	bearing=0
+	pitch=0
+	>
+		<map-marker></map-marker>
+		<article><h1>MAP.GARDEN</h1>
+			<h2>A Web Consultancy</h2>
+		</article>
+		
+	</map-location>
 
 	<map-image src="/geo-map-logo.png">
 		<north-west-corner
@@ -178,6 +192,48 @@
         longitude="-118.38378284091056"
       ></south-west-corner>
 	</map-image>
+
+
+<map-location
+	latitude="37.718541736280244"
+	longitude="-122.436337966"
+	zoom="11.581481984126377"
+	pitch="0"
+	bearing="0"
+	title=""
+>
+
+<h2>Sturdy Software</h2>
+<p>We write software that deals with the complexity of the real world. That is why we write our software as simply as possible. We avoid frameworks that change with the season and instead focus on HTML, CSS and JS standards. </p>    
+</map-location>
+
+
+		<map-graph 
+			latitude=0
+		 	longitude=0
+		 	zoom=5
+		 	pitch=0 
+		 	bearing=0>
+		</map-graph>
+
+<map-location
+
+	latitude="0"
+	longitude="0"
+	zoom="19"
+	bearing=43.999999999999766
+	pitch=85
+
+>
+
+<map-marker></map-marker>
+
+<h2>Find your way through labyrinths of data</h2>
+<p>We have over 20+ years of experience from investigative journalism to AI</p>
+<p><a href="mailto:lindsey.asterius@gmail.com" target="_blank">Contact us today for a consultation</a></p>
+
+
+</map-location>
 
 
 
