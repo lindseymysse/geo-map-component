@@ -19,6 +19,7 @@ export default class GeoMapElement extends HTMLElement {
     if(this.geo_map === null){
       this.innerHTML = '<h1>This component requires a geo map container</h1>'
     }
+    this.map = this.geo_map.map
 
     this.geo_map.addEventListener('INITIALIZED', () => this.initialize())
     if(this.geo_map.initialized){this.initialize()}

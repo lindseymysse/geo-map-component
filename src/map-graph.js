@@ -64,7 +64,6 @@ class MapGraph extends GeoMapElement {
 						.jsonUrl('/miserables.json')
 						.nodeThreeObject(function(node){
 
-							console.log(node)
 							const geometry = new THREE.BoxGeometry(10,10,10)
 							const material = new THREE.MeshLambertMaterial( { color: node.color ? node.color : 0x00ff00 } )
 							const cube = new THREE.Mesh( geometry, material )
@@ -78,7 +77,7 @@ class MapGraph extends GeoMapElement {
 					})
 
 					this.map.on('click', (e) => {
-						console.log(e)
+						console.log(e) 
 					})
 
 					this.scene.add(this.mygraph)
