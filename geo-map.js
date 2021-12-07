@@ -430,6 +430,12 @@ class GeoMap extends HTMLElement {
       })
       this.orbit_countdown = setTimeout(()=>this.beginOrbit(), 5000)
     }
+
+
+    // add loaded event here
+    this.dispatchEvent(new CustomEvent('MAP LOADED'))
+    this.map_loaded = true
+
   }
 
   beginOrbit(){
