@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>GeoMap Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script src='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.js'></script>
+  <script src='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
+  <link href='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css' rel='stylesheet' />
+  <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js"></script>
+  <script src="https://unpkg.com/three@0.126.0/build/three.min.js"></script>
+  <script src="https://unpkg.com/deck.gl@^8.0.0/dist.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@turf/turf@5/turf.min.js"></script>
+  <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css" type="text/css">
+  <script src="geo-map.js"></script>
+  <link rel="stylesheet" type="text/css" href="geo-map.css">
+
+<script>
+  
+
+  
+  
+  
+  class ShippingContainer extends HTMLElement {
+    connectedCallback(){
+
+      this.map = this.closest('geo-map')
+      if(this.map.map_loaded){
+        console.log('map loaded already')
+        this.initialize()
+      } else {
+        this.map.addEventListener('MAP LOADED', (e) => {
+          this.initialize()
+        })
+      }
+    }
+
+    initialize(){
+      
+    }
+  
+    static get observedAttributes() {
+      return [];
+    }
+  
+    attributeChangedCallback(name, old_value, new_value){
+      switch(name){
+        default:
+      }
+    }
+  
+  }
+  
+  customElements.define('shipping-container', ShippingContainer)
+  
+  
+  
+
+</script>
+</head>
+<body>
+  <geo-map
+    accesstoken=pk.eyJ1IjoicmVmbGVjdGl2ZS1lYXJ0aCIsImEiOiJja2VvZHd2YjgwMGJnMnhtcmVsOXRwMWR3In0.KgPtf7QYrYp5g0G2yrvGaA
+    styleurl=mapbox://styles/reflective-earth/ckv6librt7qri15pabmr5ul4s
+    latitude="-35.3981"
+    longitude="148.9819"
+    zoom="18"
+    pitch="60"
+    bearing="0"
+
+   >
+
+   <shipping-container></shipping-container>
+
+  </geo-map>
+</body>
+
+
+</html>
+ 
