@@ -1,22 +1,37 @@
+/*
+
+      __  ______    ____
+     /  |/  /   |  / __ \
+    / /|_/ / /| | / /_/ /
+   / /  / / ___ |/ ____/
+  /_/  /_/_/  |_/_/
+
+      ______  ______   ____________
+     /  _/  |/  /   | / ____/ ____/
+     / // /|_/ / /| |/ / __/ __/
+   _/ // /  / / ___ / /_/ / /___
+  /___/_/  /_/_/  |_\____/_____/
+
+  MAP IMAGE
+
+  places an image on the map according to its child coordinates
+
+
+
+*/
+
+
 import GeoMapElement from './map-element.js'
 import { getNewID } from  './helpers.js'
-
-
-
 
 
 class MapImage  extends GeoMapElement {
 
 	initialize(){
 		this.map = this.geo_map.map
-
-
 		this.geo_map.map.on('style.load', () =>{
 			this.addImage()
-
 		})
-
-
 	}
 
 	addImage(){
@@ -86,7 +101,21 @@ customElements.define('map-image', MapImage )
 
 
 
+/*
+  
+  Child elements
 
+*/
+
+/*
+
+  @todo: figure out why Javascript won't let me
+  create multiple HTMLElements from the same
+  class, rewrite code to have a parent class
+  at least. 
+
+
+*/
 
 class MapPosition extends HTMLElement {
   connectedCallback(){

@@ -1,3 +1,23 @@
+/*
+
+      __  ______    ____
+     /  |/  /   |  / __ \
+    / /|_/ / /| | / /_/ /
+   / /  / / ___ |/ ____/
+  /_/  /_/_/  |_/_/
+
+      __    ____  _________  ______________  _   __
+     / /   / __ \/ ____/   |/_  __/  _/ __ \/ | / /
+    / /   / / / / /   / /| | / /  / // / / /  |/ /
+   / /___/ /_/ / /___/ ___ |/ / _/ // /_/ / /|  /
+  /_____/\____/\____/_/  |_/_/ /___/\____/_/ |_/
+
+  MAP LOCATION
+
+  Places an item on the map according to its coordinates. 
+
+*/
+
 import GeoMapElement from './map-element.js'
 import {default_marker_markup, GeoMapMarker} from './map-marker.js'
 

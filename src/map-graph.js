@@ -1,4 +1,25 @@
+/*
 
+	    __  ______    ____
+	   /  |/  /   |  / __ \
+	  / /|_/ / /| | / /_/ /
+	 / /  / / ___ |/ ____/
+	/_/  /_/_/  |_/_/
+	
+	   __________  ___    ____  __  __
+	  / ____/ __ \/   |  / __ \/ / / /
+	 / / __/ /_/ / /| | / /_/ / /_/ /
+	/ /_/ / _, _/ ___ |/ ____/ __  /
+	\____/_/ |_/_/  |_/_/   /_/ /_/
+	
+
+	MAP GRAPH
+
+	Currently only uses the les miserables data set
+
+	@todo: incorporate JSON loading
+
+*/
 
 import GeoMapElement from './map-element.js'
 import 'https://unpkg.com/three@0.126.0/build/three.min.js'

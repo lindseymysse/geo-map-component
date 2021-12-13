@@ -1,3 +1,14 @@
+/*
+  *** BEGIN ASCII ART ***
+        ___       __   ___  __   __
+  |__| |__  |    |__) |__  |__) /__`
+  |  | |___ |___ |    |___ |  \ .__/
+
+  *** END ASCII ART ***
+  
+  "Look for the Helpers" -- Mr. Rogers
+*/
+
 
 /*
   

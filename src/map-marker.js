@@ -1,4 +1,22 @@
+/*
+      __  ______    ____
+     /  |/  /   |  / __ \
+    / /|_/ / /| | / /_/ /
+   / /  / / ___ |/ ____/
+  /_/  /_/_/  |_/_/
 
+      __  ______    ____  __ __ __________
+     /  |/  /   |  / __ \/ //_// ____/ __ \
+    / /|_/ / /| | / /_/ / ,<  / __/ / /_/ /
+   / /  / / ___ |/ _, _/ /| |/ /___/ _, _/
+  /_/  /_/_/  |_/_/ |_/_/ |_/_____/_/ |_|
+
+  MAP MARKER
+
+  This is what appears on the mapbox map. To not 
+  have a marker, create an empty map-marker element.
+
+*/
 
 export class GeoMapMarker extends HTMLElement {
 

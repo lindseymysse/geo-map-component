@@ -1,8 +1,23 @@
+/*
+
+     __________  ____  ______
+    / ____/ __ \/ __ \/ ____/
+   / /   / / / / /_/ / __/
+  / /___/ /_/ / _, _/ /___
+  \____/\____/_/ |_/_____/
+
+  GEO MAP CORE
+
+  Generates the GEO-MAP component that holds
+  all child elements. 
+
+*/
 
 import {ready, getURLValues, setURLValues, debounce } from './helpers.js'
 import  SlideShowControls  from './map-slideshow.js'
 
 export class GeoMap extends HTMLElement {
+  
   /*
     
     CONNECTED CALL BACK
@@ -103,6 +118,9 @@ export class GeoMap extends HTMLElement {
      _/ // /|  // /  / / _/ // ___ |/ /____/ /   / /__/ /___
     /___/_/ |_/___/ /_/ /___/_/  |_/_____/___/  /____/_____/
 
+    you can call this function using super() in your own div, 
+    or just override it
+
   */
 
   initialize(){  
@@ -165,7 +183,12 @@ export class GeoMap extends HTMLElement {
     this.initialized = true
   }
 
+  /*
+    
+    For easy styling, use .near, .middle and .far
+    in the css files
 
+  */
 
   setZoomClass(){
     if(this.zoom < 10){
@@ -182,6 +205,14 @@ export class GeoMap extends HTMLElement {
       this.classList.remove('far')
     }
   }
+
+  /*
+    
+    MAP LOADED
+    runs when the mapbox map
+    is done initializing
+
+  */
 
   mapLoaded(){
 
@@ -223,15 +254,15 @@ export class GeoMap extends HTMLElement {
   }
 
 
-  static get observedAttributes() {
-    return [];
-  }
+  // static get observedAttributes() {
+  //   return [];
+  // }
 
-  attributeChangedCallback(name, old_value, new_value){
-    switch(name){
-      default:
-    }
-  }
+  // attributeChangedCallback(name, old_value, new_value){
+  //   switch(name){
+  //     default:
+  //   }
+  // }
 
 }
 

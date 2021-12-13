@@ -1,10 +1,46 @@
 
 /*
 
+   $$$$$$\  $$$$$$$$\  $$$$$$\
+  $$  __$$\ $$  _____|$$  __$$\
+  $$ /  \__|$$ |      $$ /  $$ |
+  $$ |$$$$\ $$$$$\    $$ |  $$ |
+  $$ |\_$$ |$$  __|   $$ |  $$ |
+  $$ |  $$ |$$ |      $$ |  $$ |
+  \$$$$$$  |$$$$$$$$\  $$$$$$  |
+   \______/ \________| \______/
+
+
+
+  $$\      $$\  $$$$$$\  $$$$$$$\
+  $$$\    $$$ |$$  __$$\ $$  __$$\
+  $$$$\  $$$$ |$$ /  $$ |$$ |  $$ |
+  $$\$$\$$ $$ |$$$$$$$$ |$$$$$$$  |
+  $$ \$$$  $$ |$$  __$$ |$$  ____/
+  $$ |\$  /$$ |$$ |  $$ |$$ |
+  $$ | \_/ $$ |$$ |  $$ |$$ |
+  \__|     \__|\__|  \__|\__|
+
+
+
+  $$$$$$$$\ $$\
+  $$  _____|$$ |
+  $$ |      $$ |
+  $$$$$\    $$ |
+  $$  __|   $$ |
+  $$ |      $$ |
+  $$$$$$$$\ $$$$$$$$\
+  \________|\________|
+
+
+
+
+
   GEO MAP ELEMENT
 
   this is a parent class that gives basic 
-  data verification
+  error checking and initialization to 
+  GEO MAP
 
 */
 
@@ -94,7 +130,12 @@ export default class GeoMapElement extends HTMLElement {
   /*
     
     Steps through all child elements and removes 
-    them, allowing for better memory management
+    them, allowing for better memory management.
+
+    Removing elements individually triggers
+    each elements disconnectedCallback, wheras
+    removing an element completely just runs the
+    parent element's disconnectedCallback
 
   */
 
