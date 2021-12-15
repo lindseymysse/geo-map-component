@@ -92,7 +92,8 @@ export default class SlideShowControls {
   }
 
   selectLocation(location){
-    if(location === undefined) return
+
+    if(location === undefined || location === null) return
     try{
        ;[...this.map_container.querySelectorAll('map-information-box')].forEach(box => box.remove())
 

@@ -1,3 +1,6 @@
+import GeoMapElement from './map-element.js'
+
+
 /*
 
 
@@ -34,14 +37,57 @@
 
 
 
+function convertGeoJSONEntry(point){
+  console.log(point)
+  return {
+    latitude: point.geometry.coordinates[1], 
+    longitude: point.geometry.coordinates[0],
+    altitude: point.geometry.coordinates[2]
+  }
 
-export default class MapData extends HTMLElement {
-  connectedCallback(){
-    this.geo_map = this.closest('geo-map')
-    this.innerHTML = '<h1>Found Parent Geo Map</h1>'
-    if(this.geo_map === null){
-      this.innerHTML = '<h1>This component requires a geo map container</h1>'
+}
+
+function generateLocationDiv(story_location){
+
+  const location = convertGeoJSONEntry(story_location)
+
+  return `
+    <map-location id="story_location-${story_location.id}"
+      latitude="${location.latitude}"
+      longitude="${location.longitude}"
+      zoom="${location.altitude}"
+      pitch="${story_location.pitch}"
+      bearing="${story_location.bearing}"
+      title="${story_location.title}"
+      originator="${story_location.originator}"
+      location_name="${story_location.location}"
+    >
+    </map-location>`
+}
+
+
+export default class GeoMapData extends GeoMapElement {
+
+  errorCheck(){
+    this.src = this.getAttribute('src')
+    if(this.src === null){
+      console.error('Map-Data component requires a src')
     }
+  }
+  initialize(){
+
+
+    fetch(this.src).then(res => res.json()).then(res => {
+      console.log(res)
+      let update = ''
+      res.features.forEach(story_location => {
+        update += generateLocationDiv(story_location)
+      })
+      const location_container = document.createElement('div')
+      location_container.innerHTML = update
+      this.appendChild(location_container)
+    })
+
   }
 
   static get observedAttributes() {
@@ -56,7 +102,7 @@ export default class MapData extends HTMLElement {
 
 }
 
-customElements.define('geo-data', GeoMapData)
+customElements.define('map-data', GeoMapData)
 
 
 /*
