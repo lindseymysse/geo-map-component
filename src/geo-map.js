@@ -31,6 +31,11 @@ export class GeoMap extends HTMLElement {
       this.innerHTML = '<error>STORY MAP REQUIRES MAPBOXGL TO WORK: https://docs.mapbox.com/mapbox-gl-js/api/</error>'
     }
     const URLvalues = getURLValues()
+
+    /*
+      @todo: check if URL values are malformed
+
+    */
   
     this.access_token = this.getAttribute('accesstoken')
     if(this.access_token === null){

@@ -55,13 +55,11 @@ function generateLocationDiv(story_location){
     <map-location id="story_location-${story_location.id}"
       latitude="${location.latitude}"
       longitude="${location.longitude}"
-      zoom="${location.altitude}"
-      pitch="${story_location.pitch}"
-      bearing="${story_location.bearing}"
-      title="${story_location.title}"
-      originator="${story_location.originator}"
-      location_name="${story_location.location}"
+      zoom="5"
+      pitch="5"
+      bearing="5"
     >
+    ${JSON.stringify(story_location.properties)}
     </map-location>`
 }
 
@@ -73,6 +71,11 @@ export default class GeoMapData extends GeoMapElement {
     if(this.src === null){
       console.error('Map-Data component requires a src')
     }
+
+    this.renderFunction = this.getAttribute('render')
+    if(this.renderFunction === null){
+      this.renderFunction = generateLocationDiv
+    }
   }
   initialize(){
 
@@ -81,7 +84,7 @@ export default class GeoMapData extends GeoMapElement {
       console.log(res)
       let update = ''
       res.features.forEach(story_location => {
-        update += generateLocationDiv(story_location)
+        update += this.renderFunction(story_location)
       })
       const location_container = document.createElement('div')
       location_container.innerHTML = update
