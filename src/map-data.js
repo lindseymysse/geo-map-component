@@ -55,10 +55,11 @@ function generateLocationDiv(story_location){
     <map-location id="story_location-${story_location.id}"
       latitude="${location.latitude}"
       longitude="${location.longitude}"
-      zoom="5"
-      pitch="5"
-      bearing="5"
+      zoom="${Math.random() * 5 + 14}"
+      pitch="${Math.random() * 360}"
+      bearing="${Math.random() * 360}"
     >
+    <map-marker></map-marker>
     ${JSON.stringify(story_location.properties)}
     </map-location>`
 }
@@ -89,6 +90,8 @@ export default class GeoMapData extends GeoMapElement {
       const location_container = document.createElement('div')
       location_container.innerHTML = update
       this.appendChild(location_container)
+      this.geo_map.dispatchEvent(new CustomEvent('SHOW HOME'))
+
     })
 
   }
