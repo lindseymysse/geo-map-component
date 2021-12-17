@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Anonymous Real Estate Company</title>
+	<script type="module" src="./src/index.js"></script>
+	<link rel="stylesheet" type="text/css" href="./src/geo-map.css">
+	<link rel="stylesheet" type="text/css" href="normalize.css">
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	<link rel="stylesheet" type="text/css" href="variables.css">
+	<style>
+
+		footer {
+			position: fixed;
+			bottom: 1em;
+			left: 50%;
+			text-align: center;
+			transform: translateX(-50%);
+		}
+
+		h1 {
+			padding: 0;
+			margin:  0;
+		}
+
+		map-information-box {
+			max-width:  40em;
+			padding-top: 4em;
+			opacity: 0.7;
+			width: calc(100vw - 6em);
+		}
+
+		map-information-box:hover {
+			opacity: 1;
+		}
+
+		@media (orientation: portrait) {
+		  map-information-box {
+		    opacity: 1;
+		  }
+		}
+
+		.mapboxgl-ctrl {
+top: 5em;
+    position: absolute;
+    z-index: 9000;
+    right: 0em;
+
+    	}
+
+    p {
+    	background-color: var(--secondary-highlight-color);
+    	text-shadow: 1px 1px 1px black;
+    }
+
+	</style>
+
+</head>
+<body>
+
+	<header style="position:absolute; z-index:1000; width:100%;">
+		<div id="logo"><a href="https://lindseyjohnasterius.github.io/test-map-00000/"><img src="assets/logo.svg"></a></div>
+
+		<section class="menu" style="float:right;">
+			<a href="about.html">Our Story</a>
+			<a href="contact.html">Contact</a>
+		</section>
+
+
+	</header>
+
+
+			<geo-map
+
+				accesstoken=pk.eyJ1IjoibGluZHNleW15c3NlIiwiYSI6ImNqOGNlYjMzbDA5am8zMmxid2oyc3hrc2cifQ.hK6NXKEl7bK7va2pRtY0Yw
+				styleurl=mapbox://styles/lindseymysse/ckuybrkna8p3o18mvlg7ks6bf
+				id=geo_map 
+        latitude="37.90458607848207"
+        longitude="-112.35652554657601"
+				zoom=9.625824192241094
+				bearing=33
+				pitch=90
+				slideshow
+			>
+				
+<map-location
+        latitude="37.824088424730505"
+        longitude="-112.43312143230459"
+        zoom="6.5"
+        pitch="3.9999999999999996"
+        bearing="0"
+        title=""
+      >
+
+<h1>Garfield County Opportunity Zone</h1>
+
+<map-marker></map-marker>
+<a href="https://opportunityzones.utah.gov/wp-content/uploads/2019/12/Garfield-County-draft-12-23.pdf
+">In the Garfield County Opportunity Zone!</a>
+
+                
+</map-location>
+
+
+
+<map-location
+        latitude="37.638080738117296"
+        longitude="-112.15639121324548"
+        zoom="16.5385139370327"
+        pitch="85"
+        bearing="56.00000000023056"
+        title=""
+      >
+
+      <h1>Bryce Basecamp</h1>
+      <p>Close to the beautiful national park of Bryce Basecamp</p>
+                
+</map-location>
+
+
+
+
+
+      <map-location
+        latitude="38.565516930861264"
+        longitude="-112.11735600634526"
+        zoom="7"
+        pitch="3.9999999999999996"
+        bearing="0"
+        title=""
+      >
+
+<h1>3.5 Hours from Salt Lake City</h1>
+
+<a href="https://duckduckgo.com/?q=730+N+MAIN+ST+%2C+PANGUITCH%2C+UT+84759+to+Salt+Lake+City%2C+UT&t=canonical&atb=v298-1&ia=maps&iaxm=directions&end=what%3A730%2520N%2520Main%2520St%2Cwhere%3APanguitch%252C%2520UT%252C%2520United%2520States&transport=drive&start=what%3ASalt%2520Lake%2520City%252C%2520UT%2Cwhere%3AUnited%2520States">3.5 Hours from Salt Lake City</a>
+                
+      </map-location><map-location
+        latitude="37.68666968827178"
+        longitude="-113.10243446628037"
+        zoom="7.929974185772187"
+        pitch="3.9999999999999996"
+        bearing="0"
+        title=""
+      >
+
+<h1>
+Cedar City Regional Airport </h1>
+Cedar City Regional Airport
+                
+      </map-location>
+
+
+
+
+
+			</geo-map>
+
+
+
+      <script type="module">
+
+      	import { ready } from './geo-map/helpers.js'
+
+				ready( () => {
+					geo_map.map.on('load', function(){
+
+						geo_map.dispatchEvent(new CustomEvent('NEXT SLIDE'))
+					})
+
+
+				})
+
+
+
+
+
+      </script>
+
+
+
+
+	<footer>
+				<div><a href="https://map.garden">That will never scale!</a> A Map Garden Joint</div>
+
+
+	</footer>
+</body>
+</html>
