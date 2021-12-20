@@ -63,9 +63,8 @@ function generateLocationDiv(story_location){
       pitch="45"
       bearing="30"
     >
-    <map-marker alignment="map"><h1 style="opacity:0.4; height:2em; width:2em; background-color:red; border-radius:50%; transform:scale(${story_location.properties.mag}); color:transparent; text-shadow:none;">${story_location.properties.mag}</h1></map-marker>
-    <map-marker alignment="map" ><h1 style="color:white;">${story_location.properties.mag}</h1></map-marker>
-
+    <map-marker><h1 style="opacity:0.6; height:2em; width:2em; background-color:red; border-radius:50%; transform:scale(${story_location.properties.mag}); color:transparent; text-shadow:none;">${story_location.properties.mag}</h1></map-marker>
+    <map-marker><h1 style="color:white;">${story_location.properties.mag}</h1></map-marker>
     </map-location>`
 }
 
