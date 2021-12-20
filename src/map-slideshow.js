@@ -112,6 +112,7 @@ export default class SlideShowControls {
     this.center = [location.longitude, location.latitude]
     this.map.flyTo({
       center: this.center,
+      curve: 1,
       zoom: location.zoom,
       bearing: location.bearing,
       pitch: location.pitch,

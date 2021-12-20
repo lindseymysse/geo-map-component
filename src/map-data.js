@@ -51,16 +51,21 @@ function generateLocationDiv(story_location){
 
   const location = convertGeoJSONEntry(story_location)
 
+  // earliest pure black
+  // taking time
+
+
   return `
     <map-location id="story_location-${story_location.id}"
       latitude="${location.latitude}"
       longitude="${location.longitude}"
       zoom="${Math.random() * 5 + 14}"
-      pitch="${Math.random() * 360}"
-      bearing="${Math.random() * 360}"
+      pitch="45"
+      bearing="30"
     >
-    <map-marker></map-marker>
-    ${JSON.stringify(story_location.properties)}
+    <map-marker alignment="map"><h1 style="opacity:0.4; height:2em; width:2em; background-color:red; border-radius:50%; transform:scale(${story_location.properties.mag}); color:transparent; text-shadow:none;">${story_location.properties.mag}</h1></map-marker>
+    <map-marker alignment="map" ><h1 style="color:white;">${story_location.properties.mag}</h1></map-marker>
+
     </map-location>`
 }
 
