@@ -1,4 +1,5 @@
 import GeoMapElement from './map-element.js'
+import { getNewID } from './helpers.js'
 
 
 class MapPath extends GeoMapElement {
@@ -14,7 +15,8 @@ class MapPath extends GeoMapElement {
 
 		const map = this.geo_map.map
 
-			map.addSource('route', {
+		this.id = getNewID()
+			map.addSource(this.id, {
 			'type': 'geojson',
 			'data': {
 				'type': 'Feature',
@@ -26,9 +28,9 @@ class MapPath extends GeoMapElement {
 				}
 			});
 			map.addLayer({
-				'id': 'route',
+				'id': this.id,
 				'type': 'line',
-				'source': 'route',
+				'source': this.id,
 				'layout': {
 				'line-join': 'round',
 				'line-cap': 'round'
