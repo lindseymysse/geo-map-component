@@ -184,8 +184,6 @@ export class GeoMap extends HTMLElement {
 
 
     this.map.on('load', () => {this.mapLoaded()})
-    this.dispatchEvent(new CustomEvent('INITIALIZED'))
-    this.initialized = true
   }
 
   /*
@@ -255,6 +253,10 @@ export class GeoMap extends HTMLElement {
         pitch: new_location.pitch
       })
     })
+
+
+    this.dispatchEvent(new CustomEvent('INITIALIZED'))
+    this.initialized = true
 
   }
 

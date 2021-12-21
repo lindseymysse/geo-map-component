@@ -37,7 +37,7 @@ import GeoMapElement from './map-element.js'
 
 class MapArc extends GeoMapElement {
   initialize(){
-     const {MapboxLayer, ScatterplotLayer, ArcLayer} = deck;
+    const {MapboxLayer, ScatterplotLayer, ArcLayer} = deck;
 
     const source_id = this.getAttribute('source')
     const target_id = this.getAttribute('target')
