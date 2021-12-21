@@ -21,18 +21,30 @@
 
 		h1 {
 			padding: 0;
-			margin:  0;
+			margin:  1em;
 		}
 
 		map-information-box {
-			max-width:  40em;
-			padding-top: 4em;
-			opacity: 0.7;
+			top: 4em;
+			max-height: calc(100vh - 8em);
+			max-width:  30em;
+			padding: 1em;
 			width: calc(100vw - 6em);
+			background-color: #DFCEAF;
+			border: 1px solid #261C15;
+			color: #261C15;
+			text-shadow: -1px -1px 1px rgba(0,0,0,0.3);
 		}
 
-		map-information-box:hover {
-			opacity: 1;
+		map-information-box p {
+			margin: 2em;
+		}
+
+		map-information-box img {
+			width: calc(100% - 4em);
+			margin-left: 2em;
+			margin-top:  2em;
+			margin-right: auto;
 		}
 
 		@media (orientation: portrait) {
@@ -49,10 +61,6 @@ top: 5em;
 
     	}
 
-    p {
-    	background-color: var(--secondary-highlight-color);
-    	text-shadow: 1px 1px 1px black;
-    }
 
 	</style>
 </head>
@@ -60,19 +68,22 @@ top: 5em;
 <body>
 	<header style="position:absolute; z-index:1000; width:100%;">
 		<div id="logo"><a href="https://map.garden/real-estate-demo.html"><img src="./assets/real-estate-demo/logo.svg"></a></div>
-		<section class="menu" style="float:right;">
-			<a href="about.html">Our Story</a>
-			<a href="contact.html">Contact</a>
-		</section>
 	</header>
 	<geo-map accesstoken=pk.eyJ1IjoibGluZHNleW15c3NlIiwiYSI6ImNqOGNlYjMzbDA5am8zMmxid2oyc3hrc2cifQ.hK6NXKEl7bK7va2pRtY0Yw styleurl=mapbox://styles/lindseymysse/ckuybrkna8p3o18mvlg7ks6bf id=geo_map latitude="37.90458607848207" longitude="-112.35652554657601" zoom=9.625824192241094 bearing=33 pitch=90 slideshow>
 
 		<map-location latitude="37.833824999999976" longitude="-112.43654100000003" zoom="17.99999999998165" pitch="60" bearing="0" title="">
+
+			<img src="https://images1.loopnet.com/i2/bERTcy7DOrTZmyKXL4bPZJIbY4mF3fRobCFr8fPY2fA/116/730-N-Main-St-Panguitch-UT-IMG_8030-1-LargeHighDefinition.jpg">
 			<h1>
-				BEST HOST INN, Panguitch, UT
-			</h1>
-			Hospitals & Opportunity Zones
-			Of the 8,762 census tracts across the county that have been designated as Opportunity Zones, 2,905 (33%) either contain a hospital or are ½ a mile from a hospital. Compensation for healthcare providers is increasing and hospitals are staffing up with travel nurses. Locums doctors and travel nurses often stay in substandard hotels and short term rentals because they don’t have alternatives, especially when working in the small hospital towns of the rural mountain west. Our proposed portfolio identifies multifamily or hotel properties in attractive opportunity zones that can accommodate healthcare providers as 2-16 week rentals with shared kitchens and other amenities these renters want.
+	
+			Hospitals & Opportunity Zones</h1>
+			<p>Of the 8,762 census tracts across the county that have been designated as Opportunity Zones, 2,905 (33%) either contain a hospital or are ½ a mile from a hospital. Compensation for healthcare providers is increasing and hospitals are staffing up with travel nurses. Locums doctors and travel nurses often stay in substandard hotels and short term rentals because they don’t have alternatives, especially when working in the small hospital towns of the rural mountain west. Our proposed portfolio identifies multifamily or hotel properties in attractive opportunity zones that can accommodate healthcare providers as 2-16 week rentals with shared kitchens and other amenities these renters want.</p>
+
+
+			<p>730 N Main St - Best Host Inn</p>
+
+
+
 		</map-location>
 
 		<map-location latitude="37.824088424730505" longitude="-112.43312143230459" zoom="6.5" pitch="0" bearing="0" title="">
@@ -175,16 +186,10 @@ top: 5em;
 		ready( () => {
 			geo_map.dispatchEvent(new CustomEvent('SHOW HOME'))
 
-			geo_map.map.on('INITIALIZED', function(){
-				console.log('INITIALIZED')
-				geo_map.dispatchEvent(new CustomEvent('SHOW HOME'))
-			})
+	
 		})
   </script>
   
-	<footer>
-		<div><a href="https://map.garden">That will never scale!</a> A Map Garden Joint</div>
-	</footer>
 </body>
 
 </html>
