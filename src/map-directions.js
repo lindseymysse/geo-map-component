@@ -1,4 +1,5 @@
 import GeoMapElement from './map-element.js'
+import { getNewID } from './helpers.js'
 
 
 class MapDirections extends GeoMapElement {
@@ -10,6 +11,8 @@ class MapDirections extends GeoMapElement {
 		}
 	}
 	initialize(){
+
+		this.id = getNewID()
 
 		fetch(`https://api.mapbox.com/directions/v5/mapbox/driving/
 			${this.start.longitude},
@@ -37,9 +40,16 @@ class MapDirections extends GeoMapElement {
 			return waypoint.location
 		})
 
+
+
 		const new_path = document.createElement('map-path')
 		new_path.setAttribute('coordinates', JSON.stringify(steps.flat()))
+		new_path.setAttribute('id', this.id)
 		this.geo_map.appendChild(new_path)
+	}
+
+	onRemove(){
+		document.querySelector(`#${this.id}`).remove()
 	}
 
 }

@@ -13,7 +13,7 @@ class MapPath extends GeoMapElement {
 	}
 	async initialize(){
 
-		const map = this.geo_map.map
+		const map = this.map =  this.geo_map.map
 
 		this.id = getNewID()
 			map.addSource(this.id, {
@@ -41,6 +41,10 @@ class MapPath extends GeoMapElement {
 			}
 			});
 
+	}
+
+	onRemove(){
+		this.map.removeLayer(this.id)
 	}
 
 
