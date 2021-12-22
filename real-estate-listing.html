@@ -53,9 +53,27 @@
 		  }
 		}
 
-		.mapboxgl-control-container {
-			z-index: 9000;
+	
+		button {
+			background-color: transparent;
+			border:  1px solid #686963;
+			padding: 1em 3em;
+			color: #686963;
+			cursor: pointer;
+			margin-left: auto;
+			margin-right: auto;
+
 		}
+
+		button:hover {
+			background-color: rgba(255,255,255,0.6);
+		}
+
+		button:active {
+			background-color: rgba(0,0,0,0.6);
+		}
+
+
 
 
     .icon {
@@ -77,19 +95,29 @@
 	<geo-map accesstoken=pk.eyJ1IjoibGluZHNleW15c3NlIiwiYSI6ImNqOGNlYjMzbDA5am8zMmxid2oyc3hrc2cifQ.hK6NXKEl7bK7va2pRtY0Yw styleurl=mapbox://styles/lindseymysse/ckuybrkna8p3o18mvlg7ks6bf id=geo_map latitude="0" longitude="0" zoom=1 bearing=0 pitch=0 slideshow>
 
 		<map-location latitude="37.8227245646714" longitude="-112.4296747157359" zoom="14" pitch="0" bearing="0" title="panguitch, UT title">
+			<h2>Real Estate Opportunity</h2>
 			<h1>Panguitch, Utah</h1>
+
 			<map-marker></map-marker>
+			<p style="text-align:center">
+				<button onclick="geo_map.dispatchEvent(new CustomEvent('NEXT SLIDE'))">NEXT</button>
+			</p>
 		</map-location>
 		<map-location latitude="37.82325658583672" longitude="-112.43502978790826" zoom="14.491625096389571" pitch="49.99999999999999" bearing="38.59999999999984" title="panguitch inn, UT">
 			<map-marker>
 				<img class="icon" src="./assets/real-estate-demo/motel.png">
 			</map-marker>
 			<h1>730 N. Main Street</h1>
+			<h2>6,222 SF Hospitality Building Offered at $749,900</h2>
 			<img src="https://images1.loopnet.com/i2/bERTcy7DOrTZmyKXL4bPZJIbY4mF3fRobCFr8fPY2fA/116/730-N-Main-St-Panguitch-UT-IMG_8030-1-LargeHighDefinition.jpg">
 
 			<h2>The Oppportunity:</h2>
 			<p> Locums doctors and travel nurses often stay in substandard hotels and short term rentals because they don’t have alternatives, especially when working in the small hospital towns of the rural mountain west. Our proposed portfolio identifies multifamily or hotel properties in attractive opportunity zones that can accommodate healthcare providers as 2-16 week rentals with shared kitchens and other amenities these renters want.</p>
-			</map-marker>
+
+			<p style="text-align:center">
+				<button onclick="geo_map.dispatchEvent(new CustomEvent('NEXT SLIDE'))">NEXT</button>
+			</p>
+
 		</map-location>
 		<map-location class="skip" latitude="37.83979057653798" longitude="-112.43828690054784" zoom="14.080799657689639" pitch="49.99999999999999" bearing="38.59999999999984" title="200 miles to salt lake city">
 			<map-marker alignment="map">
@@ -103,6 +131,9 @@
 				<h1>Las Vegas</h1>
 				<h3> 236 Miles Away</h3>
 			</map-marker>
+						<p style="text-align:center">
+				<button onclick="geo_map.dispatchEvent(new CustomEvent('NEXT SLIDE'))">NEXT</button>
+			</p>
 		</map-location>
 		<map-location latitude="37.82584700000001" longitude="-112.42778599999997" zoom="18.000000000447944" pitch="60" bearing="45.00000000000005" title="Panguitch Hospital">
 			<map-marker>
@@ -111,6 +142,9 @@
 			<img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fintermountainhealthcare.org%2F-%2Fmedia%2Fimages%2Ffacilities%2Fgarfield-memorial-hospital.jpg%3Fmw%3D1600&f=1&nofb=1">
 			<h1> Hospitals & Opportunity Zones</h1>
 			<p>Of the 8,762 census tracts across the county that have been designated as Opportunity Zones, 2,905 (33%) either contain a hospital or are ½ a mile from a hospital. Compensation for healthcare providers is increasing and hospitals are staffing up with travel nurses.</p>
+						<p style="text-align:center">
+				<button onclick="geo_map.dispatchEvent(new CustomEvent('NEXT SLIDE'))">NEXT</button>
+			</p>
 		</map-location>
 		<map-location latitude="37.857638913387305" longitude="-112.40310718199042" zoom="10.79782174312518" pitch="0" bearing="0" title="">
 			<map-marker></map-marker>
@@ -139,6 +173,9 @@
 			</ul>
 			<a href="https://opportunityzones.utah.gov/wp-content/uploads/2019/12/Garfield-County-draft-12-23.pdf
 ">More information here</a>
+			<p style="text-align:center">
+				<button onclick="geo_map.dispatchEvent(new CustomEvent('NEXT SLIDE'))">NEXT</button>
+			</p>
 		</map-location>
 
 
@@ -149,6 +186,9 @@
 			<h1>Bryce Canyon National Park</h1>
 			<img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.tourradar.com%2Fs3%2Ftour%2F1500x800%2F119202_b6fd45c7.jpg&f=1&nofb=1">
 			<p>Only 24 miles to Bryce Basecamp</p>
+						<p style="text-align:center">
+				<button onclick="geo_map.dispatchEvent(new CustomEvent('NEXT SLIDE'))">NEXT</button>
+			</p>
 		</map-location>
 
 		<map-location
@@ -167,6 +207,9 @@
 <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmedia.cntraveler.com%2Fphotos%2F596cf3407fb62c4aeab0b2ca%2F4%3A3%2Fw_480%2Cc_limit%2Fzion-national-park-GettyImages-175278834.jpg&f=1&nofb=1">
 
 <p>64 miles from Zion National Park</p>
+			<p style="text-align:center">
+				<button onclick="geo_map.dispatchEvent(new CustomEvent('NEXT SLIDE'))">NEXT</button>
+			</p>
                 
       </map-location>
 
