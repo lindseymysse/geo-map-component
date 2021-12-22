@@ -78,14 +78,14 @@ export default class SlideShowControls {
   }
 
   nextLocation(){
-    const locations = [...this.map_container.querySelectorAll('map-location')]
+    const locations = [...this.map_container.querySelectorAll('map-location:not(.skip)')]
     this.slideshow_index++
     if(this.slideshow_index > locations.length - 1) this.slideshow_index = 0 
     this.selectLocation(locations[this.slideshow_index])
   }
 
   prevLocation(){
-    const locations = [...this.map_container.querySelectorAll('map-location')]
+    const locations = [...this.map_container.querySelectorAll('map-location:not(.skip)')]
     this.slideshow_index--
     if(this.slideshow_index < 0) this.slideshow_index = locations.length  - 1
     this.selectLocation(locations[this.slideshow_index])

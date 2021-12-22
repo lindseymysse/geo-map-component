@@ -4,13 +4,18 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Real Estate Company</title>
+	<title>Real Estate Listing Demo</title>
 	<script type="module" src="./src/index.js"></script>
 	<link rel="stylesheet" type="text/css" href="./src/geo-map.css">
 	<link rel="stylesheet" type="text/css" href="./assets/vendor/normalize.css">
 	<link rel="stylesheet" type="text/css" href="./assets/real-estate-demo/styles.css">
 	<link rel="stylesheet" type="text/css" href="./assets/real-estate-demo/variables.css">
 	<style>
+		body {
+			background-color: lightblue;
+		}
+
+		/* 3d5467 */
 		footer {
 			position: fixed;
 			bottom: 1em;
@@ -21,7 +26,6 @@
 
 		h1 {
 			padding: 0;
-			margin:  1em;
 		}
 
 		map-information-box {
@@ -29,7 +33,7 @@
 			max-height: calc(100vh - 8em);
 			max-width:  30em;
 			padding: 1em;
-			width: calc(100vw - 6em);
+			width: auto;
 			background-color: #DFCEAF;
 			border: 1px solid #CEBC9E;
 			color: #261C15;
@@ -37,15 +41,10 @@
 			box-shadow: 4px 4px 4px #686963;
 		}
 
-		map-information-box p {
-			margin: 2em;
-		}
+
 
 		map-information-box img {
-			width: calc(100% - 4em);
-			margin-left: 2em;
 			margin-top:  2em;
-			margin-right: auto;
 		}
 
 		@media (orientation: portrait) {
@@ -54,14 +53,37 @@
 		  }
 		}
 
-		.mapboxgl-ctrl {
-top: 5em;
-    position: absolute;
-    z-index: 9000;
-    right: 0em;
+	
+		button {
+			background-color: transparent;
+			border:  1px solid #686963;
+			padding: 1em 3em;
+			color: #686963;
+			cursor: pointer;
+			margin-left: auto;
+			margin-right: auto;
 
-    	}
+		}
 
+		button:hover {
+			background-color: rgba(255,255,255,0.6);
+		}
+
+		button:active {
+			background-color: rgba(0,0,0,0.6);
+		}
+
+
+
+
+    .icon {
+    	width: 4em;
+    	height: auto;
+    }
+    
+    map-information-box a {
+    	color:  black;
+    }
 
 	</style>
 </head>
@@ -70,101 +92,145 @@ top: 5em;
 	<header style="position:absolute; z-index:1000; width:100%;">
 		<div id="logo"><a href="https://map.garden/real-estate-demo.html"><img src="./assets/real-estate-demo/logo.svg"></a></div>
 	</header>
-	<geo-map accesstoken=pk.eyJ1IjoibGluZHNleW15c3NlIiwiYSI6ImNqOGNlYjMzbDA5am8zMmxid2oyc3hrc2cifQ.hK6NXKEl7bK7va2pRtY0Yw styleurl=mapbox://styles/lindseymysse/ckuybrkna8p3o18mvlg7ks6bf id=geo_map latitude="37.90458607848207" longitude="-112.35652554657601" zoom=9.625824192241094 bearing=33 pitch=90 slideshow>
+	<geo-map accesstoken=pk.eyJ1IjoibGluZHNleW15c3NlIiwiYSI6ImNqOGNlYjMzbDA5am8zMmxid2oyc3hrc2cifQ.hK6NXKEl7bK7va2pRtY0Yw styleurl=mapbox://styles/lindseymysse/ckuybrkna8p3o18mvlg7ks6bf id=geo_map latitude="0" longitude="0" zoom=1 bearing=0 pitch=0 slideshow>
 
+		<map-location latitude="37.8227245646714" longitude="-112.4296747157359" zoom="14" pitch="0" bearing="0" title="panguitch, UT title">
+			<h2>Real Estate Opportunity</h2>
+			<h1>Panguitch, Utah</h1>
 
-		<map-location latitude="37.833824999999976" longitude="-112.43654100000003" zoom="17.99999999998165" pitch="60" bearing="0" title="">
-
+			<map-marker></map-marker>
+			<p style="text-align:center">
+				<button onclick="geo_map.dispatchEvent(new CustomEvent('NEXT SLIDE'))">NEXT</button>
+			</p>
+		</map-location>
+		<map-location latitude="37.82325658583672" longitude="-112.43502978790826" zoom="14.491625096389571" pitch="49.99999999999999" bearing="38.59999999999984" title="panguitch inn, UT">
+			<map-marker>
+				<img class="icon" src="./assets/real-estate-demo/motel.png">
+			</map-marker>
+			<h1>730 N. Main Street</h1>
+			<h2>6,222 SF Hospitality Building Offered at $749,900</h2>
 			<img src="https://images1.loopnet.com/i2/bERTcy7DOrTZmyKXL4bPZJIbY4mF3fRobCFr8fPY2fA/116/730-N-Main-St-Panguitch-UT-IMG_8030-1-LargeHighDefinition.jpg">
-			<h1>
-	
 
-			<p>730 N Main St - Best Host Inn</p>
+			<h2>The Oppportunity:</h2>
+			<p> Locums doctors and travel nurses often stay in substandard hotels and short term rentals because they don’t have alternatives, especially when working in the small hospital towns of the rural mountain west. Our proposed portfolio identifies multifamily or hotel properties in attractive opportunity zones that can accommodate healthcare providers as 2-16 week rentals with shared kitchens and other amenities these renters want.</p>
+
+			<p style="text-align:center">
+				<button onclick="geo_map.dispatchEvent(new CustomEvent('NEXT SLIDE'))">NEXT</button>
+			</p>
+
+		</map-location>
+		<map-location class="skip" latitude="37.83979057653798" longitude="-112.43828690054784" zoom="14.080799657689639" pitch="49.99999999999999" bearing="38.59999999999984" title="200 miles to salt lake city">
+			<map-marker alignment="map">
+				<h1>Salt Lake City</h1>
+				<h3>244 miles
+				</h3>
+			</map-marker>
+		</map-location>
+		<map-location class="skip" latitude="37.81726328058248" longitude="-112.41048557981287" zoom="14.091423403910607" pitch="49.99999999999999" bearing="38.59999999999984" title="236 miles to Las Vegas">
+			<map-marker alignment="map">
+				<h1>Las Vegas</h1>
+				<h3> 236 Miles Away</h3>
+			</map-marker>
+						<p style="text-align:center">
+				<button onclick="geo_map.dispatchEvent(new CustomEvent('NEXT SLIDE'))">NEXT</button>
+			</p>
+		</map-location>
+		<map-location latitude="37.82584700000001" longitude="-112.42778599999997" zoom="18.000000000447944" pitch="60" bearing="45.00000000000005" title="Panguitch Hospital">
+			<map-marker>
+				<img class="icon" src="./assets/real-estate-demo/hospital.png">
+			</map-marker>
+			<img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fintermountainhealthcare.org%2F-%2Fmedia%2Fimages%2Ffacilities%2Fgarfield-memorial-hospital.jpg%3Fmw%3D1600&f=1&nofb=1">
+			<h1> Hospitals & Opportunity Zones</h1>
+			<p>Of the 8,762 census tracts across the county that have been designated as Opportunity Zones, 2,905 (33%) either contain a hospital or are ½ a mile from a hospital. Compensation for healthcare providers is increasing and hospitals are staffing up with travel nurses.</p>
+						<p style="text-align:center">
+				<button onclick="geo_map.dispatchEvent(new CustomEvent('NEXT SLIDE'))">NEXT</button>
+			</p>
+		</map-location>
+		<map-location latitude="37.857638913387305" longitude="-112.40310718199042" zoom="10.79782174312518" pitch="0" bearing="0" title="">
+			<map-marker></map-marker>
+			<img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.vannattabros.com%2F20083rd%2Fbryce4.jpg&f=1&nofb=1">
+			<h1>Garfield County Opportunity Zone</h1>
+			<p>Garfield County is committed to deploying an array of local, state
+				and federal incentives to attract potential investors. For example,
+				Yogurtland recently came to Panguitch with the help of a Rural
+				Fast Track Grant. This effort included a 50/50 fund match up to
+				$50,000 of the total project cost of $105,000. This retail
+				establishment created new jobs that pay over 110% of the
+				average wage in the area, which demonstrates a success for
+				employees, their families, and the local economy.</p>
+			<p>
+				At present, Garfield County is committed to leveraging the
+				following incentives to support project development and
+				delivery:</p>
+			<ul>
+				<li>Rural Economic Development Incentive (REDI) Grant</li>
+				<li> Business Expansion and Retention (BEAR)</li>
+				<li>Rural Online Initiative (ROI)</li>
+				<li>Rural Coworking and Innovation Center (RCIC) Grant</li>
+				<li>Utah Rural Jobs Program</li>
+				<li>Targeted Business Tax Credits</li>
+				<li>Rural Rapid Manufacturing Grant</li>
+			</ul>
+			<a href="https://opportunityzones.utah.gov/wp-content/uploads/2019/12/Garfield-County-draft-12-23.pdf
+">More information here</a>
+			<p style="text-align:center">
+				<button onclick="geo_map.dispatchEvent(new CustomEvent('NEXT SLIDE'))">NEXT</button>
+			</p>
+		</map-location>
 
 
-
+		<map-location latitude="37.638080738117296" longitude="-112.15639121324548" zoom="16.5385139370327" pitch="0" bearing="0" title="">
+			<map-marker>
+				<img class="icon" src="./assets/real-estate-demo/ranger-hat.png">
+			</map-marker>
+			<h1>Bryce Canyon National Park</h1>
+			<img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.tourradar.com%2Fs3%2Ftour%2F1500x800%2F119202_b6fd45c7.jpg&f=1&nofb=1">
+			<p>Only 24 miles to Bryce Basecamp</p>
+						<p style="text-align:center">
+				<button onclick="geo_map.dispatchEvent(new CustomEvent('NEXT SLIDE'))">NEXT</button>
+			</p>
 		</map-location>
 
 		<map-location
-        latitude="37.82584700000001"
-        longitude="-112.42778599999997"
-        zoom="17.99999998551186"
-        pitch="60"
-        bearing="45"
-        title="">
+        latitude="37.20023415580228"
+        longitude="-112.98802551057419"
+        zoom="17.72998002906662"
+        pitch="85"
+        bearing="35.40000000000004"
+        title=""
+      >
 
-      <h1> Hospitals & Opportunity Zones</h1>
-			<p>Of the 8,762 census tracts across the county that have been designated as Opportunity Zones, 2,905 (33%) either contain a hospital or are ½ a mile from a hospital. Compensation for healthcare providers is increasing and hospitals are staffing up with travel nurses. Locums doctors and travel nurses often stay in substandard hotels and short term rentals because they don’t have alternatives, especially when working in the small hospital towns of the rural mountain west. Our proposed portfolio identifies multifamily or hotel properties in attractive opportunity zones that can accommodate healthcare providers as 2-16 week rentals with shared kitchens and other amenities these renters want.</p>          
-    </map-location>
+      <map-marker>				<img class="icon" src="./assets/real-estate-demo/zion-national.png">
+</map-marker>
 
-		<map-direction>
-			<direction-start latitude="37.833824999999976" longitude="-112.43654100000003"></direction-start>
-			<direction-end 
-				latitude="37.82584700000001"
-        		longitude="-112.42778599999997"
+<h1>Zion National Park</h1>
+<img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmedia.cntraveler.com%2Fphotos%2F596cf3407fb62c4aeab0b2ca%2F4%3A3%2Fw_480%2Cc_limit%2Fzion-national-park-GettyImages-175278834.jpg&f=1&nofb=1">
 
-			>
-			</direction-end>
-		</map-direction>
-
-
+<p>64 miles from Zion National Park</p>
+			<p style="text-align:center">
+				<button onclick="geo_map.dispatchEvent(new CustomEvent('NEXT SLIDE'))">NEXT</button>
+			</p>
+                
+      </map-location>
 
 
-		<map-location latitude="37.824088424730505" longitude="-112.43312143230459" zoom="6.5" pitch="0" bearing="0" title="">
-			<h1>Garfield County Opportunity Zone</h1>
-			<map-marker></map-marker>
-			<a href="https://opportunityzones.utah.gov/wp-content/uploads/2019/12/Garfield-County-draft-12-23.pdf
-">In the Garfield County Opportunity Zone!</a>
-		</map-location>
-
-		<map-location latitude="37.638080738117296" longitude="-112.15639121324548" zoom="16.5385139370327" pitch="0" bearing="0" title="">
-			<h1>Bryce Basecamp</h1>
-			<p>Close to the beautiful national park of Bryce Basecamp</p>
-		</map-location>
 
 		<map-direction>
 			<direction-start latitude="37.833824999999976" longitude="-112.43654100000003"></direction-start>
 			<direction-end latitude="40.7433666283072" longitude="-111.8474173125">
 			</direction-end>
 		</map-direction>
-
-		<map-location latitude="37.68666968827178" longitude="-113.10243446628037" zoom="7.929974185772187" pitch="3.9999999999999996" bearing="0" title="">
-			<h1>
-				Cedar City Regional Airport </h1>
-			Cedar City Regional Airport
-		</map-location>
-
-		<map-direction>
-			<direction-start latitude="37.833824999999976" longitude="-112.43654100000003"></direction-start>
-			<direction-end latitude="37.68666968827178" longitude="-113.10243446628037">
-			</direction-end>
-		</map-direction>
-		<map-location latitude="40.7433666283072" longitude="-111.8474173125" zoom="10.57198003387413" pitch="60" bearing="0" title="">
-		</map-location>
-
 		<map-direction>
 			<direction-start latitude="37.833824999999976" longitude="-112.43654100000003"></direction-start>
 			<direction-end latitude="37.68666968827178" longitude="-113.10243446628037">
 			</direction-end>
 		</map-direction>
 
-		<map-location latitude="36.32792951516723" longitude="-115.38967845499997" zoom="9.789575533701829" pitch="0" bearing="0" title="">
-			<map-marker>
-				<h1>236 Miles from Los Vegas</h1>
-			</map-marker>
-		</map-location>
-
-		<map-direction>
+				<map-direction>
 			<direction-start latitude="37.833824999999976" longitude="-112.43654100000003"></direction-start>
 			<direction-end latitude="36.32792951516723" longitude="-115.38967845499997">
 			</direction-end>
 		</map-direction>
-
-		<map-location latitude="37.640378999999996" longitude="-112.16958149999999" zoom="18.000000000781384" pitch="60" bearing="0" title="">
-			<map-marker>
-				<h1>24 Miles from Bryce Canyon National Park</h1>
-			</map-marker>
-		</map-location>
 
 		<map-direction>
 			<direction-start latitude="37.833824999999976" longitude="-112.43654100000003"></direction-start>
@@ -172,31 +238,20 @@ top: 5em;
 			</direction-end>
 		</map-direction>
 
-		<map-location latitude="37.048125" longitude="-112.528141" zoom="17.999999998897422" pitch="0" bearing="0" title="">
-			<map-marker>
-				<h1>Zion National Park</h1>
-			</map-marker>
-		</map-location>
-
 		<map-direction>
 			<direction-start latitude="37.833824999999976" longitude="-112.43654100000003"></direction-start>
 			<direction-end latitude="37.048125" longitude="-112.528141">
 			</direction-end>
 		</map-direction>
 
-		<map-location latitude="33.35617774385544" longitude="-112.1232146960263" zoom="6.258624628502282" pitch="0" bearing="0" title="">
-			<map-marker>
-				<h1>Phoenix, AZ</h1>
-			</map-marker>
-		</map-location>
-
-		<map-direction>
+				<map-direction>
 			<direction-start latitude="37.833824999999976" longitude="-112.43654100000003"></direction-start>
 			<direction-end latitude="33.35617774385544" longitude="-112.1232146960263">
 			</direction-end>
 		</map-direction>
-	</geo-map>
 
+
+	</geo-map>
 	<script type="module">
 		import { ready } from './src/helpers.js'
 
@@ -206,7 +261,6 @@ top: 5em;
 	
 		})
   </script>
-  
 </body>
 
 </html>
