@@ -34,6 +34,7 @@ h1 {
 header {
 	padding-top: 0.25em;
 	height: 4em;
+	max-width: 50vw;
 }
 
 header .menu {
