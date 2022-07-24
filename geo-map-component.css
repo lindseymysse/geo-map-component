@@ -5,8 +5,6 @@
 
 geo-map {
   display: flex;
-  align-items: stretch;
-  justify-content: stretch;
   position: relative;
   padding: 0pt;
 }

@@ -12,7 +12,7 @@
 
 
 
-import 'https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'
+import 'https://api.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.js'
 import 'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js'
 import 'https://unpkg.com/three@0.126.0/build/three.min.js'
 import 'https://unpkg.com/deck.gl@^8.0.0/dist.min.js'
@@ -50,7 +50,7 @@ function getURLValues(URL = window.location.href ){
 }
 
 
-class GeoMapComponent extends HTMLElement {
+export class GeoMapComponent extends HTMLElement {
   constructor() {
     super();
     if(typeof(mapboxgl) === 'undefined'){
