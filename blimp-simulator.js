@@ -81,6 +81,15 @@ class BlimpSimulator extends GeoMapComponent {
       'maxzoom': 14
       });
     this.map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 1.5 });
+    this.map.setFog({
+    'range': [0, 20],
+    'horizon-blend': 0.3,
+    'color': 'white',
+    'high-color': '#add8e6',
+    'space-color': '#d8f2ff',
+    'star-intensity': 0.0
+    });
+
 
     this.map.on('move', (e) => {
       this.onMove()

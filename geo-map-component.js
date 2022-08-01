@@ -12,11 +12,11 @@
 
 
 
-import 'https://api.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.js'
-import 'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js'
-import 'https://unpkg.com/three@0.126.0/build/three.min.js'
-import 'https://unpkg.com/deck.gl@^8.0.0/dist.min.js'
-import  * as turf from 'https://cdn.jsdelivr.net/npm/@turf/turf'
+import 'https://api.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.js';
+import 'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js';
+import 'https://unpkg.com/three@0.126.0/build/three.min.js';
+import 'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js';
+import SlideShowControls from './geo-map-slideshow.js';
 
 function ready(callbackFunction){
   if(document.readyState === 'complete')
@@ -99,6 +99,9 @@ export class GeoMapComponent extends HTMLElement {
     } else {
       this.locked = true;
     };
+
+    this.slideshow = this.getAttribute('slideshow');
+
   }
 
   connectedCallback() {
@@ -125,6 +128,52 @@ export class GeoMapComponent extends HTMLElement {
   }
 
   mapLoaded(){
+    this.dispatchEvent(new Event('loaded'))
+
+    this.geocoder = this.getAttribute('geocoder')
+    if(this.geocoder !== null){   
+    if(typeof(MapboxGeocoder) === 'undefined'){
+      this.innerHTML = `If you would like to use the geocoder element, 
+      you must include the geocoder plugin in your HTML: 
+      https://docs.mapbox.com/mapbox-gl-js/example/mapbox-gl-geocoder/`
+      return
+    } 
+    const geocoder = new MapboxGeocoder({
+      accessToken: mapboxgl.accessToken,
+      mapboxgl: mapboxgl,
+      zoom: 18,
+      marker: false,
+      placeholder: 'Search for an Address'
+    })
+    geocoder.on('result', (e) => { this.geocoderResult(e) })
+    this.map.addControl( geocoder )
+    } // end GeoCoder
+
+    this.geolocate = this.getAttribute('geolocate')
+    if(this.geolocate !== null){
+      this.map.addControl(new mapboxgl.GeolocateControl({
+        showAccuracy: false,
+        showUserLocation: false
+      }))
+    }
+
+    this.navigation_control = this.getAttribute('navigation')
+    if(this.navigation_control !== null){
+      this.map.addControl(
+        new mapboxgl.NavigationControl({visualizePitch: true})
+      )
+    }
+
+    if(this.slideshow !== null){
+      this.map.addControl(new SlideShowControls(this.map, this.geo_map))
+    }
+
+    this.map.addControl(
+      new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        mapboxgl: mapboxgl
+      })
+    );
 
   }
 

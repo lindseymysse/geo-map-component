@@ -1,21 +1,101 @@
 <script src="geo-map-component.js" type="module"></script>
 <link rel="stylesheet" type="text/css" href="geo-map-component.css">
 <style>
+  body {
+    background-color: black;
+  }
   geo-map {
-    margin-left: 20px;
-    margin-top: 20px;
-    width: 50%;
-    height: 90%;
+    width: 100%;
+    height: 100%;
   }
 </style>
+
+<img src="https://uploads-ssl.webflow.com/5e97831f234469bc00deddc8/5e9efe510065a0094d1593cf_RE_Colored_Icon.svg" style="
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  z-index: 9001;
+  width: 50px;
+  height: auto;
+
+">
 <geo-map
-  accesstoken=pk.eyJ1IjoibGluZHNleW15c3NlIiwiYSI6ImNqOGNlYjMzbDA5am8zMmxid2oyc3hrc2cifQ.hK6NXKEl7bK7va2pRtY0Yw
-  styleurl=mapbox://styles/lindseymysse/cjcqx0yoi5l6c2ro9kxheop6d
+  id="geo_map"
+  accesstoken=pk.eyJ1IjoicmVmbGVjdGl2ZS1lYXJ0aCIsImEiOiJja2VvZHd2YjgwMGJnMnhtcmVsOXRwMWR3In0.KgPtf7QYrYp5g0G2yrvGaA
+  styleurl=mapbox://styles/reflective-earth/cl60yqkiw002o16msz3oc2bxb
   latitude= 37.7883697
   longitude=-122.3998664
-  zoom=5
-  bearing=45
-  pitch=60
+  zoom=2
+  bearing=0
+  pitch=0
+  navigation
+
 >
-  
 </geo-map>
+
+<script type="text/javascript">
+  geo_map.addEventListener('loaded', function(){
+    const map = geo_map.map
+
+    const secondsPerRevolution = 120;
+    // Above zoom level 5, do not rotate.
+    const maxSpinZoom = 5;
+    // Rotate at intermediate speeds between zoom levels 3 and 5.
+    const slowSpinZoom = 3;
+     
+    let userInteracting = false;
+    let spinEnabled = true;
+     
+    function spinGlobe() {
+    const zoom = map.getZoom();
+    if (spinEnabled && !userInteracting && zoom < maxSpinZoom) {
+    let distancePerSecond = 360 / secondsPerRevolution;
+    if (zoom > slowSpinZoom) {
+    // Slow spinning at higher zooms
+    const zoomDif =
+    (maxSpinZoom - zoom) / (maxSpinZoom - slowSpinZoom);
+    distancePerSecond *= zoomDif;
+    }
+    const center = map.getCenter();
+    center.lng -= distancePerSecond;
+    // Smoothly animate the map over one second.
+    // When this animation is complete, it calls a 'moveend' event.
+    map.easeTo({ center, duration: 1000, easing: (n) => n });
+    }
+    }
+     
+    // Pause spinning on interaction
+    map.on('mousedown', () => {
+    userInteracting = true;
+    });
+     
+    // Restart spinning the globe when interaction is complete
+    map.on('mouseup', () => {
+    userInteracting = false;
+    spinGlobe();
+    });
+     
+    // These events account for cases where the mouse has moved
+    // off the map, so 'mouseup' will not be fired.
+    map.on('dragend', () => {
+    userInteracting = false;
+    spinGlobe();
+    });
+    map.on('pitchend', () => {
+    userInteracting = false;
+    spinGlobe();
+    });
+    map.on('rotateend', () => {
+    userInteracting = false;
+    spinGlobe();
+    });
+     
+    // When animation is complete, start spinning if there is no ongoing interaction
+    map.on('moveend', () => {
+    spinGlobe();
+    });
+
+    spinGlobe();
+
+  })
+</script>

@@ -1,7 +1,6 @@
 @import "https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css";
 @import "https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css";
-@import "https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css";
-
+@import "https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css";
 
 geo-map {
   display: flex;
