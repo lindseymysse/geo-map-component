@@ -100,11 +100,22 @@
     spinGlobe();
 
     geo_map.addEventListener('LOCATION FOUND', (e) => {
-      console.log('FOUND:', e.detail);
       const coords = e.detail
 
       fetch(`https://reflective-earth.herokuapp.com/api/earthengine/${coords[1]}/${coords[0]}`).then(res => res.json())
-        .then(res => {console.log(res)})
+        .then(res => {
+          console.log(res);
+          const popup = new mapboxgl.Popup({ closeOnClick: false })
+            .setLngLat(coords)
+            .setHTML(`
+              <h1>WRI</h1>
+              <p>${res.albedo}</p>
+              <p>${res.outsolation}</p>
+
+              `)
+            .addTo(map);
+
+        })
     })
 
   })
