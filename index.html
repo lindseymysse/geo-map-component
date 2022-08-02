@@ -29,6 +29,8 @@
   bearing=0
   pitch=0
   navigation
+  geolocate
+  geocoder
 
 >
 </geo-map>
@@ -47,55 +49,63 @@
     let spinEnabled = true;
      
     function spinGlobe() {
-    const zoom = map.getZoom();
-    if (spinEnabled && !userInteracting && zoom < maxSpinZoom) {
-    let distancePerSecond = 360 / secondsPerRevolution;
-    if (zoom > slowSpinZoom) {
-    // Slow spinning at higher zooms
-    const zoomDif =
-    (maxSpinZoom - zoom) / (maxSpinZoom - slowSpinZoom);
-    distancePerSecond *= zoomDif;
-    }
-    const center = map.getCenter();
-    center.lng -= distancePerSecond;
-    // Smoothly animate the map over one second.
-    // When this animation is complete, it calls a 'moveend' event.
-    map.easeTo({ center, duration: 1000, easing: (n) => n });
-    }
+      const zoom = map.getZoom();
+      if (spinEnabled && !userInteracting && zoom < maxSpinZoom) {
+        let distancePerSecond = 360 / secondsPerRevolution;
+        if (zoom > slowSpinZoom) {
+          // Slow spinning at higher zooms
+          const zoomDif =
+          (maxSpinZoom - zoom) / (maxSpinZoom - slowSpinZoom);
+          distancePerSecond *= zoomDif;
+        }
+        const center = map.getCenter();
+        center.lng -= distancePerSecond;
+        // Smoothly animate the map over one second.
+        // When this animation is complete, it calls a 'moveend' event.
+        map.easeTo({ center, duration: 1000, easing: (n) => n });
+      }
     }
      
     // Pause spinning on interaction
     map.on('mousedown', () => {
-    userInteracting = true;
+      userInteracting = true;
     });
      
     // Restart spinning the globe when interaction is complete
     map.on('mouseup', () => {
-    userInteracting = false;
-    spinGlobe();
+      userInteracting = false;
+      spinGlobe();
     });
      
     // These events account for cases where the mouse has moved
     // off the map, so 'mouseup' will not be fired.
     map.on('dragend', () => {
-    userInteracting = false;
-    spinGlobe();
+      userInteracting = false;
+      spinGlobe();
     });
     map.on('pitchend', () => {
-    userInteracting = false;
-    spinGlobe();
+      userInteracting = false;
+      spinGlobe();
     });
     map.on('rotateend', () => {
-    userInteracting = false;
-    spinGlobe();
+      userInteracting = false;
+      spinGlobe();
     });
      
     // When animation is complete, start spinning if there is no ongoing interaction
     map.on('moveend', () => {
-    spinGlobe();
+      spinGlobe();
     });
 
     spinGlobe();
+
+    geo_map.addEventListener('LOCATION FOUND', (e) => {
+      console.log('FOUND:', e.detail);
+      const coords = e.detail
+
+      fetch(`https://reflective-earth.herokuapp.com/api/earthengine/${coords[1]}/${coords[0]}`).then(res => res.json())
+        .then(res => {console.log(res)})
+    })
 
   })
 </script>

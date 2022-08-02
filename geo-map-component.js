@@ -132,29 +132,38 @@ export class GeoMapComponent extends HTMLElement {
 
     this.geocoder = this.getAttribute('geocoder')
     if(this.geocoder !== null){   
-    if(typeof(MapboxGeocoder) === 'undefined'){
-      this.innerHTML = `If you would like to use the geocoder element, 
-      you must include the geocoder plugin in your HTML: 
-      https://docs.mapbox.com/mapbox-gl-js/example/mapbox-gl-geocoder/`
-      return
-    } 
-    const geocoder = new MapboxGeocoder({
-      accessToken: mapboxgl.accessToken,
-      mapboxgl: mapboxgl,
-      zoom: 18,
-      marker: false,
-      placeholder: 'Search for an Address'
-    })
-    geocoder.on('result', (e) => { this.geocoderResult(e) })
-    this.map.addControl( geocoder )
+      if(typeof(MapboxGeocoder) === 'undefined'){
+        this.innerHTML = `If you would like to use the geocoder element, 
+        you must include the geocoder plugin in your HTML: 
+        https://docs.mapbox.com/mapbox-gl-js/example/mapbox-gl-geocoder/`
+        return
+      } 
+      const geocoder = new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        mapboxgl: mapboxgl,
+        zoom: 18,
+        marker: false,
+        placeholder: 'Search for an Address'
+      })
+      this.map.addControl( geocoder )
+      geocoder.on('result', (e) => { 
+        this.handleGeolocate(e) 
+      })
+
     } // end GeoCoder
 
-    this.geolocate = this.getAttribute('geolocate')
-    if(this.geolocate !== null){
-      this.map.addControl(new mapboxgl.GeolocateControl({
+    this.geolocate_attribute = this.getAttribute('geolocate')
+    if(this.geolocate_attrubute !== null){
+      const geolocate = new mapboxgl.GeolocateControl({
         showAccuracy: false,
         showUserLocation: false
-      }))
+      });
+
+      this.map.addControl(geolocate);
+
+      geolocate.on('geolocate', (e) => {
+        this.handleGeolocate(e)
+      })
     }
 
     this.navigation_control = this.getAttribute('navigation')
@@ -168,12 +177,17 @@ export class GeoMapComponent extends HTMLElement {
       this.map.addControl(new SlideShowControls(this.map, this.geo_map))
     }
 
-    this.map.addControl(
-      new MapboxGeocoder({
-        accessToken: mapboxgl.accessToken,
-        mapboxgl: mapboxgl
-      })
-    );
+  }
+
+  handleGeolocate(e){
+    console.log(e)
+    let coords = []
+    if(e.coords){
+      coords = [e.coords.longitude, e.coords.latitude];
+    } else {
+      coords = e.result.center
+    }
+    this.dispatchEvent(new CustomEvent('LOCATION FOUND', {detail: coords}))
 
   }
 
