@@ -177,6 +177,11 @@ export class GeoMapComponent extends HTMLElement {
       this.map.addControl(new SlideShowControls(this.map, this.geo_map))
     }
 
+    this.map.on('mouseup', (e) => {
+      this.dispatchEvent(new CustomEvent('LOCATION FOUND', {detail: [e.lngLat.lng, e.lngLat.lat]}))
+
+    });
+
   }
 
   handleGeolocate(e){

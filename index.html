@@ -39,6 +39,8 @@
   geo_map.addEventListener('loaded', function(){
     const map = geo_map.map
 
+    let last_popup = null;
+
     const secondsPerRevolution = 120;
     // Above zoom level 5, do not rotate.
     const maxSpinZoom = 5;
@@ -104,13 +106,13 @@
 
       fetch(`https://reflective-earth.herokuapp.com/api/earthengine/${coords[1]}/${coords[0]}`).then(res => res.json())
         .then(res => {
-          console.log(res);
-          const popup = new mapboxgl.Popup({ closeOnClick: false })
+          if(last_popup !== null){last_popup.remove();}
+          last_popup = new mapboxgl.Popup({ closeOnClick: false })
             .setLngLat(coords)
             .setHTML(`
               <h1>WRI</h1>
-              <p>${res.albedo}</p>
-              <p>${res.outsolation}</p>
+              <p>Albedo: ${res.albedo}</p>
+              <p>Outsolation: ${res.outsolation}</p>
 
               `)
             .addTo(map);
