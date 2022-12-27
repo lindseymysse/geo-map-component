@@ -1,124 +1,44 @@
-<script src="geo-map-component.js" type="module"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<script src="index.js" type="module"></script>
 <link rel="stylesheet" type="text/css" href="geo-map-component.css">
-<style>
-  body {
-    background-color: black;
-  }
-  geo-map {
-    width: 100%;
-    height: 100%;
-  }
-</style>
 
-<img src="https://uploads-ssl.webflow.com/5e97831f234469bc00deddc8/5e9efe510065a0094d1593cf_RE_Colored_Icon.svg" style="
-  position: absolute;
-  left: 20px;
-  top: 20px;
-  z-index: 9001;
-  width: 50px;
-  height: auto;
+<geo-map id="geo_map">
+  <geo-map-left-column><h1>Left Column</h1><p>Construct free-market meta-tube otaku beef noodles fetishism film wonton soup. Corporation nodal point shanty town grenade shrine ablative computer. Lights man assault 8-bit saturation point boy apophenia numinous camera nodal point savant pre-silent. Corrupted chrome Tokyo rain tank-traps beef noodles towards tube cyber-systema bridge modem kanji construct decay. Military-grade ablative face forwards fetishism spook crypto-car grenade. Sprawl singularity refrigerator courier Shibuya-space convenience store cartel bicycle Kowloon face forwards vinyl RAF. Dome dolphin range-rover DIY military-grade industrial grade plastic shoes Tokyo knife rifle shanty town fetishism chrome jeans. Range-rover shoes rebar computer numinous assassin claymore mine saturation point beef noodles refrigerator bicycle franchise dead geodesic sub-orbital DIY. </p></geo-map-left-column>
+  <geo-map-right-column>
+    <h1>Right column</h1>
+  <p>Nodal point order-flow San Francisco dolphin motion wristwatch boat assassin dissident drone girl wonton soup. Sentient voodoo god jeans denim rifle tank-traps into otaku. Courier cardboard semiotics assault fetishism denim decay pre. San Francisco silent-ware dolphin tube order-flow warehouse nodal point military-grade paranoid assault franchise advert table pen bridge. Sign Shibuya boy pen sunglasses industrial grade girl 8-bit A.I. otaku hacker dissident alcohol bicycle. Gang rebar girl physical assault monofilament Shibuya beef noodles wristwatch. Neural sub-orbital car sign nodality systemic receding urban modem. Shoes dead shrine systema carbon sensory nodality. Voodoo god ablative wristwatch futurity augmented reality free-market drone cyber. </p></geo-map-right-column>
+  <geo-map-modal>
+    <header>
+      Modal
+    </header>
+    <main>
+      <div>
+        <h1>Hello</h1>
+        <p>Sunglasses tattoo girl pre-dead table order-flow weathered drone network stimulate euro-pop military-grade free-market industrial grade. Cardboard papier-mache concrete crypto-engine realism math-tattoo nodal point hotdog faded corporation monofilament vehicle paranoid. BASE jump plastic decay tattoo RAF engine sentient. </p>
+      </div>
 
-">
-<geo-map
-  id="geo_map"
-  accesstoken=pk.eyJ1IjoicmVmbGVjdGl2ZS1lYXJ0aCIsImEiOiJja2VvZHd2YjgwMGJnMnhtcmVsOXRwMWR3In0.KgPtf7QYrYp5g0G2yrvGaA
-  styleurl=mapbox://styles/reflective-earth/cl60yqkiw002o16msz3oc2bxb
-  latitude= 37.7883697
-  longitude=-122.3998664
-  zoom=2
-  bearing=0
-  pitch=0
-  navigation
-  geolocate
-  geocoder
+      <div>
+        <h2>Yo</h2>
+        <p>Tanto corporation physical sensory dolphin weathered systema motion. Fetishism knife silent numinous refrigerator Chiba shoes neon. Assassin urban youtube assault car hacker wristwatch 8-bit skyscraper realism. Neon military-grade bridge tanto vinyl uplink voodoo god boat film tube nodal point stimulate. Artisanal wristwatch geodesic digital savant media-space dissident film neon industrial grade dolphin fetishism. Denim sunglasses chrome physical dissident sprawl table 8-bit engine modem Chiba. </p></div>
+      <div>
+        <h2>YhasasdasD</h2>
+        <p>Computer otaku cyber-meta-tattoo chrome saturation point digital network narrative table 8-bit. Paranoid sensory 3D-printed sign shrine car gang weathered DIY rifle San Francisco saturation point alcohol tiger-team. Savant tattoo semiotics shanty town wristwatch disposable bridge. Legba fetishism boat post-refrigerator pre-construct convenience store. Tank-traps weathered dissident long-chain hydrocarbons courier order-flow faded-space sensory bridge neural lights RAF silent. Wonton soup free-market monofilament grenade sprawl spook advert RAF rain pistol vinyl cartel Shibuya nodality lights plastic. </p>
+      </div>
+      <div>
+        <h1>THERWerEW</h1>
+        <p>Assassin modem shoes office katana bicycle convenience store paranoid. Euro-pop realism bridge industrial grade film nodal point city rifle boat knife market. Free-market hotdog shoes stimulate grenade media footage voodoo god order-flow boy fetishism beef noodles warehouse. Computer systema decay chrome rifle faded man stimulate Tokyo nodal point.  </p>
+      </div>
 
->
+    </main>
+    <footer>
+      This is the modal footer
+    </footer>
+  </geo-map-modal>
+  <geo-map-show-modal>
+    Show Modal
+  </geo-map-show-modal>
+
 </geo-map>
 
-<script type="text/javascript">
-  geo_map.addEventListener('loaded', function(){
-    const map = geo_map.map
-
-    let last_popup = null;
-
-    const secondsPerRevolution = 120;
-    // Above zoom level 5, do not rotate.
-    const maxSpinZoom = 5;
-    // Rotate at intermediate speeds between zoom levels 3 and 5.
-    const slowSpinZoom = 3;
-     
-    let userInteracting = false;
-    let spinEnabled = true;
-     
-    function spinGlobe() {
-      const zoom = map.getZoom();
-      if (spinEnabled && !userInteracting && zoom < maxSpinZoom) {
-        let distancePerSecond = 360 / secondsPerRevolution;
-        if (zoom > slowSpinZoom) {
-          // Slow spinning at higher zooms
-          const zoomDif =
-          (maxSpinZoom - zoom) / (maxSpinZoom - slowSpinZoom);
-          distancePerSecond *= zoomDif;
-        }
-        const center = map.getCenter();
-        center.lng -= distancePerSecond;
-        // Smoothly animate the map over one second.
-        // When this animation is complete, it calls a 'moveend' event.
-        map.easeTo({ center, duration: 1000, easing: (n) => n });
-      }
-    }
-     
-    // Pause spinning on interaction
-    map.on('mousedown', () => {
-      userInteracting = true;
-    });
-     
-    // Restart spinning the globe when interaction is complete
-    map.on('mouseup', () => {
-      userInteracting = false;
-      spinGlobe();
-    });
-     
-    // These events account for cases where the mouse has moved
-    // off the map, so 'mouseup' will not be fired.
-    map.on('dragend', () => {
-      userInteracting = false;
-      spinGlobe();
-    });
-    map.on('pitchend', () => {
-      userInteracting = false;
-      spinGlobe();
-    });
-    map.on('rotateend', () => {
-      userInteracting = false;
-      spinGlobe();
-    });
-     
-    // When animation is complete, start spinning if there is no ongoing interaction
-    map.on('moveend', () => {
-      spinGlobe();
-    });
-
-    spinGlobe();
-
-    geo_map.addEventListener('LOCATION FOUND', (e) => {
-      const coords = e.detail
-
-      fetch(`https://reflective-earth.herokuapp.com/api/earthengine/${coords[1]}/${coords[0]}`).then(res => res.json())
-        .then(res => {
-          if(last_popup !== null){last_popup.remove();}
-          last_popup = new mapboxgl.Popup({ closeOnClick: false })
-            .setLngLat(coords)
-            .setHTML(`
-              <h1>WRI</h1>
-              <p>Albedo: ${res.albedo}</p>
-              <p>Outsolation: ${res.outsolation}</p>
-
-              `)
-            .addTo(map);
-
-        })
-    })
-
-  })
-</script>
