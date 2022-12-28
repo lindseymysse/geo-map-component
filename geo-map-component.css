@@ -120,6 +120,14 @@ geo-map {
   background-color: var(--geo-map-background-color);
 }
 
+geo-map map-container {
+  position: absolute;
+  left: 0pt;
+  top: 0pt;
+  width: 100%;
+  height: 100%;
+}
+
 
 geo-map-left-column {
   display:block;
@@ -133,4 +141,8 @@ geo-map-right-column {
   display:block;
   float:right;
   height:100%;
+}
+
+map-container {
+
 }
