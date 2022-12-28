@@ -1,3 +1,7 @@
+@import "https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css";
+@import "https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css";
+
+
 body {
   margin:0;
 }
@@ -115,6 +119,8 @@ geo-map-show-modal:active {
 geo-map {
   margin:0;
   display:flex;
+  flex-direction: row;
+  justify-content: space-between;
   width:100%;
   height:100%;
   background-color:transparent;
@@ -131,18 +137,17 @@ geo-map map-container {
 
 
 geo-map-column {
-  display:block;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   max-width: 20em;
-  height:100%;
 }
 
 geo-map-column[side*="left"] {
-  float:left;
+
 }
 
 geo-map-column[side*="right"] {
-  float:right;
-  background-color:pink;
 }
 
 

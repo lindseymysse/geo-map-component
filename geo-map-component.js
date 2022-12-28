@@ -99,8 +99,61 @@ class GeoMapComponent extends HTMLElement {
     this.map.on('load', () => {this.mapLoaded()})
   }
 
+  initializeGeoCoder(){
+    console.log('GEO CODER')
+
+    let bbox = this.getAttribute('search-bounds');
+    if(bbox != null){
+      bbox = bbox.split(',').map(d => {
+        return Number(d.trim());
+      });
+    }
+
+    const geocoder = new MapboxGeocoder({
+      accessToken: mapboxgl.accessToken,
+      mapboxgl: mapboxgl,
+      zoom: 18,
+      marker: false,
+      bbox:bbox,
+      placeholder: 'Search for an Address'
+    })
+
+    const geocoder_div = this.querySelector('geo-map-geocoder');
+    if(geocoder_div == null){
+      this.map.addControl( geocoder )
+    } else {
+      geocoder_div.appendChild(geocoder.onAdd(this.map))
+    }
+
+    geocoder.on('result', (e) => { 
+      this.handleGeolocate(e) 
+    })
+
+  }
+
   mapLoaded(){
 
+    if(this.geocoder !== null){   
+      if(typeof(MapboxGeocoder) === 'undefined'){
+        this.innerHTML = `If you would like to use the geocoder element, 
+        you must include the geocoder plugin in your HTML: 
+        https://docs.mapbox.com/mapbox-gl-js/example/mapbox-gl-geocoder/`
+        return
+      } 
+
+      this.initializeGeoCoder()
+    }
+
+
+    /*
+    // This emits an even when the map is loaded. 
+    // you can attach a function to this like
+    //  geo_map.addEventListener('loaded', () => {
+    //    your function here
+    //  });
+    */
+
+    this.dispatchEvent(new Event('loaded'))
   }
 }
 
