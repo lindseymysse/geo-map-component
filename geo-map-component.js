@@ -55,7 +55,26 @@ class GeoMapComponent extends HTMLElement {
     };
 
     this.slideshow = this.getAttribute('slideshow');
+  }
 
+  showLayer(){
+    // this function will show a specific layer
+    // in a neat, useable manner
+    return console.error('FEATURE NOT IMPLEMENTED')
+  }
+
+  hideLayer(){
+    // this function will hide a specific layer
+    // in a neat, useable manner
+    return console.error('FEATURE NOT IMPLEMENTED')
+ 
+  }
+
+  getLayers(){
+    // this function will list the layers
+    // the map has
+    // in a neat, useable manner
+    return console.error('FEATURE NOT IMPLEMENTED')
   }
 
   connectedCallback() {
@@ -73,7 +92,6 @@ class GeoMapComponent extends HTMLElement {
       bearing: this.bearing,
       projection: 'globe',
       pitch: this.pitch,
-      style: this.styleurl,
       interactive: !this.locked
     })
 
@@ -82,7 +100,7 @@ class GeoMapComponent extends HTMLElement {
   }
 
   mapLoaded(){
-    
+
   }
 }
 
