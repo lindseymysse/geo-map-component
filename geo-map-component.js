@@ -10,7 +10,6 @@ class GeoMapComponent extends HTMLElement {
     if(typeof(mapboxgl) === 'undefined'){
       return console.error('Geo Map component requires Mapbox to work');
     }
-
     const URLvalues = getURLValues();
 
     this.access_token = this.getAttribute('accesstoken');
@@ -128,16 +127,31 @@ class GeoMapComponent extends HTMLElement {
     let coords = this.map.getCenter();
 
     const bounds = this.map.getBounds();
+    const zoom = this.map.getZoom();
     this.dispatchEvent(
       new CustomEvent('MAP MOVED', 
         {
           detail: {
             coords,
-            bounds
+            bounds,
+            zoom
           }
         }
       )
     );
+  }
+
+  showPopup(content){
+    const popup = new mapboxgl.Popup({ 
+      offset: {
+        'bottom': [-80, -40]
+      },
+      closeOnClick: false, 
+      closeOnMove: true
+    })
+    .setLngLat(geo_map.map.getCenter())
+    .setHTML(content)
+    .addTo(this.map)
   }
 
   mapLoaded(){
@@ -157,6 +171,7 @@ class GeoMapComponent extends HTMLElement {
       this.handleMoveEnd(e)
     })
 
+    this.style.opacity = 1;
 
     /*
     // This emits an even when the map is loaded. 

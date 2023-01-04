@@ -113,11 +113,13 @@ geo-map-show-modal:active {
 }
 
 geo-map {
+  opacity: 0;
   margin:0;
   display:block;
   width:100%;
   height:100%;
   background-color:transparent;
+  transition: opacity 0.5s ease-in;
 }
 
 geo-map map-container {
@@ -132,7 +134,9 @@ geo-map map-container {
 :root {
   --column-footer-height: 1em;
   --column-footer-offset: 1em;
-  --column-header-size: 5em;
+  --column-header-size: 1em;
+  --column-text-color: white;
+  --column-background-color: black;
 }
 geo-map-column {
   position:absolute;
@@ -142,12 +146,25 @@ geo-map-column {
   height:calc(100% - var(--column-footer-height) - var(--column-footer-offset) - var(--column-header-size));
   display:flex;
   flex-direction: column;
+  overflow:scroll;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+  color: var(--column-text-color);
+
+  background-color: var(--column-background-color);
 }
+
+geo-map-column::-webkit-scrollbar {
+  display:none;
+}
+
 
 geo-map-column footer {
  position: absolute;
  bottom: var(--column-footer-offset);
  height: var(--column-footer-height);
+
+
 
 }
 

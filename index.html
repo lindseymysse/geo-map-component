@@ -10,7 +10,7 @@
   styleurl=mapbox://styles/reflective-earth/cl60yqkiw002o16msz3oc2bxb
   latitude= 37.7883697
   longitude=-122.3998664
-  zoom=2
+  zoom=14
   bearing=0
   pitch=0
   navigation
@@ -63,12 +63,7 @@
     Show Modal
   </geo-map-show-modal>
 
-  <script>
-    geo_map.addEventListener('MAP MOVED', function(e){
-      console.log(e.detail.bounds._sw.lng, e.detail.coords.lng);
-    })
-
-  </script>
+  <script src="app.js" type="module"></script>
 
 </geo-map>
 
