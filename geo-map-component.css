@@ -1,7 +1,6 @@
 @import "https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css";
 @import "https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css";
 
-
 body {
   margin:0;
 }
@@ -12,7 +11,6 @@ body {
   --geo-map-border-color: #2d2d2d;
   --geo-map-secondary-background-color: #000000;
   --geo-map-secondary-foreground-color: #ffffff;
-
 }
 
 geo-map-modal {
@@ -88,7 +86,6 @@ geo-map-modal header {
   text-align:center;
 }
 
-
 geo-map-modal footer {
   width:100%;
   padding: 0.25em 0;
@@ -115,7 +112,6 @@ geo-map-show-modal:active {
   opacity: 0.80;
 }
 
-
 geo-map {
   margin:0;
   display:block;
@@ -136,16 +132,16 @@ geo-map map-container {
 :root {
   --column-footer-height: 1em;
   --column-footer-offset: 1em;
+  --column-header-size: 5em;
 }
 geo-map-column {
   position:absolute;
   width: 20em;
   z-index:100;
-  height:calc(100% - var(--column-footer-height) - var(--column-footer-offset));
+  top: var(--column-header-size);
+  height:calc(100% - var(--column-footer-height) - var(--column-footer-offset) - var(--column-header-size));
   display:flex;
   flex-direction: column;
-
-
 }
 
 geo-map-column footer {
@@ -157,8 +153,6 @@ geo-map-column footer {
 
 geo-map-column[side*="left"] {
   left:0pt;
-  top:0pt;
-
 }
 
 geo-map-column[side*="right"] {
