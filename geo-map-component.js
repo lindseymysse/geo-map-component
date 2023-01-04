@@ -1,7 +1,6 @@
 import 'https://api.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.js';
 import 'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js';
-import 'https://unpkg.com/three@0.126.0/build/three.min.js';
-import 'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js';
+
 import { getURLValues, ready } from './helpers.js';
 
 class GeoMapComponent extends HTMLElement {
@@ -98,6 +97,10 @@ class GeoMapComponent extends HTMLElement {
     this.map.on('load', () => {this.mapLoaded()})
   }
 
+  handleZoom(){
+
+  }
+
   initializeGeoCoder(){
     let bbox = this.getAttribute('search-bounds');
     if(bbox !== null){
@@ -121,6 +124,15 @@ class GeoMapComponent extends HTMLElement {
     } else {
       geocoder_div.appendChild(geocoder.onAdd(this.map))
     }
+  }
+
+  initializeGeoLocate(){
+    const geolocate = new mapboxgl.GeolocateControl({
+      showAccuracy: false,
+      showUserLocation: false
+    });
+
+    this.map.addControl(geolocate);
   }
 
   handleMoveEnd(e){
@@ -165,6 +177,11 @@ class GeoMapComponent extends HTMLElement {
       } 
 
       this.initializeGeoCoder()
+    }
+
+    this.geolocate_attribute = this.getAttribute('geolocate')
+    if(this.geolocate_attribute !== null){
+      this.initializeGeoLocate()
     }
 
     this.map.on('moveend', (e) => {

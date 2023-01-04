@@ -13,6 +13,22 @@ body {
   --geo-map-secondary-foreground-color: #ffffff;
 }
 
+:lang(es) [lang="es"] {
+  display: block;
+}
+
+:lang(es) [lang="en"] {
+  display: none;
+}
+
+:lang(en) [lang="en"]{
+  display: block;
+}
+
+:lang(en) [lang="es"]{
+  display: none;
+}
+
 geo-map-modal {
   position: fixed;
   display: flex;
