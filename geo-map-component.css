@@ -133,11 +133,25 @@ geo-map map-container {
   height: 100%;
 }
 
-
+:root {
+  --column-footer-height: 1em;
+  --column-footer-offset: 1em;
+}
 geo-map-column {
   position:absolute;
   width: 20em;
-    z-index:100;
+  z-index:100;
+  height:calc(100% - var(--column-footer-height) - var(--column-footer-offset));
+  display:flex;
+  flex-direction: column;
+
+
+}
+
+geo-map-column footer {
+ position: absolute;
+ bottom: var(--column-footer-offset);
+ height: var(--column-footer-height);
 
 }
 
