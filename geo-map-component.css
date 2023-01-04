@@ -102,7 +102,7 @@ geo-map-show-modal {
   right: 9px;
   bottom: 46px;
   padding: 1em;
-  z-index: 100;
+  z-index: 1000;
   cursor: pointer;
   opacity: 0;
   transition: opacity 0.5s linear;
@@ -118,9 +118,7 @@ geo-map-show-modal:active {
 
 geo-map {
   margin:0;
-  display:flex;
-  flex-direction: row;
-  justify-content: space-between;
+  display:block;
   width:100%;
   height:100%;
   background-color:transparent;
@@ -128,26 +126,29 @@ geo-map {
 
 geo-map map-container {
   position: absolute;
+  display:block;
   left: 0pt;
   top: 0pt;
   width: 100%;
   height: 100%;
-  z-index: -1;
 }
 
 
 geo-map-column {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  max-width: 20em;
+  position:absolute;
+  width: 20em;
+    z-index:100;
+
 }
 
 geo-map-column[side*="left"] {
+  left:0pt;
+  top:0pt;
 
 }
 
 geo-map-column[side*="right"] {
+  right:0pt;
 }
 
 

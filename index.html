@@ -63,5 +63,12 @@
     Show Modal
   </geo-map-show-modal>
 
+  <script>
+    geo_map.addEventListener('MAP MOVED', function(e){
+      console.log(e.detail.bounds._sw.lng, e.detail.coords.lng);
+    })
+
+  </script>
+
 </geo-map>
 

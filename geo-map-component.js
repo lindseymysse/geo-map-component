@@ -100,10 +100,8 @@ class GeoMapComponent extends HTMLElement {
   }
 
   initializeGeoCoder(){
-    console.log('GEO CODER')
-
     let bbox = this.getAttribute('search-bounds');
-    if(bbox != null){
+    if(bbox !== null){
       bbox = bbox.split(',').map(d => {
         return Number(d.trim());
       });
@@ -124,11 +122,22 @@ class GeoMapComponent extends HTMLElement {
     } else {
       geocoder_div.appendChild(geocoder.onAdd(this.map))
     }
+  }
 
-    geocoder.on('result', (e) => { 
-      this.handleGeolocate(e) 
-    })
+  handleMoveEnd(e){
+    let coords = this.map.getCenter();
 
+    const bounds = this.map.getBounds();
+    this.dispatchEvent(
+      new CustomEvent('MAP MOVED', 
+        {
+          detail: {
+            coords,
+            bounds
+          }
+        }
+      )
+    );
   }
 
   mapLoaded(){
@@ -143,6 +152,10 @@ class GeoMapComponent extends HTMLElement {
 
       this.initializeGeoCoder()
     }
+
+    this.map.on('moveend', (e) => {
+      this.handleMoveEnd(e)
+    })
 
 
     /*
