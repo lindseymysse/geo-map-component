@@ -1,62 +1,14 @@
-/*
-    **** BEGIN ASCII ART ****
-       ________________        __  ______    ____
-      / ____/ ____/ __ \      /  |/  /   |  / __ \
-     / / __/ __/ / / / /_____/ /|_/ / /| | / /_/ /
-    / /_/ / /___/ /_/ /_____/ /  / / ___ |/ ____/
-    \____/_____/\____/     /_/  /_/_/  |_/_/
-    **** END ASCII ART ****
-    Markup Based Map as a pure Web Component
-
-*/
-
-
-
 import 'https://api.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.js';
 import 'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js';
-import 'https://unpkg.com/three@0.126.0/build/three.min.js';
-import 'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js';
-import SlideShowControls from './geo-map-slideshow.js';
 
-function ready(callbackFunction){
-  if(document.readyState === 'complete')
-    callbackFunction(event)
-  else
-    document.addEventListener("DOMContentLoaded", callbackFunction)
-}
+import { getURLValues, ready } from './helpers.js';
 
-function getNewID() {
-  return 'dtrm-xxxxxxxxxxxxxxxx-'
-    .replace(/[xy]/g, function(c) {
-      var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-      return v.toString(16)
-  }) + Date.now()
-}
-
-function getURLValues(URL = window.location.href ){
-  const search_params = new URLSearchParams(URL)
-  let options = {}
-  for (const [key, unparsed_value] of search_params) {
-    if(key !== window.location.origin + window.location.pathname + '?' ){
-      try {
-        const value = JSON.parse(decodeURI(unparsed_value))
-        options[key] = value
-      } catch {
-        options[key] = decodeURI(unparsed_value)
-      }
-    }
-  }
-  return options
-}
-
-
-export class GeoMapComponent extends HTMLElement {
+class GeoMapComponent extends HTMLElement {
   constructor() {
     super();
     if(typeof(mapboxgl) === 'undefined'){
       return console.error('Geo Map component requires Mapbox to work');
     }
-
     const URLvalues = getURLValues();
 
     this.access_token = this.getAttribute('accesstoken');
@@ -101,7 +53,26 @@ export class GeoMapComponent extends HTMLElement {
     };
 
     this.slideshow = this.getAttribute('slideshow');
+  }
 
+  showLayer(){
+    // this function will show a specific layer
+    // in a neat, useable manner
+    return console.error('FEATURE NOT IMPLEMENTED')
+  }
+
+  hideLayer(){
+    // this function will hide a specific layer
+    // in a neat, useable manner
+    return console.error('FEATURE NOT IMPLEMENTED')
+ 
+  }
+
+  getLayers(){
+    // this function will list the layers
+    // the map has
+    // in a neat, useable manner
+    return console.error('FEATURE NOT IMPLEMENTED')
   }
 
   connectedCallback() {
@@ -119,7 +90,6 @@ export class GeoMapComponent extends HTMLElement {
       bearing: this.bearing,
       projection: 'globe',
       pitch: this.pitch,
-      style: this.styleurl,
       interactive: !this.locked
     })
 
@@ -127,10 +97,77 @@ export class GeoMapComponent extends HTMLElement {
     this.map.on('load', () => {this.mapLoaded()})
   }
 
-  mapLoaded(){
-    this.dispatchEvent(new Event('loaded'))
+  handleZoom(){
 
-    this.geocoder = this.getAttribute('geocoder')
+  }
+
+  initializeGeoCoder(){
+    let bbox = this.getAttribute('search-bounds');
+    if(bbox !== null){
+      bbox = bbox.split(',').map(d => {
+        return Number(d.trim());
+      });
+    }
+
+    const geocoder = new MapboxGeocoder({
+      accessToken: mapboxgl.accessToken,
+      mapboxgl: mapboxgl,
+      zoom: 18,
+      marker: false,
+      bbox:bbox,
+      placeholder: 'Search for an Address'
+    })
+
+    const geocoder_div = this.querySelector('geo-map-geocoder');
+    if(geocoder_div == null){
+      this.map.addControl( geocoder )
+    } else {
+      geocoder_div.appendChild(geocoder.onAdd(this.map))
+    }
+  }
+
+  initializeGeoLocate(){
+    const geolocate = new mapboxgl.GeolocateControl({
+      showAccuracy: false,
+      showUserLocation: false
+    });
+
+    this.map.addControl(geolocate);
+  }
+
+  handleMoveEnd(e){
+    let coords = this.map.getCenter();
+
+    const bounds = this.map.getBounds();
+    const zoom = this.map.getZoom();
+    this.dispatchEvent(
+      new CustomEvent('MAP MOVED', 
+        {
+          detail: {
+            coords,
+            bounds,
+            zoom
+          }
+        }
+      )
+    );
+  }
+
+  showPopup(content){
+    const popup = new mapboxgl.Popup({ 
+      offset: {
+        'bottom': [-80, -40]
+      },
+      closeOnClick: false, 
+      closeOnMove: true
+    })
+    .setLngLat(geo_map.map.getCenter())
+    .setHTML(content)
+    .addTo(this.map)
+  }
+
+  mapLoaded(){
+
     if(this.geocoder !== null){   
       if(typeof(MapboxGeocoder) === 'undefined'){
         this.innerHTML = `If you would like to use the geocoder element, 
@@ -138,93 +175,33 @@ export class GeoMapComponent extends HTMLElement {
         https://docs.mapbox.com/mapbox-gl-js/example/mapbox-gl-geocoder/`
         return
       } 
-      const geocoder = new MapboxGeocoder({
-        accessToken: mapboxgl.accessToken,
-        mapboxgl: mapboxgl,
-        zoom: 18,
-        marker: false,
-        placeholder: 'Search for an Address'
-      })
-      this.map.addControl( geocoder )
-      geocoder.on('result', (e) => { 
-        this.handleGeolocate(e) 
-      })
 
-    } // end GeoCoder
+      this.initializeGeoCoder()
+    }
 
     this.geolocate_attribute = this.getAttribute('geolocate')
-    if(this.geolocate_attrubute !== null){
-      const geolocate = new mapboxgl.GeolocateControl({
-        showAccuracy: false,
-        showUserLocation: false
-      });
-
-      this.map.addControl(geolocate);
-
-      geolocate.on('geolocate', (e) => {
-        this.handleGeolocate(e)
-      })
+    if(this.geolocate_attribute !== null){
+      this.initializeGeoLocate()
     }
 
-    this.navigation_control = this.getAttribute('navigation')
-    if(this.navigation_control !== null){
-      this.map.addControl(
-        new mapboxgl.NavigationControl({visualizePitch: true})
-      )
-    }
+    this.map.on('moveend', (e) => {
+      this.handleMoveEnd(e)
+    })
 
-    if(this.slideshow !== null){
-      this.map.addControl(new SlideShowControls(this.map, this.geo_map))
-    }
+    this.style.opacity = 1;
 
-    this.map.on('mouseup', (e) => {
-      this.dispatchEvent(new CustomEvent('LOCATION FOUND', {detail: [e.lngLat.lng, e.lngLat.lat]}))
+    /*
+    // This emits an even when the map is loaded. 
+    // you can attach a function to this like
+    //  geo_map.addEventListener('loaded', () => {
+    //    your function here
+    //  });
+    */
 
-    });
-
+    this.dispatchEvent(new Event('loaded'))
   }
-
-  handleGeolocate(e){
-    console.log(e)
-    let coords = []
-    if(e.coords){
-      coords = [e.coords.longitude, e.coords.latitude];
-    } else {
-      coords = e.result.center
-    }
-    this.dispatchEvent(new CustomEvent('LOCATION FOUND', {detail: coords}))
-
-  }
-
-  disconnectedCallback() {
-
-  }
-
-  static get observedAttributes() {
-    return [
-  'accesstoken',
-  'styleurl',
-  'latitude',
-  'longitude',
-  'zoom',
-  'bearing',
-  'pitch',
-  'geolocate',
-  'geocoder',
-  'navigation',
-  'flyhome',
-  'edit',
-    ];
-  }
-
-  attributeChangedCallback(name, oldValue, newValue) {
-    switch(name){
-      default: 
-        break;
-    }
-  }
-
 }
 
-customElements.define("geo-map", GeoMapComponent);
+customElements.define('geo-map', GeoMapComponent)
+
 
