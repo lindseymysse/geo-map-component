@@ -11,6 +11,11 @@ body {
   --geo-map-border-color: #2d2d2d;
   --geo-map-secondary-background-color: #000000;
   --geo-map-secondary-foreground-color: #ffffff;
+  --column-footer-height: 1em;
+  --column-footer-offset: 1em;
+  --column-header-size: 1em;
+  --column-text-color: white;
+  --column-background-color: black;
 }
 
 :lang(es) [lang="es"] {
@@ -50,13 +55,7 @@ geo-map map-container {
   height: 100%;
 }
 
-:root {
-  --column-footer-height: 1em;
-  --column-footer-offset: 1em;
-  --column-header-size: 1em;
-  --column-text-color: white;
-  --column-background-color: black;
-}
+
 geo-map-column {
   position:absolute;
   width: 20em;
