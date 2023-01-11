@@ -97,10 +97,6 @@ class GeoMapComponent extends HTMLElement {
     this.map.on('load', () => {this.mapLoaded()})
   }
 
-  handleZoom(){
-
-  }
-
   initializeGeoCoder(){
     let bbox = this.getAttribute('search-bounds');
     if(bbox !== null){
@@ -137,9 +133,9 @@ class GeoMapComponent extends HTMLElement {
 
   handleMoveEnd(e){
     let coords = this.map.getCenter();
-
     const bounds = this.map.getBounds();
     const zoom = this.map.getZoom();
+    this.handleZoom(zoom);
     this.dispatchEvent(
       new CustomEvent('MAP MOVED', 
         {
@@ -152,6 +148,32 @@ class GeoMapComponent extends HTMLElement {
       )
     );
   }
+
+  handleZoom(zoom = 0){
+    console.log(zoom)
+
+    let mid_zoom_breakpoint = 15;
+    let far_zoom_breakpoint = 10; 
+    const zoom_breakpoints = this.getAttribute('zoom-breakpoints');
+    if(zoom_breakpoints !== null){
+      [mid_zoom_breakpoint, far_zoom_breakpoint] = zoom_breakpoints.split(',');
+    }
+
+    if(zoom < far_zoom_breakpoint){
+        this.classList.add('far')
+        this.classList.remove('middle')
+        this.classList.remove('near')
+      } else if(zoom >= far_zoom_breakpoint && zoom <= mid_zoom_breakpoint){
+        this.classList.add('middle')
+        this.classList.remove('far')
+        this.classList.remove('near')
+      } else {
+        this.classList.add('near')
+        this.classList.remove('middle')
+        this.classList.remove('far')
+      }
+  }
+
 
   showPopup(content){
     const popup = new mapboxgl.Popup({ 
