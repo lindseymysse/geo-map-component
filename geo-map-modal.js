@@ -11,6 +11,11 @@ class GeoMapModal extends HTMLElement {
     this.appendChild(close_button);
     this.style.transition = 'opacity 0.5s ease-out';
     this.open_modal_div = document.querySelector('geo-map-show-modal');
+    if(this.open_modal_div === null){
+      this.open_modal_div = document.createElement('geo-map-show-modal');
+      this.open_modal_div.innerText = 'Show Modal';
+      document.body.appendChild(this.open_modal_div);
+    }
     this.open_modal_div.style.opacity = 0;
 
   }
