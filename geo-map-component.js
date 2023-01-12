@@ -150,15 +150,12 @@ class GeoMapComponent extends HTMLElement {
   }
 
   handleZoom(zoom = 0){
-    console.log(zoom)
-
     let mid_zoom_breakpoint = 15;
     let far_zoom_breakpoint = 10; 
     const zoom_breakpoints = this.getAttribute('zoom-breakpoints');
     if(zoom_breakpoints !== null){
       [mid_zoom_breakpoint, far_zoom_breakpoint] = zoom_breakpoints.split(',');
     }
-
     if(zoom < far_zoom_breakpoint){
         this.classList.add('far')
         this.classList.remove('middle')
@@ -173,7 +170,6 @@ class GeoMapComponent extends HTMLElement {
         this.classList.remove('far')
       }
   }
-
 
   showPopup(content){
     const popup = new mapboxgl.Popup({ 
