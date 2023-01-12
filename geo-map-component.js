@@ -154,21 +154,21 @@ class GeoMapComponent extends HTMLElement {
     let far_zoom_breakpoint = 10; 
     const zoom_breakpoints = this.getAttribute('zoom-breakpoints');
     if(zoom_breakpoints !== null){
-      [mid_zoom_breakpoint, far_zoom_breakpoint] = zoom_breakpoints.split(',');
+      [mid_zoom_breakpoint, far_zoom_breakpoint] = zoom_breakpoints.split(',').map(n => Number(n));
     }
     if(zoom < far_zoom_breakpoint){
-        this.classList.add('far')
-        this.classList.remove('middle')
-        this.classList.remove('near')
-      } else if(zoom >= far_zoom_breakpoint && zoom <= mid_zoom_breakpoint){
+        this.classList.add('far');
+        this.classList.remove('middle');
+        this.classList.remove('near');
+    } else if(zoom >= far_zoom_breakpoint && zoom <= mid_zoom_breakpoint){
         this.classList.add('middle')
         this.classList.remove('far')
         this.classList.remove('near')
-      } else {
+    } else {
         this.classList.add('near')
         this.classList.remove('middle')
         this.classList.remove('far')
-      }
+    }
   }
 
   showPopup(content){
@@ -207,6 +207,7 @@ class GeoMapComponent extends HTMLElement {
     })
 
     this.style.opacity = 1;
+    this.handleZoom(this.zoom);
 
     /*
     // This emits an even when the map is loaded. 

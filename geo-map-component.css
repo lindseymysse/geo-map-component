@@ -14,27 +14,9 @@ body {
   --column-footer-height: 1em;
   --column-footer-offset: 1em;
   --column-header-size: 1em;
-  --column-text-color: white;
-  --column-background-color: black;
+  --column-text-color: black;
+  --column-background-color: transparent;
 }
-
-:lang(es) [lang="es"] {
-  display: block;
-}
-
-:lang(es) [lang="en"] {
-  display: none;
-}
-
-:lang(en) [lang="en"]{
-  display: block;
-}
-
-:lang(en) [lang="es"]{
-  display: none;
-}
-
-
 
 geo-map {
   opacity: 0;
@@ -197,4 +179,12 @@ geo-map-show-modal {
 
 geo-map-show-modal:active {
   opacity: 0.80;
+}
+
+.far .near, .middle .near {
+  display: none;
+}
+
+.far .middle {
+  display:none;
 }
