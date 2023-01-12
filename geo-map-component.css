@@ -185,6 +185,11 @@ geo-map-show-modal:active {
   display: none;
 }
 
-.far .middle {
-  display:none;
+.far .middle, .far .near {
+  display: none;
 }
+
+.middle .far, .middle .near {
+  display: none;
+}
+
