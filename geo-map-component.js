@@ -176,7 +176,7 @@ class GeoMapComponent extends HTMLElement {
       closeOnClick: false, 
       closeOnMove: true,
        offset: {
-            'bottom': [-80, -40]
+            'bottom': [-60, -10]
           },
     })
     .setLngLat(geo_map.map.getCenter())

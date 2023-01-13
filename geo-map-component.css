@@ -37,7 +37,6 @@ geo-map map-container {
   height: 100%;
 }
 
-
 geo-map-column {
   position:absolute;
   width: 20em;
