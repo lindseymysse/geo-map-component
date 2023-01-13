@@ -173,9 +173,6 @@ class GeoMapComponent extends HTMLElement {
 
   showPopup(content){
     const popup = new mapboxgl.Popup({ 
-      offset: {
-        'bottom': [-80, -40]
-      },
       closeOnClick: false, 
       closeOnMove: true
     })
