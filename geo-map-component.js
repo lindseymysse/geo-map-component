@@ -174,7 +174,10 @@ class GeoMapComponent extends HTMLElement {
   showPopup(content){
     const popup = new mapboxgl.Popup({ 
       closeOnClick: false, 
-      closeOnMove: true
+      closeOnMove: true,
+       offset: {
+            'bottom': [-80, -40]
+          },
     })
     .setLngLat(geo_map.map.getCenter())
     .setHTML(content)
@@ -201,6 +204,13 @@ class GeoMapComponent extends HTMLElement {
 
     this.map.on('moveend', (e) => {
       this.handleMoveEnd(e)
+    })
+
+    this.map.on('click', (e) => {
+      this.map.flyTo({center:e.lngLat, zoom:18.5});
+      [...document.querySelectorAll('geo-map-modal')].forEach( modal => {
+        modal.hideModal();
+      })
     })
 
     this.style.opacity = 1;

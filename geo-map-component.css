@@ -50,8 +50,12 @@ geo-map-column {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
   color: var(--column-text-color);
-
+  pointer-events: none;
   background-color: var(--column-background-color);
+}
+
+geo-map-column > * {
+  pointer-events: all;
 }
 
 geo-map-column::-webkit-scrollbar {
@@ -76,10 +80,6 @@ geo-map-column[side*="right"] {
   right:0pt;
 }
 
-
-map-container {
-
-}
 
 geo-map-modal {
   position: fixed;
