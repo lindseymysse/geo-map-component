@@ -66,9 +66,6 @@ geo-map-column footer {
  position: absolute;
  bottom: var(--column-footer-offset);
  height: var(--column-footer-height);
-
-
-
 }
 
 geo-map-column[side*="left"] {
