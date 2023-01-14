@@ -95,7 +95,7 @@ geo-map-modal {
   color: var(--geo-map-foreground-color);
   border: 1px solid var(--geo-map-border-color);
   overflow: hidden;
-  z-index: 1000;
+  z-index: 10000;
 }
 
 geo-map-modal .close-button {
