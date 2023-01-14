@@ -69,11 +69,11 @@ geo-map-column footer {
 }
 
 geo-map-column[side*="left"] {
-  left:0pt;
+  left:12pt;
 }
 
 geo-map-column[side*="right"] {
-  right:0pt;
+  right:12pt;
 }
 
 
