@@ -74,6 +74,7 @@ geo-map-column[side*="left"] {
 
 geo-map-column[side*="right"] {
   right:12pt;
+  z-index: 1;
 }
 
 
