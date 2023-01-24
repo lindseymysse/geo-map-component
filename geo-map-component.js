@@ -114,12 +114,8 @@ class GeoMapComponent extends HTMLElement {
       placeholder: 'Search for an Address'
     })
 
-    const geocoder_div = this.querySelector('geo-map-geocoder');
-    if(geocoder_div == null){
-      this.map.addControl( geocoder )
-    } else {
-      geocoder_div.appendChild(geocoder.onAdd(this.map))
-    }
+    this.map.addControl( geocoder )
+   
   }
 
   initializeGeoLocate(){
