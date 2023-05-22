@@ -52,27 +52,148 @@ class GeoMapComponent extends HTMLElement {
       this.locked = true;
     };
 
+    this.navigation_control = this.getAttribute('navigation-control');
+    if(this.navigation_control === null) this.navigation_control = false;
+
     this.slideshow = this.getAttribute('slideshow');
   }
 
-  showLayer(){
-    // this function will show a specific layer
-    // in a neat, useable manner
-    return console.error('FEATURE NOT IMPLEMENTED')
+  showLayer(layer_id){  
+    const visibility = this.map.getLayoutProperty(layer_id, 'visibility');
+    if (typeof visibility !== 'undefined') {
+      if (visibility === 'none') {
+        this.map.setLayoutProperty(layer_id, 'visibility', 'visible');
+      }
+    }
   }
 
-  hideLayer(){
-    // this function will hide a specific layer
-    // in a neat, useable manner
-    return console.error('FEATURE NOT IMPLEMENTED')
- 
+  hideLayer(layer_id){
+    var visibility = this.map.getLayoutProperty(layer_id, 'visibility');
+    if (typeof visibility !== 'undefined') {
+      if (visibility !== 'none') {
+        this.map.setLayoutProperty(layer_id, 'visibility', 'none');
+      }
+    }
+
   }
+
+  getLayer(layer_id){
+// Get the layer by ID
+    const layer = this.map.getLayer(layer_id);
+
+    // Check if the layer exists
+    if (layer) {
+      return layer;
+    } else {
+      return console.error('Layer not found.');
+    }
+  }
+
 
   getLayers(){
-    // this function will list the layers
-    // the map has
-    // in a neat, useable manner
-    return console.error('FEATURE NOT IMPLEMENTED')
+ 
+    // These Layers are Default.
+    const default_layers = [
+      "background",
+      "satellite",
+      "tunnel-minor-case",
+      "tunnel-street-case",
+      "tunnel-minor-link-case",
+      "tunnel-secondary-tertiary-case",
+      "tunnel-primary-case",
+      "tunnel-major-link-case",
+      "tunnel-motorway-trunk-case",
+      "tunnel-path",
+      "tunnel-steps",
+      "tunnel-pedestrian",
+      "tunnel-minor",
+      "tunnel-minor-link",
+      "tunnel-major-link",
+      "tunnel-street",
+      "tunnel-street-low",
+      "tunnel-secondary-tertiary",
+      "tunnel-primary",
+      "tunnel-motorway-trunk",
+      "road-path",
+      "road-steps",
+      "road-pedestrian",
+      "road-minor-case",
+      "road-street-case",
+      "road-minor-link-case",
+      "road-secondary-tertiary-case",
+      "road-primary-case",
+      "road-major-link-case",
+      "road-motorway-trunk-case",
+      "road-minor",
+      "road-minor-link",
+      "road-major-link",
+      "road-street",
+      "road-street-low",
+      "road-secondary-tertiary",
+      "road-primary",
+      "road-motorway-trunk",
+      "bridge-path",
+      "bridge-steps",
+      "bridge-pedestrian",
+      "bridge-minor-case",
+      "bridge-street-case",
+      "bridge-minor-link-case",
+      "bridge-secondary-tertiary-case",
+      "bridge-primary-case",
+      "bridge-major-link-case",
+      "bridge-motorway-trunk-case",
+      "bridge-minor",
+      "bridge-minor-link",
+      "bridge-major-link",
+      "bridge-street",
+      "bridge-street-low",
+      "bridge-secondary-tertiary",
+      "bridge-primary",
+      "bridge-motorway-trunk",
+      "bridge-major-link-2-case",
+      "bridge-motorway-trunk-2-case",
+      "bridge-major-link-2",
+      "bridge-motorway-trunk-2",
+      "aerialway",
+      "admin-1-boundary-bg",
+      "admin-0-boundary-bg",
+      "admin-1-boundary",
+      "admin-0-boundary",
+      "admin-0-boundary-disputed",
+      "road-label",
+      "road-intersection",
+      "road-number-shield",
+      "road-exit-shield",
+      "path-pedestrian-label",
+      "ferry-aerialway-label",
+      "waterway-label",
+      "natural-line-label",
+      "natural-point-label",
+      "water-line-label",
+      "water-point-label",
+      "poi-label",
+      "transit-label",
+      "airport-label",
+      "settlement-subdivision-label",
+      "settlement-minor-label",
+      "settlement-major-label",
+      "state-label",
+      "country-label",
+      "continent-label"
+    ]
+
+    const layers = this.map.getStyle().layers;
+    let unique_layers = []
+
+    // Iterate over the layers and print their IDs
+    layers.forEach(function(layer) {
+      if(default_layers.indexOf(layer.id) < 0){
+        unique_layers.push(unique_layers);
+      }
+    });
+
+    console.log(layers);
+    return unique_layers;
   }
 
   connectedCallback() {
@@ -125,6 +246,13 @@ class GeoMapComponent extends HTMLElement {
     });
 
     this.map.addControl(geolocate);
+  }
+
+  initializeNavigationControl(){
+    const nav_control = new mapboxgl.NavigationControl({
+      visualizePitch: true
+    })
+    this.map.addControl(nav_control);
   }
 
   handleMoveEnd(e){
@@ -196,6 +324,10 @@ class GeoMapComponent extends HTMLElement {
     this.geolocate_attribute = this.getAttribute('geolocate')
     if(this.geolocate_attribute !== null){
       this.initializeGeoLocate()
+    }
+
+    if(this.navigation_control){
+      this.initializeNavigationControl();
     }
 
     this.map.on('moveend', (e) => {
