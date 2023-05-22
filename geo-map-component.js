@@ -189,7 +189,6 @@ class GeoMapComponent extends HTMLElement {
       }
     });
 
-    console.log(layers);
     return unique_layers;
   }
 
@@ -355,12 +354,12 @@ class GeoMapComponent extends HTMLElement {
         return
       } 
 
-      this.initializeGeoCoder()
+      this.initializeGeoCoder();
     }
 
     this.geolocate_attribute = this.getAttribute('geolocate')
     if(this.geolocate_attribute !== null){
-      this.initializeGeoLocate()
+      this.initializeGeoLocate();
     }
 
     if(this.navigation_control){
@@ -369,14 +368,23 @@ class GeoMapComponent extends HTMLElement {
 
     this.map.on('moveend', (e) => {
       this.handleMoveEnd(e)
-    })
+    });
 
     this.map.on('click', (e) => {
       this.map.flyTo({center:e.lngLat, zoom:18.5});
       [...document.querySelectorAll('geo-map-modal')].forEach( modal => {
         modal.hideModal();
       })
-    })
+    });
+
+    const geo_json_component = this.querySelector('geo-json');
+    if(geo_json_component !== null){
+      const src = geo_json_component.getAttribute('src');
+      const variable = geo_json_component.getAttribute('variable');
+      this.getGeoJSON(src, variable);
+    }
+
+
 
     this.style.opacity = 1;
     this.handleZoom(this.zoom);
