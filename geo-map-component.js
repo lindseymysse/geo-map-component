@@ -74,11 +74,10 @@ class GeoMapComponent extends HTMLElement {
         this.map.setLayoutProperty(layer_id, 'visibility', 'none');
       }
     }
-
   }
 
   getLayer(layer_id){
-// Get the layer by ID
+    // Get the layer by ID
     const layer = this.map.getLayer(layer_id);
 
     // Check if the layer exists
@@ -88,8 +87,6 @@ class GeoMapComponent extends HTMLElement {
       return console.error('Layer not found.');
     }
   }
-
-
   getLayers(){
  
     // These Layers are Default.
@@ -194,6 +191,46 @@ class GeoMapComponent extends HTMLElement {
 
     console.log(layers);
     return unique_layers;
+  }
+
+  getGeoJSON(geoJsonUrl, property){
+    fetch(geoJsonUrl)
+    .then(function(response) {
+      return response.json();
+    })
+    .then((data) => {
+
+      console.log(data)
+      // Add the GeoJSON layer to the map
+      this.map.addSource('geojson-data', {
+        type: 'geojson',
+        data: data
+      });
+
+      // Add a layer to visualize the GeoJSON data
+      this.map.addLayer({
+        id: 'geojson-layer',
+        type: 'circle',
+        source: 'geojson-data',
+        paint: {
+          'circle-radius': {
+            property: property,
+            type: 'exponential',
+            stops: [
+              [0, 2],
+              [10, 20]
+            ]
+          },
+          'circle-color': '#f00',
+          'circle-opacity': 0.5
+        }
+      });
+
+      this.showLayer('geojson-layer');
+    })
+    .catch(function(error) {
+      console.log('Error fetching GeoJSON:', error);
+    });
   }
 
   connectedCallback() {
